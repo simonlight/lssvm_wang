@@ -166,7 +166,6 @@ public class LSSVMMulticlassTestET_negative_positive {
 //	    String[] classes = {"motorbike"};
 //	    String[] classes = {"boat"};
 //	    String[] classes = {"aeroplane"};
-	    // go horse right now, nothing done
 //	    String[] classes = {"horse"};
 //	    String[] classes = {"cow"};
 //	    String[] classes = {"sofa"};
