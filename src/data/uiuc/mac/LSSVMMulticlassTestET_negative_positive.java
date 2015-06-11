@@ -181,7 +181,7 @@ public class LSSVMMulticlassTestET_negative_positive {
 //	    int[] scaleCV = {50};
 	    
 	    //int[] splitCV = {1,2,3,4,5};
-	    int[] splitCV = {1};
+	    int[] splitCV = {1,2};
 	    
 	    System.out.println("lambda " + Arrays.toString(lambdaCV));
 	    System.out.println("epsilon " + Arrays.toString(epsilonCV));
