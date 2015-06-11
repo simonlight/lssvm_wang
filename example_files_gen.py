@@ -14,7 +14,7 @@ def contains_class(im, cls):
     else:
         return '0'
 # eye-trackered images we actually have
-def etImages(root = "/local/wangxin/Data/ferrari_data/POETdataset/POETdataset/PascalImages"):
+def etImages(root = "/home/wangxin/Data/ferrari_data/POETdataset/POETdataset/PascalImages"):
     #there are some images are duplicated in content with different names
     list_files = [files for root, dirs, files in os.walk(root)][0]
     return list_files
@@ -27,7 +27,7 @@ def etImages(root = "/local/wangxin/Data/ferrari_data/POETdataset/POETdataset/Pa
 #vm: validated images. Some images in ferrari's data are not in the original exp_type
 #exp_type: experiment type: 'fuul' 'reduit' 'ground'
 def generate(refpath, cls, file_typ, scale, vm):
-    example_list_dir = "/local/wangxin/Data/ferrari_data/POETdataset/POETdataset"+"/example_files_test/"+str(scale)+"/"
+    example_list_dir = "/home/wangxin/Data/ferrari_data/POETdataset/POETdataset"+"/example_files_pos_val/"+str(scale)+"/"
     if not os.path.exists(example_list_dir):
         os.makedirs(example_list_dir)
     f = open('_'.join([example_list_dir+cls, file_typ, 'scale', str(scale), 'matconvnet_m_2048_layer_20.txt']),'w')
@@ -58,16 +58,16 @@ def generate(refpath, cls, file_typ, scale, vm):
             content = '/home/wangxin/Data/ferrari_data/POETdataset/POETdataset/PascalImages/'+im
             #print content
             content += ' ' + contains_object(ref_files[original_name.split('.')[0]+'.jpg'])
-            #content += ' ' + contains_class(im, cls)
-            content += ' ' + str(int(11 - 0.1 * scale) ** 2)
-            for suf in suffix:
-                content += ' ' + '/home/wangxin/Data/ferrari_data//POETdataset/POETdataset'+'/matconvnet_m_2048_features/'+str(scale)+'/'+original_name.split('.')[0] +suf+'.txt'
-            f.write(content+'\n')
-    
+            if contains_object(ref_files[original_name.split('.')[0]+'.jpg']) == '1':
+                #content += ' ' + contains_class(im, cls)
+                content += ' ' + str(int(11 - 0.1 * scale) ** 2)
+                for suf in suffix:
+                    content += ' ' + '/home/wangxin/Data/ferrari_data//POETdataset/POETdataset'+'/matconvnet_m_2048_features/'+str(scale)+'/'+original_name.split('.')[0] +suf+'.txt'
+                f.write(content+'\n')    
         else:
             pass
 #test/train files root
-file_root = "/local/wangxin/Data/VOC2012/VOC2012/ImageSets/Main/"
+file_root = "/home/wangxin/Data/VOC2012/VOC2012/ImageSets/Main/"
 
 classes = ['cat', 'dog', 'bicycle', 'motorbike', 'boat', 'aeroplane', 'horse', 'cow', 'sofa', 'diningtable']
 validated_images = ['_'.join([name.split('_')[1],name.split('_')[2]])for name in etImages()]#6452
@@ -78,6 +78,6 @@ for i in range(100, 29, -10):
         training_file = file_root + cls + '_train.txt'
         val_file = file_root + cls + '_val.txt'
         #trainval_file = file_root + cls + '_trainval.txt'
-        generate(training_file, cls, "train", i, etImages())
+        #generate(training_file, cls, "train", i, etImages())
         generate(val_file, cls, "val", i, etImages())
         #generate(trainval_file, cls, "trainval", i, etImages(),'full')
