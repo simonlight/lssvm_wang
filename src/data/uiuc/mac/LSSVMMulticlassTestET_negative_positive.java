@@ -196,7 +196,7 @@ public class LSSVMMulticlassTestET_negative_positive {
 	    for(String className: classes){
 		for(int scale : scaleCV) {
     		for(int split : splitCV) {
-    			
+    			int ppm;
     			String cls = String.valueOf(split);
     			//sauvgarder les classifieurs
 				String classifierDir = simDir + "classifier/lssvm_et/" ;
