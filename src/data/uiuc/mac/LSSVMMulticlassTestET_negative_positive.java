@@ -192,7 +192,7 @@ public class LSSVMMulticlassTestET_negative_positive {
 	    String features = "pure";
 	    
 	    
-	    System.out.println("xxxx");
+	    System.out.println("qsdf");
 	    for(String className: classes){
 		for(int scale : scaleCV) {
     		for(int split : splitCV) {
