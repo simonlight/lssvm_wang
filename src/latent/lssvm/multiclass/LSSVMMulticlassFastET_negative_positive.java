@@ -307,10 +307,10 @@ public abstract class LSSVMMulticlassFastET_negative_positive<X,H> implements La
 		double valmax = -Double.MAX_VALUE;
 		for(int y : listClass) {
 			for(H h : enumerateH(lr.x)) {
-				//new prediction
-//				double val = valueOf(lr.x,y,h,w) + tradeoff * (1-(y==1?getPositive_ETLoss(lr.x, h):getNegative_ETLoss(lr.x, h)));
-				//std prediction
-				double val = valueOf(lr.x,y,h,w);
+//				new prediction
+				double val = valueOf(lr.x,y,h,w) + tradeoff * (1-(y==1?getPositive_ETLoss(lr.x, h):getNegative_ETLoss(lr.x, h)));
+//				std prediction
+//				double val = valueOf(lr.x,y,h,w);
 				if(val>valmax){
 					valmax = val;
 					ypredict = y;
@@ -327,9 +327,9 @@ public abstract class LSSVMMulticlassFastET_negative_positive<X,H> implements La
 		double valmax = -Double.MAX_VALUE;
 		for(H h : enumerateH(x)) {
 			//new prediction
-//			double val = valueOf(x,y,h,w) + tradeoff * (1 - (y==1?getPositive_ETLoss(x, h):getNegative_ETLoss(x, h))) ;
+			double val = valueOf(x,y,h,w) + tradeoff * (1 - (y==1?getPositive_ETLoss(x, h):getNegative_ETLoss(x, h))) ;
 			//standard prediction
-			double val = valueOf(x,y,h,w) ;
+//			double val = valueOf(x,y,h,w) ;
 			if(val>valmax){
 				valmax = val;
 				hpredict = h;
