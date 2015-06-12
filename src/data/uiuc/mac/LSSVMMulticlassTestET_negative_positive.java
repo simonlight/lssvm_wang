@@ -200,6 +200,7 @@ public class LSSVMMulticlassTestET_negative_positive {
 				String classifierDir = simDir + "classifier/lssvm_et/" ;
 				//example_files
 				String inputDir = sourceDir + "example_files/"+scale;
+				String inputDirPositive = sourceDir + "example_files_pos_val/"+scale;
 
 				System.out.println("classifierDir: " + classifierDir + "\n");
 				System.err.println("split " + split + "\t cls " + cls);
@@ -236,7 +237,7 @@ public class LSSVMMulticlassTestET_negative_positive {
 						exampleTrain.add(new STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>(new LatentRepresentation<BagMIL, Integer>(listTrain.get(i).sample,0), listTrain.get(i).label));
 					}
 
-					List<TrainingSample<BagMIL>> listTest = BagReader.readBagMIL(inputDir + "/"+className+"_val_scale_"+scale+"_matconvnet_m_2048_layer_20.txt", numWords);
+					List<TrainingSample<BagMIL>> listTest = BagReader.readBagMIL(inputDirPositive + "/"+className+"_val_scale_"+scale+"_matconvnet_m_2048_layer_20.txt", numWords);
 					List<STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>> exampleTest = new ArrayList<STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>>();
 					for(int i=0; i<listTest.size(); i++) {
 						exampleTest.add(new STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>(new LatentRepresentation<BagMIL, Integer>(listTest.get(i).sample,0), listTest.get(i).label));
