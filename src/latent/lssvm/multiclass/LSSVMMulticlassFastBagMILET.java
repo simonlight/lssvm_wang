@@ -115,6 +115,7 @@ public class LSSVMMulticlassFastBagMILET extends LSSVMMulticlassFastET<BagMIL,In
                 //System.out.println(l.get(i).label + "\t" + scores[i] + ";");
         }
         double ap = AveragePrecision.getAP(eval);
+        System.out.println(ap);
         return ap;
 	}
 }

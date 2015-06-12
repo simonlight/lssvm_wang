@@ -45,7 +45,7 @@ if __name__=='__main__':
     neg_pos_res_path = "/local/wangxin/res_neg_pos_no_prediction.txt"
     std_et_res_path = "/local/wangxin/std_et_no_prediction.txt"
     
-    statistic(new_pred)  
+    #statistic(std_et_res_path)  
 #     print "###############"
-#     print best_res(new_pred)
+    best_res(std_et_res_path)
 #     best_res(neg_pos_res_path)  
