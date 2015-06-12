@@ -313,7 +313,7 @@ public class LSSVMMulticlassTestET_negative_positive {
 	//									e.printStackTrace();
 	//								}
 									double ap = lsvm.testAPRegion(exampleTest, scale, simDir, className, tradeoff);
-									File resFile=new File(simDir+"res_neg_pos_new_prediction.txt");
+									File resFile=new File(simDir+"res_neg_pos_no_prediction.txt");
 									try {
 										BufferedWriter out = new BufferedWriter(new FileWriter(resFile, true));
 										//out.write(className+" "+scale+" "+acc+" "+ap+"\n");
