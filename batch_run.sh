@@ -5,7 +5,7 @@
 #cls_arr=("horse" "cow" "sofa" "diningtable" "aeroplane")
 #scale_arr=("100" "90" "80")
 #cls_arr=("motorbike" "boat")
-cls_arr={"dog" "cat"}
+cls_arr=("dog" "cat")
 scale_arr=("50")
 #scale_arr=("80" "70" "60" "50")
 #scale_arr=("100" "90" "80" "70" "60" "50")
