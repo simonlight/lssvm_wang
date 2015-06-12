@@ -31,10 +31,10 @@ def generate(refpath, cls, file_typ, scale, vm):
     if not os.path.exists(example_list_dir):
         os.makedirs(example_list_dir)
     f = open('_'.join([example_list_dir+cls, file_typ, 'scale', str(scale), 'matconvnet_m_2048_layer_20.txt']),'w')
-    if file_typ == "train":
-        f.write("3103\n")
-    elif file_typ == "val":
-        f.write("3167\n")
+#     if file_typ == "train":
+#         f.write("3103\n")
+#     elif file_typ == "val":
+#         f.write("3167\n")
     if scale !=100:
         suffix = ['_'+str(i)+'_'+str(j) for i,j in itertools.product(range((100-scale)/10+1),range((100-scale)/10+1))]
     else:
@@ -51,7 +51,15 @@ def generate(refpath, cls, file_typ, scale, vm):
             """print cls+'_'+name+'.jpg'
             print vm[0]
             """
-    
+    cnt=0
+    for im in vm:
+        original_name='_'.join([im.split('_')[1],im.split('_')[2]])
+        if original_name in ref_files.keys():
+            if contains_object(ref_files[original_name.split('.')[0]+'.jpg']) == '1':
+                cnt+=1
+        else:
+            pass
+    f.write(str(cnt)+'\n')
     for im in vm:
         original_name='_'.join([im.split('_')[1],im.split('_')[2]])
         if original_name in ref_files.keys():
