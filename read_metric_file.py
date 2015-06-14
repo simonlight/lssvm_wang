@@ -25,4 +25,4 @@ for cls in classes:
             yp, h, image_path = line.strip().split(',')
             if yp == '1':
                 correct += 1
-        print correct/cnt
+        print cls, scale, correct/cnt
