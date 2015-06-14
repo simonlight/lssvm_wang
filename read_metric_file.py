@@ -4,7 +4,6 @@ def get_best_cv(cls, scale):
     method = "res_neg_pos_no_prediction.txt"
     f = open(best_res_root+method)
     for line in f:
-        print line
         c, s, best_cv, _ = line.strip().split(' ')
         if c.strip()== cls and s.strip() == str(scale):
             return best_cv
