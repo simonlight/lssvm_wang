@@ -8,7 +8,7 @@ def get_best_cv(cls, scale):
         if c.strip()== cls and s.strip() == str(scale):
             return best_cv
 
-root="/home/wangxin/Data/ferrari_data/reduit_allbb/results_neg_pos_no_prediction/"
+root="/home/wangxin/Data/ferrari_data/reduit_allbb/results_mori/"
 # classes=['cat', 'dog', 'bicycle', 'motorbike', 'boat', 'aeroplane', 'horse', 'cow', 'sofa', 'diningtable']
 classes=['cat', 'dog', 'boat', 'aeroplane', 'horse', 'cow', 'sofa', 'diningtable']
 #classes = ['boat']
