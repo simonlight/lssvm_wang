@@ -29,7 +29,7 @@ for cls in classes:
         f_val.close()
         
         offset = total_metric_line-total_val_lines
-        
+        print offset
         
         cnt = 0
         correct = 0.0
