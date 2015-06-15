@@ -32,6 +32,7 @@ for cls in classes:
         
         cnt = 0
         correct = 0.0
+        false = 0.0
         f_metric= open(root+"metric_"+str(scale)+"_"+cls+"_"+str(best_cv)+"_pos_neg.txt")
         for i in range(offset):
             f_metric.readline()
@@ -40,5 +41,7 @@ for cls in classes:
             yp, h, image_path = line.strip().split(',')
             if yp == '1':
                 correct += 1
-        print cls, scale, cnt, correct, correct/cnt
+            if yp == '0':
+                false+=1
+        print cls, scale,false,  cnt, correct, correct/cnt
         f_metric.close()
