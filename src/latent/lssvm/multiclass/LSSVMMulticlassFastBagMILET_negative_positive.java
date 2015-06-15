@@ -74,7 +74,6 @@ public class LSSVMMulticlassFastBagMILET_negative_positive extends LSSVMMulticla
 	
 	protected  double getNegative_ETLoss(BagMIL x, Integer h){
 		String negative_ETLossPath = getETLossPath(x, h)[1];
-		System.out.println(negative_ETLossPath);
 		double negativeLoss = negativeLossMap.get(negative_ETLossPath);
 		return negativeLoss;
 	}
