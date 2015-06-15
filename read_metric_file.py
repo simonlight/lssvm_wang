@@ -15,6 +15,7 @@ classes=['cat', 'dog', 'boat', 'aeroplane', 'horse', 'cow', 'sofa', 'diningtable
 scales=[100,90,80,70,60,50]
 for cls in classes:
     for scale in scales:        
+        best_cv = get_best_cv(cls, scale)
         f_metric= open(root+"metric_"+str(scale)+"_"+cls+"_"+str(best_cv)+"_pos_neg.txt")
         total_metric_line = 0
         for l in f_metric:
@@ -28,7 +29,7 @@ for cls in classes:
         f_val.close()
         
         print total_metric_line,total_val_lines
-        best_cv = get_best_cv(cls, scale)
+        
         
 #         cnt = 0
 #         correct = 0.0
