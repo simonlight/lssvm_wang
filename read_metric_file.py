@@ -28,14 +28,17 @@ for cls in classes:
             total_val_lines+=1
         f_val.close()
         
-        print total_metric_line,total_val_lines
+        offset = total_metric_line-total_val_lines
         
         
-#         cnt = 0
-#         correct = 0.0
-#         for line in f:
-#             cnt+=1
-#             yp, h, image_path = line.strip().split(',')
-#             if yp == '1':
-#                 correct += 1
-#         print cls, scale, cnt, correct/cnt
+        cnt = 0
+        correct = 0.0
+        f_metric= open(root+"metric_"+str(scale)+"_"+cls+"_"+str(best_cv)+"_pos_neg.txt")
+        for i in range(offset):
+            f_metric.readline()
+        for line in f_metric:
+            cnt+=1
+            yp, h, image_path = line.strip().split(',')
+            if yp == '1':
+                correct += 1
+        print cls, scale, cnt, correct/cnt
