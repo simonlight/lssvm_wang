@@ -41,6 +41,7 @@ public class AveragePrecision {
 		for(i = 0 ; i < tp.length ; i++) {
 			reca[i] = ((double)tp[i])/((double)totalpos);
 			prec[i] = ((double)tp[i])/((double)(tp[i]+fp[i]));
+			System.out.println();
 		}
 		
 		double[] mrec = new double[reca.length+2];
