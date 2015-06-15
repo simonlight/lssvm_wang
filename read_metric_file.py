@@ -41,3 +41,4 @@ for cls in classes:
             if yp == '1':
                 correct += 1
         print cls, scale, cnt, correct, correct/cnt
+        f_metric.close()
