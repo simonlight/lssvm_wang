@@ -15,13 +15,26 @@ classes=['cat', 'dog', 'boat', 'aeroplane', 'horse', 'cow', 'sofa', 'diningtable
 scales=[100,90,80,70,60,50]
 for cls in classes:
     for scale in scales:        
+        f_metric= open(root+"metric_"+str(scale)+"_"+cls+"_"+str(best_cv)+"_pos_neg.txt")
+        total_metric_line = 0
+        for l in f_metric:
+            total_metric_line+=1
+        f.close()
+        
+        f_val = open("/home/wangxin/Data/ferrari_data/POETdataset/POETdataset/example_files_pos_val/"+str(scale)+"/"+cls+"_val_scale_"+str(scale)+"_matconvnet_m_2048_layer_20.txt")
+        total_val_lines = 0
+        for l in f_val:
+            total_val_lines+=1
+        f_val.close()
+        
+        print total_metric_line,total_val_lines
         best_cv = get_best_cv(cls, scale)
-        f= open(root+"metric_"+str(scale)+"_"+cls+"_"+str(best_cv)+"_pos_neg.txt")
-        cnt = 0
-        correct = 0.0
-        for line in f:
-            cnt+=1
-            yp, h, image_path = line.strip().split(',')
-            if yp == '1':
-                correct += 1
-        print cls, scale, cnt, correct/cnt
+        
+#         cnt = 0
+#         correct = 0.0
+#         for line in f:
+#             cnt+=1
+#             yp, h, image_path = line.strip().split(',')
+#             if yp == '1':
+#                 correct += 1
+#         print cls, scale, cnt, correct/cnt
