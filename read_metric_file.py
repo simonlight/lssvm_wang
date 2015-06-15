@@ -20,7 +20,7 @@ for cls in classes:
         total_metric_line = 0
         for l in f_metric:
             total_metric_line+=1
-        f.close()
+        f_metric.close()
         
         f_val = open("/home/wangxin/Data/ferrari_data/POETdataset/POETdataset/example_files_pos_val/"+str(scale)+"/"+cls+"_val_scale_"+str(scale)+"_matconvnet_m_2048_layer_20.txt")
         total_val_lines = 0
