@@ -39,5 +39,6 @@ for cls in classes:
             cnt+=1
             yp, h, image_path = line.strip().split(',')
             if yp == '1':
+                print line
                 correct += 1
         print cls, scale, cnt, correct, correct/cnt
