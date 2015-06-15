@@ -1,14 +1,14 @@
 def get_best_cv(cls, scale):
     #cat 100 0.6 0.92
     best_res_root  = "/home/wangxin/Data/ferrari_data/reduit_allbb/best_cv_res/"
-    method = "std_et_no_prediction.txt"
+    method = "res_neg_pos_no_prediction.txt"
     f = open(best_res_root+method)
     for line in f:
         c, s, best_cv, _ = line.strip().split(' ')
         if c.strip()== cls and s.strip() == str(scale):
             return best_cv
 
-root="/home/wangxin/Data/ferrari_data/reduit_allbb/results_mori/"
+root="/home/wangxin/Data/ferrari_data/reduit_allbb/results_neg_pos_no_prediction/"
 # classes=['cat', 'dog', 'bicycle', 'motorbike', 'boat', 'aeroplane', 'horse', 'cow', 'sofa', 'diningtable']
 classes=['cat', 'dog', 'boat', 'aeroplane', 'horse', 'cow', 'sofa', 'diningtable']
 #classes = ['boat']
