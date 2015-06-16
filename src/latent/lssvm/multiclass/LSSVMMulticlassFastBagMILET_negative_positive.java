@@ -74,7 +74,6 @@ public class LSSVMMulticlassFastBagMILET_negative_positive extends LSSVMMulticla
 	
 	protected  double getNegative_ETLoss(BagMIL x, Integer h){
 		String negative_ETLossPath = getETLossPath(x, h)[1];
-		System.out.println(negative_ETLossPath);
 		double negativeLoss = negativeLossMap.get(negative_ETLossPath);
 		return negativeLoss;
 	}
@@ -152,28 +151,27 @@ public class LSSVMMulticlassFastBagMILET_negative_positive extends LSSVMMulticla
 	public double testAPRegion(List<STrainingSample<LatentRepresentation<BagMIL, Integer>, Integer>> l, int scale, String simDir, String className, double tradeoff) {
 		
 		List<Evaluation<Integer>> eval = new ArrayList<Evaluation<Integer>>();
-		for(int i=0; i<l.size(); i++) {
-        	// calcul score(x,y,h,w) = argmax_{y,h} <w, \psi(x,y,h)>
-        	Integer y = prediction(l.get(i).input);
-        	Integer h = prediction(l.get(i).input.x, y);
-        		File resFile=new File(simDir+"results_neg_pos_new_prediction/metric_"+String.valueOf(scale)+"_"+className+"_"+String.valueOf(tradeoff)+"_"+"pos_neg"+".txt");
-        		resFile.getAbsoluteFile().getParentFile().mkdirs();
-        		try {
-        			BufferedWriter out = new BufferedWriter(new FileWriter(resFile, true));
-        			out.write(Integer.valueOf(y) +","+ Integer.valueOf(h)+","+l.get(i).input.x.getName()+"\n");
-        			out.flush();
-        			out.close();
-        			
-        		} catch (IOException e) {
-        			// TODO Auto-generated catch block
-        			e.printStackTrace();
-        		}
-        	
-        	double score = valueOf(l.get(i).input.x,y,h,w);
-                
-        	eval.add(new Evaluation<Integer>((l.get(i).output == 0 ? -1 : 1), (y == 0 ? -1 : 1)*score));
-                //System.out.println(l.get(i).label + "\t" + scores[i] + ";");
-        }
+		File resFile=new File(simDir+"results_neg_pos_new_prediction/metric_"+String.valueOf(scale)+"_"+className+"_"+String.valueOf(tradeoff)+"_"+"pos_neg"+".txt");
+		resFile.getAbsoluteFile().getParentFile().mkdirs();
+		try {
+			BufferedWriter out = new BufferedWriter(new FileWriter(resFile));
+			for(int i=0; i<l.size(); i++) {
+	        	// calcul score(x,y,h,w) = argmax_{y,h} <w, \psi(x,y,h)>
+	        	Integer y = prediction(l.get(i).input);
+	        	Integer h = prediction(l.get(i).input.x, y);	
+				out.write(Integer.valueOf(y) +","+ Integer.valueOf(h)+","+l.get(i).input.x.getName()+"\n");
+				out.flush();
+	        	double score = valueOf(l.get(i).input.x,y,h,w);
+	        	eval.add(new Evaluation<Integer>((l.get(i).output == 0 ? -1 : 1), (y == 0 ? -1 : 1)*score));
+	                //System.out.println(l.get(i).label + "\t" + scores[i] + ";");
+	        }
+			out.close();
+	        	
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
         double ap = AveragePrecision.getAP(eval);
         return ap;
 	}

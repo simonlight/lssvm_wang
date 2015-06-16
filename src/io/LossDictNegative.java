@@ -52,11 +52,11 @@ public class LossDictNegative {
 //	    String classes = "boat";
 //	    String classes = "aeroplane";
 	    // go horse right now, nothing done
-	    String classes = "horse";
+	    String classes = "bicycle";
 //	    String classes = "cow";
 //  String classes = "sofa";
 //	    String classes = "diningtable";
-	    int[] scale_list={25};
+	    int[] scale_list={1,4,9,16,25,36};
 		String[] classList={"cat", "dog", "bicycle", "motorbike", "boat", "aeroplane", "horse", "cow", "sofa", "diningtable"};
 		for (int scale_index=0; scale_index<scale_list.length;scale_index++){
 			int scale=scale_list[scale_index];
