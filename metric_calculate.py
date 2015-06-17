@@ -7,7 +7,7 @@ def convert_scale(scale):
 def get_best_cv(cls, scale):
     #cat 100 0.6 0.92
     best_res_root  = "/home/wangxin/Data/ferrari_data/reduit_allbb/best_cv_res/"
-    method = "res_neg_pos_no_prediction.txt"
+    method = "res_neg_pos_new_prediction.txt"
     f = open(best_res_root+method)
     for line in f:
         c, s, best_cv, _ = line.strip().split(' ')
@@ -46,7 +46,7 @@ classes=['cat', 'dog', 'boat', 'aeroplane', 'horse', 'cow', 'sofa', 'diningtable
 #classes = ['boat']
 scales=[100,90,80,70,60,50]
 # scales=[70]
-root="/home/wangxin/Data/ferrari_data/reduit_allbb/results_neg_pos_no_prediction/"
+root="/home/wangxin/Data/ferrari_data/reduit_allbb/results_neg_pos_new_prediction/"
 for cls in classes:
     
     for scale in scales:        
