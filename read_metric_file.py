@@ -8,7 +8,7 @@ def get_best_cv(cls, scale):
         if c.strip()== cls and s.strip() == str(scale):
             return best_cv
 
-root="/home/wangxin/Data/ferrari_data/reduit_allbb/results_neg_pos_new_prediction/"
+root="/home/wangxin/Data/ferrari_data/reduit_allbb/metric_pos_only/results_neg_pos_new_prediction/"
 # classes=['cat', 'dog', 'bicycle', 'motorbike', 'boat', 'aeroplane', 'horse', 'cow', 'sofa', 'diningtable']
 # classes=['cat', 'dog', 'boat', 'aeroplane', 'horse', 'cow', 'sofa', 'diningtable']
 classes = ['bicycle', 'motorbike']
@@ -21,8 +21,6 @@ for cls in classes:
         correct = 0.0
         false = 0.0
         f_metric= open(root+"metric_"+str(scale)+"_"+cls+"_"+str(best_cv)+"_pos_neg.txt")
-        for i in range(offset):
-            f_metric.readline()
         for line in f_metric:
             cnt+=1
             yp, h, image_path = line.strip().split(',')
