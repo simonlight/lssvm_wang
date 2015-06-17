@@ -41,9 +41,9 @@ def getIoU(hxmin, hymin, hxmax, hymax, xmin, ymin, xmax, ymax):
     else:
         return 0.0
     
-# classes=['cat', 'dog', 'bicycle', 'motorbike', 'boat', 'aeroplane', 'horse', 'cow', 'sofa', 'diningtable']
-classes=['cat', 'dog', 'boat', 'aeroplane', 'horse', 'cow', 'sofa', 'diningtable']
-#classes = ['boat']
+#classes=['cat', 'dog', 'bicycle', 'motorbike', 'boat', 'aeroplane', 'horse', 'cow', 'sofa', 'diningtable']
+# classes=['cat', 'dog', 'boat', 'aeroplane', 'horse', 'cow', 'sofa', 'diningtable']
+classes = ['bicycle', 'motorbike']
 scales=[100,90,80,70,60,50]
 # scales=[70]
 root="/home/wangxin/Data/ferrari_data/reduit_allbb/results_mori/"
