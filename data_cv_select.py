@@ -51,5 +51,5 @@ if __name__=='__main__':
 #     print "#################"
 #     statistic(new_pred)  
 #     print "###############"
-    best_res(std_et_res_path)
+    best_res(new_pred)
 #     best_res(neg_pos_res_path)  
