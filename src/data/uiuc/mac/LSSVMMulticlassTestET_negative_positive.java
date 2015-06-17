@@ -147,7 +147,7 @@ public class LSSVMMulticlassTestET_negative_positive {
 		
 	    double[] lambdaCV = {1e-3};
 	    double[] epsilonCV = {1e-2};
-	    double[] tradeoffCV = {0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0};
+	    double[] tradeoffCV = {0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.5, 2, 2.5,3,3.5,4,4.5,5,5.5,6,6.5,7,7.5,8,8.5,9,9.5,10,20,30,40,50,60,70,80,90,100,200,500,1000};
 //	    String[] classes = {"cat", "dog", "bicycle", "motorbike", "boat", "aeroplane", "horse", "cow", "sofa", "diningtable"};
 	    
 //	    String[] classes = {"cat", "bicycle", "motorbike", "boat", "aeroplane"};
