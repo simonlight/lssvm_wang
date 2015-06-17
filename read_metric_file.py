@@ -10,8 +10,8 @@ def get_best_cv(cls, scale):
 
 root="/home/wangxin/Data/ferrari_data/reduit_allbb/results_neg_pos_new_prediction/"
 # classes=['cat', 'dog', 'bicycle', 'motorbike', 'boat', 'aeroplane', 'horse', 'cow', 'sofa', 'diningtable']
-classes=['cat', 'dog', 'boat', 'aeroplane', 'horse', 'cow', 'sofa', 'diningtable']
-#classes = ['boat']
+# classes=['cat', 'dog', 'boat', 'aeroplane', 'horse', 'cow', 'sofa', 'diningtable']
+classes = ['bicycle', 'motorbike']
 scales=[100,90,80,70,60,50]
 for cls in classes:
     for scale in scales:        
