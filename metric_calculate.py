@@ -43,10 +43,10 @@ def getIoU(hxmin, hymin, hxmax, hymax, xmin, ymin, xmax, ymax):
     
 classes=['cat', 'dog', 'bicycle', 'motorbike', 'boat', 'aeroplane', 'horse', 'cow', 'sofa', 'diningtable']
 # classes=['cat', 'dog', 'boat', 'aeroplane', 'horse', 'cow', 'sofa', 'diningtable']
-#classes = ['bicycle', 'motorbike']
+classes = ['bicycle']
 scales=[100,90,80,70,60,50]
 # scales=[70]
-root="/home/wangxin/Data/ferrari_data/reduit_allbb/metric_pos_only/results_neg_pos_new_prediction/"
+root="/home/wangxin/Data/ferrari_data/reduit_allbb/results_neg_pos_new_prediction/"
 for cls in classes:
     
     for scale in scales:        
