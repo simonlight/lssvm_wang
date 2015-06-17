@@ -80,4 +80,4 @@ for cls in classes:
                 cnt += 1.0
             totalIoU += predIoU   
 #         print "for class "+cls+ " scale:"+str(scale) + "the IoU percentage is: " + str(totalIoU/cnt)
-        print str(totalIoU/cnt)
+        print cls, str(scale), str(totalIoU/cnt)
