@@ -45,14 +45,14 @@ if __name__=='__main__':
     new_pred = "/home/wangxin/Data/ferrari_data/reduit_allbb/res_neg_pos_new_prediction.txt"
     neg_pos_res_path = "/home/wangxin/Data/ferrari_data/reduit_allbb/res_neg_pos_no_prediction.txt"
     std_et_res_path = "/home/wangxin/Data/ferrari_data/reduit_allbb/std_et_no_prediction.txt"
-    
+    std_lssvm = "/home/wangxin/Data/ferrari_data/reduit_singlebb/std_lssvm.txt"
 #     statistic(std_et_res_path)
 #     print "#################"
 #     statistic(neg_pos_res_path)
 #     print "#################"
-#     statistic(new_pred)  
+     statistic(std_lssvm)  
 #     print "###############"
-    best_res(new_pred)
+    best_res(std_lssvm)
 #     print "###############"
 #     best_res(neg_pos_res_path)
 #     print "###############"
