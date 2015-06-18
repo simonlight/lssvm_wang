@@ -20,7 +20,7 @@ def best_res(p):
     res_dict= collections.defaultdict(lambda: collections.defaultdict(lambda: collections.defaultdict(lambda: None)))
     for line in open(p):
         print line
-        cls, gamma, scale, _, testap, trainap = line.strip().split(' ')
+        cls, gamma, _, testap, trainap = line.strip().split(' ')
         res_dict[cls][scale][gamma]=[testap, trainap]
     print "class num:"+str(len(res_dict))+"\n"
     
