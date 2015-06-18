@@ -52,7 +52,7 @@ if __name__=='__main__':
 #     statistic(new_pred)  
 #     print "###############"
     best_res(new_pred)
-    print "###############"
-    best_res(neg_pos_res_path)
-    print "###############"
-    best_res(std_et_res_path)    
+#     print "###############"
+#     best_res(neg_pos_res_path)
+#     print "###############"
+#     best_res(std_et_res_path)    
