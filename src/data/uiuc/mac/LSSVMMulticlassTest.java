@@ -146,33 +146,10 @@ public class LSSVMMulticlassTest {
 		
 	    double[] lambdaCV = {1e-3};
 	    double[] epsilonCV = {1e-2};//1e-2
-//	    String[] classes = {"cat", "dog", "bicycle", "motorbike", "boat", "aeroplane", "horse", "cow", "sofa", "diningtable"};
-//	    String[] classes = {"bicycle", "motorbike", "boat", "aeroplane", "horse", "cow", "sofa", "diningtable"};
-	    
-//	    String[] classes = {"bicycle", "motorbike", "boat", "aeroplane"};
-//	    String[] classes = {"horse", "cow", "sofa", "diningtable"};
-	    
-//	    String[] classes = {"cat", "dog"};
-//	    String[] classes = {"bicycle", "motorbike",};
-//	    String[] classes = {"boat", "aeroplane"};
-//	    String[] classes = {"horse", "cow"};
-//	    String[] classes = {"sofa", "diningtable"};
-	    
-	    String[] classes = {"boat"};
-//	    String[] classes = {"dog"};
-//	    String[] classes = {"bicycle"};
-//	    String[] classes = {"motorbike"};
-//	    String[] classes = {"boat"};
-//	    String[] classes = {"aeroplane"};
-//	    String[] classes = {"horse"};
-//	    String[] classes = {"cow"};
-//	    String[] classes = {"sofa"};
-//	    String[] classes = {"diningtable"};
-	    //String[] classes = { "motorbike", "boat", "aeroplane", "horse", "cow", "sofa", "diningtable"};
-	    //String[] classes = { "cat"};
-	    int[] scaleCV = {100,90,80,70,60,50};
-	    //int[] scaleCV = {50};
-	    //int[] splitCV = {1,2,3,4,5};
+
+	    String[] classes = {args[0]};	    
+	    int[] scaleCV = {Integer.valueOf(args[1])};
+	 
 	    int[] splitCV = {1};
 	    
 	    System.out.println("lambda " + Arrays.toString(lambdaCV));

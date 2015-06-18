@@ -47,7 +47,6 @@ public class LSSVMMulticlassFastBagMIL extends LSSVMMulticlassFast<BagMIL,Intege
              
 		List<Evaluation<Integer>> eval = new ArrayList<Evaluation<Integer>>();
         for(int i=0; i<l.size(); i++) {
-        	System.out.println(1);
         	Integer y = prediction(l.get(i).input);
         	Integer h = prediction(l.get(i).input.x, y);
         	double score = valueOf(l.get(i).input.x,y,h,w);
