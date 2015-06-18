@@ -43,29 +43,45 @@ public class LSSVMMulticlassFastBagMIL extends LSSVMMulticlassFast<BagMIL,Intege
 		dim = l.get(0).input.x.getFeature(0).length;
 	}
 
-	public double testAP(List<STrainingSample<LatentRepresentation<BagMIL, Integer>, Integer>> l, int scale, String simDir, String className) {
-             
+	public double testAP(List<STrainingSample<LatentRepresentation<BagMIL, Integer>, Integer>> l) {
+		
 		List<Evaluation<Integer>> eval = new ArrayList<Evaluation<Integer>>();
-        for(int i=0; i<l.size(); i++) {
+		for(int i=0; i<l.size(); i++) {
+        	// calcul score(x,y,h,w) = argmax_{y,h} <w, \psi(x,y,h)>
         	Integer y = prediction(l.get(i).input);
         	Integer h = prediction(l.get(i).input.x, y);
         	double score = valueOf(l.get(i).input.x,y,h,w);
-        	if (true){
-        		File resFile=new File(simDir+"results/metric_"+String.valueOf(scale)+"_"+className+".txt");
-        		try {
-        			BufferedWriter out = new BufferedWriter(new FileWriter(resFile, true));
-        			out.write(Integer.valueOf(y) +","+ Integer.valueOf(h)+","+l.get(i).input.x.getName()+"\n");
-        			out.flush();
-        			out.close();
-        			
-        		} catch (IOException e) {
-        			// TODO Auto-generated catch block
-        			e.printStackTrace();
-        		}
-        	}
+                
         	eval.add(new Evaluation<Integer>((l.get(i).output == 0 ? -1 : 1), (y == 0 ? -1 : 1)*score));
-                //System.out.println(l.get(i).label + "\t" + scores[i] + ";");
+            //System.out.println(l.get(i).label + "\t" + scores[i] + ";");
         }
+        double ap = AveragePrecision.getAP(eval);
+        return ap;
+	}
+	public double testAPRegion(List<STrainingSample<LatentRepresentation<BagMIL, Integer>, Integer>> l, int scale, String simDir, String className) {
+		
+		List<Evaluation<Integer>> eval = new ArrayList<Evaluation<Integer>>();
+		File resFile=new File(simDir+"results_lssvm/metric_"+String.valueOf(scale)+"_"+className+"_"+"Notradeoff"+"_"+"pos_neg"+".txt");
+		resFile.getAbsoluteFile().getParentFile().mkdirs();
+		try {
+			BufferedWriter out = new BufferedWriter(new FileWriter(resFile));
+			for(int i=0; i<l.size(); i++) {
+	        	// calcul score(x,y,h,w) = argmax_{y,h} <w, \psi(x,y,h)>
+	        	Integer y = prediction(l.get(i).input);
+	        	Integer h = prediction(l.get(i).input.x, y);	
+				out.write(Integer.valueOf(y) +","+ Integer.valueOf(h)+","+l.get(i).input.x.getName()+"\n");
+				out.flush();
+	        	double score = valueOf(l.get(i).input.x,y,h,w);
+	        	eval.add(new Evaluation<Integer>((l.get(i).output == 0 ? -1 : 1), (y == 0 ? -1 : 1)*score));
+	                //System.out.println(l.get(i).label + "\t" + scores[i] + ";");
+	        }
+			out.close();
+	        	
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
         double ap = AveragePrecision.getAP(eval);
         return ap;
 	}

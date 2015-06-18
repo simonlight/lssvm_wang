@@ -225,7 +225,7 @@ public class LSSVMMulticlassTest {
 			    			//if(compute || fileClassifier == null) {
 			    			if(true){
 			    				lsvm.train(exampleTrain);
-								double acc = lsvm.test(exampleTrain);
+								double acc = lsvm.testAP(exampleTrain);
 								System.err.println("train - " + cls + "\tscale= " + scale + "\tacc= " + acc + "\tlambda= " + lambda + "\tepsilon= " + epsilon);
 								
 								acc = lsvm.test(exampleTest);
@@ -273,8 +273,8 @@ public class LSSVMMulticlassTest {
 //									// TODO Auto-generated catch block
 //									e.printStackTrace();
 //								}
-								double ap = lsvm.testAP(exampleTest, scale, simDir, className);
-								File resFile=new File(simDir+"res.txt");
+								double ap = lsvm.testAPRegion(exampleTest, scale, simDir, className);
+								File resFile=new File(simDir+"res_lssvm.txt");
 								try {
 									BufferedWriter out = new BufferedWriter(new FileWriter(resFile, true));
 									out.write(className+" "+scale+" "+" "+ap+"\n");
