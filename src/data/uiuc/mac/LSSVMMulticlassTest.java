@@ -225,14 +225,14 @@ public class LSSVMMulticlassTest {
 			    			//if(compute || fileClassifier == null) {
 			    			if(true){
 			    				lsvm.train(exampleTrain);
-								double acc = lsvm.testAP(exampleTrain);
-								System.err.println("train - " + cls + "\tscale= " + scale + "\tacc= " + acc + "\tlambda= " + lambda + "\tepsilon= " + epsilon);
+								double ap_train = lsvm.testAP(exampleTrain);
+								System.err.println("train - " + cls + "\tscale= " + scale + "\tp= " + ap_train + "\tlambda= " + lambda + "\tepsilon= " + epsilon);
 								
-								acc = lsvm.test(exampleTest);
-								
-								fileClassifier = new File(classifierDir + "/" + className + "/" + className + "_" + scale + suffix + "_acc_" + acc + ".ser");
-								fileClassifier.getAbsoluteFile().getParentFile().mkdirs();
-								System.out.println("save classifier " + fileClassifier.getAbsolutePath());
+//								acc = lsvm.test(exampleTest);
+//								
+//								fileClassifier = new File(classifierDir + "/" + className + "/" + className + "_" + scale + suffix + "_acc_" + acc + ".ser");
+//								fileClassifier.getAbsoluteFile().getParentFile().mkdirs();
+//								System.out.println("save classifier " + fileClassifier.getAbsolutePath());
 								// save classifier
 //								ObjectOutputStream oos = null;
 //								try {
@@ -277,7 +277,7 @@ public class LSSVMMulticlassTest {
 								File resFile=new File(simDir+"res_lssvm.txt");
 								try {
 									BufferedWriter out = new BufferedWriter(new FileWriter(resFile, true));
-									out.write(className+" "+scale+" "+" "+ap+"\n");
+									out.write(className+" "+"notradeoff"+" "+scale+" "+" "+ap+" "+ap_train+"\n");
 									out.flush();
 									out.close();
 									
