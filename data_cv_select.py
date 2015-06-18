@@ -47,5 +47,5 @@ if __name__=='__main__':
     
     #statistic(std_et_res_path)  
 #     print "###############"
-    best_res(std_et_res_path)
+    best_res(new_pred)
 #     best_res(neg_pos_res_path)  
