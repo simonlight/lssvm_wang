@@ -92,7 +92,7 @@ public class LSSVMMulticlassFastBagMILET extends LSSVMMulticlassFastET<BagMIL,In
 	public double testAPRegion(List<STrainingSample<LatentRepresentation<BagMIL, Integer>, Integer>> l, int scale, String simDir, String className, double tradeoff) {
 		
 		List<Evaluation<Integer>> eval = new ArrayList<Evaluation<Integer>>();
-		File resFile=new File(simDir+"results_mori/metric_"+String.valueOf(scale)+"_"+className+"_"+String.valueOf(tradeoff)+"_"+"pos_neg"+".txt");
+		File resFile=new File(simDir+"results_std_et_init/metric_"+String.valueOf(scale)+"_"+className+"_"+String.valueOf(tradeoff)+"_"+"pos_neg"+".txt");
 		resFile.getAbsoluteFile().getParentFile().mkdirs();
 		try {
 			BufferedWriter out = new BufferedWriter(new FileWriter(resFile));
