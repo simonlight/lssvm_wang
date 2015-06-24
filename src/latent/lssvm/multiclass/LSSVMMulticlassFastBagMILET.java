@@ -46,13 +46,8 @@ public class LSSVMMulticlassFastBagMILET extends LSSVMMulticlassFastET<BagMIL,In
 
 	
 	protected double delta(Integer yi, Integer yp, BagMIL x, Integer h)  {
-		String featurePath[] = x.getFileFeature(h).split("/");
-		String ETLossFileName = featurePath[featurePath.length - 1];
-		String imageFileName[] = x.getName().split("/");
-		String imClass = imageFileName[imageFileName.length - 1].split("_")[0];
-		String root = "/home/wangxin/Data/ferrari_data/reduit_allbb/";
-		String ETLossPath =  root + "ETLoss_ratio/"+ imClass + "/"+x.getFeatures().size()+"/"+ETLossFileName;
-		double ETLoss = lossMap.get(ETLossPath);
+		String ETLossPath =   getETLossPath(x, h);
+		double ETLoss = positiveLossMap.get(ETLossPath);
 		if(yi == 1 && yp == 1) {
 			return (double)((yi^yp)+tradeoff*ETLoss);
 		}
@@ -117,5 +112,24 @@ public class LSSVMMulticlassFastBagMILET extends LSSVMMulticlassFastET<BagMIL,In
         double ap = AveragePrecision.getAP(eval);
         System.out.println(ap);
         return ap;
+	}
+
+	
+	protected String getETLossPath(BagMIL x, Integer h){
+		String featurePath[] = x.getFileFeature(h).split("/");
+		String ETLossFileName = featurePath[featurePath.length - 1];
+		String imageFileName[] = x.getName().split("/");
+		String imClass = imageFileName[imageFileName.length - 1].split("_")[0];
+		String root = "/home/wangxin/Data/ferrari_data/reduit_allbb/";
+		String positive_ETLossPath =  root + "ETLoss_ratio/"+ imClass + "/"+x.getFeatures().size()+"/"+ETLossFileName;
+		return positive_ETLossPath;
+	}
+	@Override
+	
+	protected double getETLoss(BagMIL x, Integer h) {
+		// TODO Auto-generated method stub
+		String positive_ETLossPath = getETLossPath(x, h);
+		double positiveLoss = positiveLossMap.get(positive_ETLossPath);
+		return positiveLoss;
 	}
 }

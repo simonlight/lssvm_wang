@@ -40,8 +40,6 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 	protected int cpmax = 50;
 	protected int cpmin = 5;
 	protected double epsilon = 1e-2;
-	protected HashMap<String , Double> lossMap = new HashMap<String , Double>(); 
-	protected double tradeoff = 0.5;
 
 	//svm hyperplane
 	protected double[][] w = null;
@@ -52,10 +50,16 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 	
 	//linear kernel
 	protected DoubleLinear linear = new DoubleLinear();
-	
+
+	//eye_tracking params
+	protected HashMap<String , Double> positiveLossMap = new HashMap<String , Double>(); 
+	protected double tradeoff = 0.5;
+
 	protected abstract List<H> enumerateH(X x);
 	protected abstract double[] psi(X x, H h);
 	protected abstract double delta(Integer yi, Integer yp, X x, H h);
+	protected abstract double getETLoss(X x, H h);
+
 	/**
 	 * initialise la dimension de w (variable dim) et les variables latentes si nécessaire 
 	 * @param l
@@ -278,7 +282,7 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 		for(int y : listClass) {
 			for(H h : enumerateH(lr.x)) {
 				
-				double val = valueOf(lr.x,y,h,w);
+				double val = valueOf(lr.x,y,h,w)+tradeoff * (1-getETLoss(lr.x, h));
 				if(val>valmax){
 					valmax = val;
 					ypredict = y;
@@ -312,7 +316,7 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 		H hpredict = null;
 		double valmax = -Double.MAX_VALUE;
 		for(H h : enumerateH(x)) {
-			double val = valueOf(x,y,h,w);
+			double val = valueOf(x,y,h,w)+tradeoff * (1 - getETLoss(x, h));
 			if(val>valmax){
 				valmax = val;
 				hpredict = h;
@@ -437,7 +441,7 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 		try {
 			ObjectInputStream is;
 			is = new ObjectInputStream(new FileInputStream(lossPath));
-			this.lossMap = (HashMap<String, Double> ) is.readObject();// 从流中读取User的数据  
+			this.positiveLossMap = (HashMap<String, Double> ) is.readObject();// 从流中读取User的数据  
 			is.close();}
 		catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
