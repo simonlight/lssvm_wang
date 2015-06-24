@@ -91,7 +91,7 @@ public class LSSVMMulticlassFastBagMILET extends LSSVMMulticlassFastET<BagMIL,In
         	// calcul score(x,y,h,w) = argmax_{y,h} <w, \psi(x,y,h)>
         	Integer y = prediction(l.get(i).input);
         	Integer h = prediction(l.get(i).input.x, y);
-        		File resFile=new File(simDir+"results_mori/metric_"+String.valueOf(scale)+"_"+className+"_"+String.valueOf(tradeoff)+"_"+"pos_neg"+".txt");
+        		File resFile=new File(simDir+"results_mori_new_pred/metric_"+String.valueOf(scale)+"_"+className+"_"+String.valueOf(tradeoff)+"_"+"pos_neg"+".txt");
         		resFile.getAbsoluteFile().getParentFile().mkdirs();
         		try {
         			BufferedWriter out = new BufferedWriter(new FileWriter(resFile, true));
