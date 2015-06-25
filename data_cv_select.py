@@ -41,11 +41,11 @@ def best_res(p):
 #             print k
             
 if __name__=='__main__':
-    new_pred = "/local/wangxin/res_neg_pos_new_prediction.txt"
+    neg_pos_new_pred = "/local/wangxin/res_neg_pos_new_prediction.txt"
     neg_pos_res_path = "/local/wangxin/res_neg_pos_no_prediction.txt"
     std_et_res_path = "/local/wangxin/std_et_no_prediction.txt"
-    
+    std_et_new_pred = "/local/wangxin/std_et_new_pred.txt"
     #statistic(std_et_res_path)  
 #     print "###############"
-    best_res(new_pred)
+    best_res(std_et_new_pred)
 #     best_res(neg_pos_res_path)  
