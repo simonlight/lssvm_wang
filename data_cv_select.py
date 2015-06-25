@@ -51,9 +51,9 @@ if __name__=='__main__':
 #     print "#################"
 #     statistic(neg_pos_res_path)
 #     print "#################"
-    statistic(std_et_new_pred)  
+    statistic(std_lssvm)  
 #     print "###############"
-    best_res(std_et_new_pred)
+    best_res(std_lssvm)
 #     print "###############"
 #     best_res(neg_pos_res_path)
 #     print "###############"
