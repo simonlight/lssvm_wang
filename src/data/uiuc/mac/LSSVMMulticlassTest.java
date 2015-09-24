@@ -101,8 +101,9 @@ public class LSSVMMulticlassTest {
 	private static double epsilon = 1e-2;
 	
 	//racine
-	public static String simDir = "/home/wangxin/Data/ferrari_data/reduit_singlebb/";
-	public static String sourceDir = "/home/wangxin/Data/ferrari_data/POETdataset/POETdataset/";
+//	public static String simDir = "/home/wangxin/Data/ferrari_data/reduit_singlebb/";
+	public static String simDir = "/home/wangxin/results/gaze_voc_actions_stefan/";
+	public static String sourceDir = "/home/wangxin/Data/gaze_voc_actions_stefan/";
 	
 	public static int split = 1;
 	public static int scale = 100;
@@ -146,6 +147,18 @@ public class LSSVMMulticlassTest {
 		
 	    double[] lambdaCV = {1e-3};
 	    double[] epsilonCV = {1e-2};//1e-2
+	    
+	    String[] classes={"jumping"};
+//	    String[] classes={"phoning"};
+//	    String[] classes={"playinginstrument"};
+//	    String[] classes={"reading"};
+//	    String[] classes={"ridingbike"};
+//	    String[] classes={"ridinghorse"};
+//	    String[] classes={"running"};
+//	    String[] classes={"takingphoto"};
+//	    String[] classes={"usingcomputer"};
+//	    String[] classes={"walking"};
+
 //	    String[] classes = {"cat", "dog", "bicycle", "motorbike", "boat", "aeroplane", "horse", "cow", "sofa", "diningtable"};
 //	    String[] classes = {"bicycle", "motorbike", "boat", "aeroplane", "horse", "cow", "sofa", "diningtable"};
 	    
@@ -158,7 +171,7 @@ public class LSSVMMulticlassTest {
 //	    String[] classes = {"horse", "cow"};
 //	    String[] classes = {"sofa", "diningtable"};
 	    
-	    String[] classes = {"boat"};
+//	    String[] classes = {"boat"};
 //	    String[] classes = {"dog"};
 //	    String[] classes = {"bicycle"};
 //	    String[] classes = {"motorbike"};
@@ -170,7 +183,7 @@ public class LSSVMMulticlassTest {
 //	    String[] classes = {"diningtable"};
 	    //String[] classes = { "motorbike", "boat", "aeroplane", "horse", "cow", "sofa", "diningtable"};
 	    //String[] classes = { "cat"};
-	    int[] scaleCV = {100,90,80,70,60,50};
+	    int[] scaleCV = {100,50};
 	    //int[] scaleCV = {50};
 	    //int[] splitCV = {1,2,3,4,5};
 	    int[] splitCV = {1};
@@ -191,7 +204,7 @@ public class LSSVMMulticlassTest {
 				String classifierDir = simDir + "classifier/lssvm/" ;
 				//example_files
 				String inputDir = sourceDir + "example_files/"+scale;
-
+				
 				System.out.println("classifierDir: " + classifierDir + "\n");
 				System.err.println("split " + split + "\t cls " + cls);
     			
