@@ -1,11 +1,11 @@
-root = "/local/wangxin/data/gaze_voc_actions_stefan/"
+root = "/local/wangxin/Data/gaze_voc_actions_stefan/"
 
 eye_tracking_path = root+"samples/"
 gaze_path = root+"train_gazes/"
 
 action_subjects  = ["006","007","008","009","010","011","018","020"] 
 
-pascal_voc_2012_train_images = "/local/wangxin/data/VOCdevkit_trainset/VOC2012/JPEGImages/"
+pascal_voc_2012_train_images = "/local/wangxin/Data/VOCdevkit_trainset/VOC2012/JPEGImages/"
 
 
 train_list = root+"action_train_image_list"
@@ -73,10 +73,7 @@ def valide_fixations(train_list, eye_tracking_path, valide_subjs):
                     time, pupil_diameter, pupil_area, x_screen, y_screen, event = line.strip().split('\t')
                     if event == 'F':
                         x_stimulus, y_stimulus = mapping(image_res_x, image_res_y, int(float(x_screen)), int(float(y_screen)))
-                        try:
-                            new_fixations[str(subj).strip()].append([int(x_stimulus),int(y_stimulus)])
-                        except KeyError:
-                            print new_fixations[filename[:-4]]
+                        new_fixations[str(subj).strip()].append([int(x_stimulus),int(y_stimulus)])
                 et.close()
 #                 print fixations
                 new_fixations.update(old_fixations) 
@@ -84,4 +81,15 @@ def valide_fixations(train_list, eye_tracking_path, valide_subjs):
                 gaze_json = open(json_path,'w')
                 json.dump(new_fixations,gaze_json)
                 gaze_json.close()
-valide_fixations(train_list, eye_tracking_path, valide_subjs)
+                
+                
+def calculate_gaze_ratio(train_list, gaze_path):
+    tl = open(train_list)
+    train_images = [line.strip() for line in tl]
+    print train_images #['2010_006088.jpg', '2010_006089.jpg']
+    tl.close()
+    for im in train_images:
+        image_res_x, image_res_y= Image.open(pascal_voc_2012_train_images+im).size
+        print image_res_x, image_res_y
+calculate_gaze_ratio(train_list, gaze_path)
+    
