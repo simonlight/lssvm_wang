@@ -91,5 +91,6 @@ def calculate_gaze_ratio(train_list, gaze_path):
     for im in train_images:
         image_res_x, image_res_y= Image.open(pascal_voc_2012_train_images+im).size
         print image_res_x, image_res_y
+        
 calculate_gaze_ratio(train_list, gaze_path)
     
