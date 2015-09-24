@@ -101,7 +101,7 @@ public class LSSVMMulticlassTest {
 	private static double epsilon = 1e-2;
 	
 	//big path
-	public static String simDir = "/home/wangxin/results/gaze_voc_actions_stefan/";
+	public static String simDir = "/home/wangxin/results/gaze_voc_actions_stefan/stdlssvm/";
 	public static String sourceDir = "/home/wangxin/Data/gaze_voc_actions_stefan/";
 	
 //	public static String simDir = "/local/wangxin/results/gaze_voc_actions_stefan/";
@@ -234,7 +234,7 @@ public class LSSVMMulticlassTest {
 			    				
 								double ap_train = lsvm.testAP(exampleTrain);
 								System.out.println("hehe");
-								System.err.println("train - " + cls + "\tscale= " + scale + "\tp= " + ap_train + "\tlambda= " + lambda + "\tepsilon= " + epsilon);
+								System.err.println("train - " + cls + "\tscale= " + scale + "\tap= " + ap_train + "\tlambda= " + lambda + "\tepsilon= " + epsilon);
 								
 //								acc = lsvm.test(exampleTest);
 //								
