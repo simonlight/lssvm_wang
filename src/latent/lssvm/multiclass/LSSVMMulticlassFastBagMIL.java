@@ -52,7 +52,7 @@ public class LSSVMMulticlassFastBagMIL extends LSSVMMulticlassFast<BagMIL,Intege
         	Integer h = prediction(l.get(i).input.x, y);
         	double score = valueOf(l.get(i).input.x,y,h,w);
         	if (true){
-        		File resFile=new File(simDir+"results/metric_"+String.valueOf(scale)+"_"+className+".txt");
+        		File resFile=new File(simDir+"metric_"+String.valueOf(scale)+"_"+className+".txt");
         		try {
         			BufferedWriter out = new BufferedWriter(new FileWriter(resFile, true));
         			out.write(Integer.valueOf(y) +","+ Integer.valueOf(h)+","+l.get(i).input.x.getName()+"\n");

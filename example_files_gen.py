@@ -27,7 +27,7 @@ def etImages(root ):
 #vm: validated images. Some images in ferrari's data are not in the original exp_type
 #exp_type: experiment type: 'fuul' 'reduit' 'ground'
 def generate(refpath, cls, file_typ, scale, vm):
-    example_list_dir = "/local/wangxin/data/gaze_voc_actions_stefan/examples_files/"+str(scale)+"/"
+    example_list_dir = "/local/wangxin/Data/gaze_voc_actions_stefan/examples_files/"+str(scale)+"/"
     if not os.path.exists(example_list_dir):
         os.makedirs(example_list_dir)
     f = open('_'.join([example_list_dir+cls, file_typ, 'scale', str(scale), 'matconvnet_m_2048_layer_20.txt']),'w')
@@ -70,18 +70,18 @@ def generate(refpath, cls, file_typ, scale, vm):
             #content += ' ' + contains_class(im, cls)
             content += ' ' + str(int(11 - 0.1 * scale) ** 2)
             for suf in suffix:
-                content += ' ' + '/home/wangxin/Data/gaze_voc_actions_stefan/'+'m2048_'+file_typ+"_features/"+str(scale)+'/'+original_name.split('.')[0] +suf+'.txt'
+                content += ' ' + '/home/wangxin/Data/gaze_voc_actions_stefan/'+'m2048_trainval_features/'+str(scale)+'/'+original_name.split('.')[0] +suf+'.txt'
             f.write(content+'\n')    
         else:
             pass
 #test/train files root
-file_root = "/local/wangxin/data/VOCdevkit_trainset/VOC2012/ImageSets/Action/"
+file_root = "/local/wangxin/Data/VOCdevkit_trainset/VOC2012/ImageSets/Action/"
 
 #classes = ['cat', 'dog', 'bicycle', 'motorbike', 'boat', 'aeroplane', 'horse', 'cow', 'sofa', 'diningtable']
 classes = ['jumping', 'phoning', 'playinginstrument', 'reading', 'ridingbike', 'ridinghorse', 'running', 'takingphoto', 'usingcomputer', 'walking']
-validated_images = etImages("/local/wangxin/data/gaze_voc_actions_stefan/action_train_images/")
+validated_images = etImages("/local/wangxin/Data/gaze_voc_actions_stefan/action_train_images/")
 print len(validated_images)
-for i in range(100, 29, -10):
+for i in range(100,29, -10):
     print i
     for cls in classes:
         training_file = file_root + cls + '_train.txt'
