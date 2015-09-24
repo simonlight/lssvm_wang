@@ -231,8 +231,9 @@ public class LSSVMMulticlassTest {
 			    			//if(compute || fileClassifier == null) {
 			    			if(true){
 			    				lsvm.train(exampleTrain);
-			    				System.out.println("hehe");
+			    				
 								double ap_train = lsvm.testAP(exampleTrain);
+								System.out.println("hehe");
 								System.err.println("train - " + cls + "\tscale= " + scale + "\tp= " + ap_train + "\tlambda= " + lambda + "\tepsilon= " + epsilon);
 								
 //								acc = lsvm.test(exampleTest);
