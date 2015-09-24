@@ -100,10 +100,12 @@ public class LSSVMMulticlassTest {
 	private static int optim = 1;
 	private static double epsilon = 1e-2;
 	
-	//racine
-//	public static String simDir = "/home/wangxin/Data/ferrari_data/reduit_singlebb/";
+	//big path
 	public static String simDir = "/home/wangxin/results/gaze_voc_actions_stefan/";
 	public static String sourceDir = "/home/wangxin/Data/gaze_voc_actions_stefan/";
+	
+//	public static String simDir = "/local/wangxin/results/gaze_voc_actions_stefan/";
+//	public static String sourceDir = "/local/wangxin/Data/gaze_voc_actions_stefan/";
 	
 	public static int split = 1;
 	public static int scale = 100;
@@ -218,13 +220,14 @@ public class LSSVMMulticlassTest {
 						lsvm.setCpmax(cpmax);
 						lsvm.setCpmin(cpmin);
 						lsvm.setEpsilon(epsilon);
-						
+
 		    			String suffix = "_" + lsvm.toString();
 		    			System.out.println(suffix);
 		    			File fileClassifier = testPresenceFile(classifierDir + "/" + className + "/", className + "_" + scale + suffix);
 		    			if(fileClassifier == null) {
 		    				compute = true;
 		    			}
+		    			
     		    	}
     			}
 				
@@ -244,7 +247,6 @@ public class LSSVMMulticlassTest {
 					for(int i=0; i<listTest.size(); i++) {
 						exampleTest.add(new STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>(new LatentRepresentation<BagMIL, Integer>(listTest.get(i).sample,0), listTest.get(i).label));
 					}
-			
 	    			for(double epsilon : epsilonCV) {
 	    		    	for(double lambda : lambdaCV) {
 			    			
