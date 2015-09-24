@@ -28,6 +28,9 @@ def valide_subjects(train_list, eye_tracking_path):
 
 
 import json
+import math
+import numpy as np
+from xml.dom import minidom
 valide_subjs = ["006","007","008","009","010","011","018"]
 
 def mapping(image_res_x, image_res_y, x_screen, y_screen, screen_res_x=1280.0, screen_res_y=1024.0):
@@ -82,15 +85,55 @@ def valide_fixations(train_list, eye_tracking_path, valide_subjs):
                 json.dump(new_fixations,gaze_json)
                 gaze_json.close()
                 
-                
+pascal_voc_2012_annotations = "/local/wangxin/data/VOCdevkit_trainset/VOC2012/Annotations/"
+action_names=["jumping", "phoning", "playinginstrument", "reading", "ridingbike", "ridinghorse", "running", "takingphoto", "usingcomputer", "walking"]
+scales = [1,36]
+slice = 10.0
+def slice_cnt(x,y,left, right, up, down):
+    if x>=left and x<right and y>=up and y<down:
+        return 1.0
+    else:
+        return 0.0
+
 def calculate_gaze_ratio(train_list, gaze_path):
     tl = open(train_list)
     train_images = [line.strip() for line in tl]
     print train_images #['2010_006088.jpg', '2010_006089.jpg']
     tl.close()
+    
     for im in train_images:
+        fixation_file = open(im[:-4]+'.json')
+        fixations = json.load(fixation_file)
+        fixation_file.close()
+        total_fixations = sum([len(observers) for observers in fixations.values()])
+        
+        xmldoc = minidom.parse(pascal_voc_2012_annotations+im.strip()[:-4]+'.xml')
+        itemlist = xmldoc.getElementsByTagName("actions")
+        for action in enumerate(action_names):
+            if int(itemlist[0].getElementsByTagName(action[1])[0].childNodes[0].nodeValue) ==1:
+                action_category = action[1]
+                continue
+       
         image_res_x, image_res_y= Image.open(pascal_voc_2012_train_images+im).size
-        print image_res_x, image_res_y
+        integrate_image = np.zeros((10,10))
+        for x_inc in range(1,11):
+            for y_inc in range(1,11):
+                left = (x_inc-1) * image_res_x/10.0
+                right = x_inc * image_res_x/10.0
+                up = (y_inc-1) * image_res_y/10.0
+                down = y_inc * image_res_y/10.0
+                for ob in fixations:
+                    for point_x, point_y in ob:
+                         integrate_image[x_inc][y_inc]+=slice_cnt(point_x, point_y, left, right, up, down)
+        
+        for scale in scales:
+            block_num = int(math.sqrt(scale))
+            for i_x in range(scale):
+                for i_y in range(scale):
+                    print np.sum(integrate_image[i_x:i_x+scale][y_x:y_x+scale])/total_fixations
+                    
+                    loss_file = open(im[:-4]+'_'+str(i_x)+'_'+str(i_y)+'.txt','w')
+                    loss_file.write()
         
 calculate_gaze_ratio(train_list, gaze_path)
     
