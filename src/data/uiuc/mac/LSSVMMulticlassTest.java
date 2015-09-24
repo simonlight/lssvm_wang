@@ -150,42 +150,9 @@ public class LSSVMMulticlassTest {
 	    double[] lambdaCV = {1e-3};
 	    double[] epsilonCV = {1e-2};//1e-2
 	    
-	    String[] classes={"jumping"};
-//	    String[] classes={"phoning"};
-//	    String[] classes={"playinginstrument"};
-//	    String[] classes={"reading"};
-//	    String[] classes={"ridingbike"};
-//	    String[] classes={"ridinghorse"};
-//	    String[] classes={"running"};
-//	    String[] classes={"takingphoto"};
-//	    String[] classes={"usingcomputer"};
-//	    String[] classes={"walking"};
 
-//	    String[] classes = {"cat", "dog", "bicycle", "motorbike", "boat", "aeroplane", "horse", "cow", "sofa", "diningtable"};
-//	    String[] classes = {"bicycle", "motorbike", "boat", "aeroplane", "horse", "cow", "sofa", "diningtable"};
-	    
-//	    String[] classes = {"bicycle", "motorbike", "boat", "aeroplane"};
-//	    String[] classes = {"horse", "cow", "sofa", "diningtable"};
-	    
-//	    String[] classes = {"cat", "dog"};
-//	    String[] classes = {"bicycle", "motorbike",};
-//	    String[] classes = {"boat", "aeroplane"};
-//	    String[] classes = {"horse", "cow"};
-//	    String[] classes = {"sofa", "diningtable"};
-	    
-//	    String[] classes = {"boat"};
-//	    String[] classes = {"dog"};
-//	    String[] classes = {"bicycle"};
-//	    String[] classes = {"motorbike"};
-//	    String[] classes = {"boat"};
-//	    String[] classes = {"aeroplane"};
-//	    String[] classes = {"horse"};
-//	    String[] classes = {"cow"};
-//	    String[] classes = {"sofa"};
-//	    String[] classes = {"diningtable"};
-	    //String[] classes = { "motorbike", "boat", "aeroplane", "horse", "cow", "sofa", "diningtable"};
-	    //String[] classes = { "cat"};
-	    int[] scaleCV = {100,50};
+	    String[] classes = {args[0]};	    
+	    int[] scaleCV = {Integer.valueOf(args[1])};
 	    //int[] scaleCV = {50};
 	    //int[] splitCV = {1,2,3,4,5};
 	    int[] splitCV = {1};
@@ -311,11 +278,12 @@ public class LSSVMMulticlassTest {
 //									// TODO Auto-generated catch block
 //									e.printStackTrace();
 //								}
-								double ap = lsvm.testAP(exampleTest, scale, simDir, className);
-								File resFile=new File(simDir+"res.txt");
+								double ap = lsvm.testAPRegion(exampleTest, scale, simDir, className, tradeoff);
+								File resFile=new File(simDir+"std_et_no_prediction.txt");
 								try {
 									BufferedWriter out = new BufferedWriter(new FileWriter(resFile, true));
-									out.write(className+" "+scale+" "+" "+ap+"\n");
+									//out.write(className+" "+scale+" "+acc+" "+ap+"\n");
+									out.write(className+" "+String.valueOf(tradeoff)+" "+scale+" "+" "+ap+" "+ap_train+"\n");
 									out.flush();
 									out.close();
 									
@@ -324,7 +292,7 @@ public class LSSVMMulticlassTest {
 									e.printStackTrace();
 								}
 								System.err.println("test - " + cls + "\tscale= " + scale + "\tap= " + ap + "\tlambda= " + lambda + "\tepsilon= " + epsilon);
-								System.out.println("\n");
+//								System.out.println("\n");
 							}
 		    			}
 		    		}
