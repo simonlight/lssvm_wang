@@ -113,7 +113,7 @@ public class LSSVMMulticlassTest {
 	private static int numWords = 2048;
 
 	public static void main(String[] args) {
-		
+		//
 		// Option parsing		
 	    // Create the parser
 	    CommandLineParser parser = new GnuParser();
