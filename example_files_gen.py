@@ -27,7 +27,7 @@ def etImages(root ):
 #vm: validated images. Some images in ferrari's data are not in the original exp_type
 #exp_type: experiment type: 'fuul' 'reduit' 'ground'
 def generate(refpath, cls, file_typ, scale, vm):
-    example_list_dir = "/local/wangxin/Data/gaze_voc_actions_stefan/examples_files/"+str(scale)+"/"
+    example_list_dir = "/local/wangxin/Data/gaze_voc_actions_stefan/example_files/"+str(scale)+"/"
     if not os.path.exists(example_list_dir):
         os.makedirs(example_list_dir)
     f = open('_'.join([example_list_dir+cls, file_typ, 'scale', str(scale), 'matconvnet_m_2048_layer_20.txt']),'w')
