@@ -61,7 +61,11 @@ public class LSSVMMulticlassFastBagMIL extends LSSVMMulticlassFast<BagMIL,Intege
 	public double testAPRegion(List<STrainingSample<LatentRepresentation<BagMIL, Integer>, Integer>> l, int scale, String simDir, String className) {
 		
 		List<Evaluation<Integer>> eval = new ArrayList<Evaluation<Integer>>();
+<<<<<<< .merge_file_4qQtQN
 		File resFile=new File(simDir+"overlapping/metric_"+String.valueOf(scale)+"_"+className+".txt");
+=======
+		File resFile=new File(simDir+"results_lssvm/metric_"+String.valueOf(scale)+"_"+className+"_"+"Notradeoff"+"_"+"pos_neg"+".txt");
+>>>>>>> .merge_file_7DHc7K
 		resFile.getAbsoluteFile().getParentFile().mkdirs();
 		try {
 			BufferedWriter out = new BufferedWriter(new FileWriter(resFile));

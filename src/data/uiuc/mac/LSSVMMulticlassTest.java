@@ -149,12 +149,19 @@ public class LSSVMMulticlassTest {
 		
 	    double[] lambdaCV = {1e-3};
 	    double[] epsilonCV = {1e-2};//1e-2
+<<<<<<< .merge_file_goIi1I
 	    
 
 	    String[] classes = {args[0]};	    
 	    int[] scaleCV = {Integer.valueOf(args[1])};
 	    //int[] scaleCV = {50};
 	    //int[] splitCV = {1,2,3,4,5};
+=======
+
+	    String[] classes = {args[0]};	    
+	    int[] scaleCV = {Integer.valueOf(args[1])};
+	 
+>>>>>>> .merge_file_OHhknJ
 	    int[] splitCV = {1};
 	    
 	    System.out.println("lambda " + Arrays.toString(lambdaCV));
@@ -231,10 +238,15 @@ public class LSSVMMulticlassTest {
 			    			//if(compute || fileClassifier == null) {
 			    			if(true){
 			    				lsvm.train(exampleTrain);
+<<<<<<< .merge_file_goIi1I
 			    				
 								double ap_train = lsvm.testAP(exampleTrain);
 								System.out.println("hehe");
 								System.err.println("train - " + cls + "\tscale= " + scale + "\tap= " + ap_train + "\tlambda= " + lambda + "\tepsilon= " + epsilon);
+=======
+								double ap_train = lsvm.testAP(exampleTrain);
+								System.err.println("train - " + cls + "\tscale= " + scale + "\tp= " + ap_train + "\tlambda= " + lambda + "\tepsilon= " + epsilon);
+>>>>>>> .merge_file_OHhknJ
 								
 //								acc = lsvm.test(exampleTest);
 //								
