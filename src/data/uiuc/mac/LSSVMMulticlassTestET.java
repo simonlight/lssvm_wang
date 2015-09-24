@@ -100,8 +100,8 @@ public class LSSVMMulticlassTestET {
 	private static int optim = 1;
 	private static double epsilon = 1e-2;
 	//racine
-	public static String simDir = "/home/wangxin/Data/ferrari_data/reduit_allbb/";
-	public static String sourceDir = "/home/wangxin/Data/ferrari_data/POETdataset/POETdataset/";
+	public static String simDir = "/home/wangxin/results/gaze_voc_actions_stefan/std_et/";
+	public static String sourceDir = "/home/wangxin/Data/gaze_voc_actions_stefan/";
 	
 	
 	public static int split = 1;
@@ -198,7 +198,7 @@ public class LSSVMMulticlassTestET {
 				String classifierDir = simDir + "classifier/lssvm_et/" ;
 				//example_files
 				String inputDir = sourceDir + "example_files/"+scale;
-				String inputDirPositive = sourceDir + "example_files_pos_val/"+scale;
+//				String inputDirPositive = sourceDir + "example_files_pos_val/"+scale;
 
 				System.out.println("classifierDir: " + classifierDir + "\n");
 				System.err.println("split " + split + "\t cls " + cls);
