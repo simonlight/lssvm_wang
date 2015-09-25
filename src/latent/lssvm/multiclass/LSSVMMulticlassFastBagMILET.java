@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import data.uiuc.mac.LSSVMMulticlassTestET;
 import latent.LatentRepresentation;
 import latent.variable.BagMIL;
 import struct.STrainingSample;
@@ -50,8 +51,8 @@ public class LSSVMMulticlassFastBagMILET extends LSSVMMulticlassFastET<BagMIL,In
 		String ETLossFileName = featurePath[featurePath.length - 1];
 		String imageFileName[] = x.getName().split("/");
 		String imClass = imageFileName[imageFileName.length - 1].split("_")[0];
-		String root = "/home/wangxin/Data/gaze_voc_actions_stefan/ETLoss_dict/";
-		String ETLossPath =  root + "ETLoss_ratio/"+ imClass + "/"+x.getFeatures().size()+"/"+ETLossFileName;
+		String ETLossPath =  LSSVMMulticlassTestET.lossPath + "ETLoss_ratio/"+ imClass + "/"+x.getFeatures().size()+"/"+ETLossFileName;
+		System.out.println(ETLossPath);
 		double ETLoss = lossMap.get(ETLossPath);
 		if(yi == 1 && yp == 1) {
 			return (double)((yi^yp)+tradeoff*ETLoss);
