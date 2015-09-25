@@ -50,7 +50,7 @@ public class LSSVMMulticlassFastBagMILET extends LSSVMMulticlassFastET<BagMIL,In
 		String ETLossFileName = featurePath[featurePath.length - 1];
 		String imageFileName[] = x.getName().split("/");
 		String imClass = imageFileName[imageFileName.length - 1].split("_")[0];
-		String root = "/home/wangxin/Data/ferrari_data/reduit_allbb/";
+		String root = "/home/wangxin/Data/gaze_voc_actions_stefan/ETLoss_dict/";
 		String ETLossPath =  root + "ETLoss_ratio/"+ imClass + "/"+x.getFeatures().size()+"/"+ETLossFileName;
 		double ETLoss = lossMap.get(ETLossPath);
 		if(yi == 1 && yp == 1) {
