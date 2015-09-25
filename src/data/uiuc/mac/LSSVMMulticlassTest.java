@@ -95,7 +95,7 @@ public class LSSVMMulticlassTest {
 	
 	private static int cpmax = 500;
 	private static int cpmin = 10;
-	private static double lambda = 1e-4;
+	private static double lambda = 1e-2;
 	private static int init = 0;
 	private static int optim = 1;
 	private static double epsilon = 1e-2;
@@ -150,7 +150,7 @@ public class LSSVMMulticlassTest {
         	System.exit(-1);
 	    }
 		
-	    double[] lambdaCV = {1e-4};//1e-4
+	    double[] lambdaCV = {1e-2};//1e-4
 	    double[] epsilonCV = {1e-2};//1e-2
 	    
 
