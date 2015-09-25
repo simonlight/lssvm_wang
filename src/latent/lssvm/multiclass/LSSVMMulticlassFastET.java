@@ -82,7 +82,6 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 			nb[ts.output]++;
 		}
 		
-		System.out.println("Multiclass \t dim= " + dim + " \tclasses: " + listClass + "\t" + Arrays.toString(nb));
 		
 		System.out.println("----------------------------------------------------------------------------------------");
 		System.out.println("Train LSSVM - Mosek \tlambda: " + lambda + "\tepochsLatentMax " + epochsLatentMax + "\tepochsLatentMin " + epochsLatentMin); 
@@ -316,6 +315,9 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 			if(val>valmax){
 				valmax = val;
 				hpredict = h;
+				System.out.println(val);
+				System.out.println(h);
+				System.out.println("------");
 			}
 		}
 		return hpredict;

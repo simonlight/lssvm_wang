@@ -146,38 +146,10 @@ public class LSSVMMulticlassTestET {
 		
 	    double[] lambdaCV = {1e-3};
 	    double[] epsilonCV = {1e-2};
-	    double[] tradeoffCV = {0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0};
 
-//	    String[] classes = {"cat", "dog", "bicycle", "motorbike", "boat", "aeroplane", "horse", "cow", "sofa", "diningtable"};
-	    
-//	    String[] classes = {"cat", "bicycle", "motorbike", "boat", "aeroplane"};
-//	    String[] classes = {"dog", "horse", "cow", "sofa", "diningtable"};
-	    
-//	    String[] classes = {"cat", "dog"};
-//	    String[] classes = {"bicycle", "motorbike",};
-//	    String[] classes = {"boat", "aeroplane"};
-//	    String[] classes = {"horse", "cow"};
-//	    String[] classes = {"sofa", "diningtable"};
-	    
-//	    String[] classes = {"cat"};
-//	    String[] classes = {"dog"};
+	    double[] tradeoffCV = {0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0};
 	    String[] classes = {args[0]};
-//	    String[] classes = {"motorbike"};
-//	    String[] classes = {"boat"};
-//	    String[] classes = {"aeroplane"};
-	    // go horse right now, nothing done
-//	    String[] classes = {"horse"};
-//	    String[] classes = {"cow"};
-//	    String[] classes = {"sofa"};
-//	    String[] classes = {"diningtable"};
-	    //String[] classes = { "motorbike", "boat", "aeroplane", "horse", "cow", "sofa", "diningtable"};
-	    //String[] classes = { "cat"};
 	    int[] scaleCV = {Integer.valueOf(args[1])};
-//	    int[] scaleCV = {90};
-//	    int[] scaleCV = {80};
-//	    int[] scaleCV = {70};
-//      int[] scaleCV = {60};
-//	    int[] scaleCV = {50};
 	    
 	    //int[] splitCV = {1,2,3,4,5};
 	    int[] splitCV = {1};

@@ -7,7 +7,7 @@ def convert_scale(scale):
 def get_best_cv(cls, scale):
     #cat 100 0.6 0.92
     best_res_root  = "/home/wangxin/Data/ferrari_data/reduit_allbb/best_cv_res/"
-    method = "res_neg_pos_new_prediction.txt"
+    method = "std_et.txt"
     f = open(best_res_root+method)
     for line in f:
         c, s, best_cv, _ = line.strip().split(' ')
@@ -42,11 +42,12 @@ def getIoU(hxmin, hymin, hxmax, hymax, xmin, ymin, xmax, ymax):
         return 0.0
     
 # classes=['cat', 'dog', 'bicycle', 'motorbike', 'boat', 'aeroplane', 'horse', 'cow', 'sofa', 'diningtable']
-classes=['cat', 'dog', 'boat', 'aeroplane', 'horse', 'cow', 'sofa', 'diningtable']
+classes=["jumping", "phoning", "playinginstrument", "reading", "ridingbike", "ridinghorse", "running", "takingphoto", "usingcomputer", "walking"]
+
 #classes = ['boat']
-scales=[100,90,80,70,60,50]
+scales=[50]
 # scales=[70]
-root="/home/wangxin/Data/ferrari_data/reduit_allbb/results_neg_pos_no_prediction/"
+root="/home/wangxin/results/gaze_voc_actions_stefan/std_et/std_et/"
 for cls in classes:
     
     for scale in scales:        
@@ -59,13 +60,13 @@ for cls in classes:
             yp, h, image_path = line.strip().split(',')
             c, year, imp = image_path.split("/")[-1].split('_')
             im_path_code = year+'_'+imp
-            tree = ET.ElementTree(file = '/home/wangxin/Data/VOC2012/VOC2012/Annotations/'+im_path_code[:-4]+'.xml')
+            tree = ET.ElementTree(file = '/home/wangxin/Data/VOCdevkit_trainset/VOC2012/Annotations/'+im_path_code[:-4]+'.xml')
             im = Image.open(image_path)
             width, height = im.size
             hxmin, hymin, hxmax, hymax = h2coor(width, height, h, scale)
             predIoU = 0.0
             for elem in tree.iter(tag='object'):
-                if elem[0].text == c: 
+                if elem[0].text == 'person': 
                     object = True
                     if elem[1].tag == "bndbox":
                         xmax = int(elem[1][0].text)
