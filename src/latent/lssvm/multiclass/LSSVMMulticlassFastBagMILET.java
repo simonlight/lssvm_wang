@@ -59,7 +59,7 @@ public class LSSVMMulticlassFastBagMILET extends LSSVMMulticlassFastET<BagMIL,In
 		System.out.println(ETLoss);
 		System.out.println("---------");
 		if(yi == 1 && yp == 1) {
-			return (double)((yi^yp)+tradeoff*ETLoss);
+			return (double)((yi^yp)+tradeoff*(1-ETLoss));
 		}
 		else {
 			return (double)((yi^yp));
