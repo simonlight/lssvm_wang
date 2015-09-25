@@ -233,7 +233,7 @@ public class LSSVMMulticlassTestET {
 			    			//if(compute || fileClassifier == null) {
 			    			if(true){
 			    				lsvm.train(exampleTrain);
-			    				double ap_train = lsvm.testAP(exampleTrain);
+			    				double ap_train = lsvm.testAPRegion(exampleTrain,scale, simDir, className, tradeoff);
 								System.err.println("train " + String.valueOf(tradeoff)+"\t"+cls + "\tscale= " + scale + "\tap= " + ap_train + "\tlambda= " + lambda + "\tepsilon= " + epsilon);
 								
 								//double acc = lsvm.test(exampleTrain);
@@ -284,20 +284,20 @@ public class LSSVMMulticlassTestET {
 //									// TODO Auto-generated catch block
 //									e.printStackTrace();
 //								}
-			    				double ap = lsvm.testAPRegion(exampleTest, scale, simDir, className, tradeoff);
-								File resFile=new File(simDir+"std_et_no_prediction.txt");
-								try {
-									BufferedWriter out = new BufferedWriter(new FileWriter(resFile, true));
-									//out.write(className+" "+scale+" "+acc+" "+ap+"\n");
-									out.write(className+" "+String.valueOf(tradeoff)+" "+scale+" "+" "+ap+" "+ap_train+"\n");
-									out.flush();
-									out.close();
-									
-								} catch (IOException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
-								System.err.println("test - " + cls + "\tscale= " + scale + "\tap= " + ap + "\tlambda= " + lambda + "\tepsilon= " + epsilon);
+//			    				double ap = lsvm.testAPRegion(exampleTest, scale, simDir, className, tradeoff);
+//								File resFile=new File(simDir+"std_et_no_prediction.txt");
+//								try {
+//									BufferedWriter out = new BufferedWriter(new FileWriter(resFile, true));
+//									//out.write(className+" "+scale+" "+acc+" "+ap+"\n");
+//									out.write(className+" "+String.valueOf(tradeoff)+" "+scale+" "+" "+ap+" "+ap_train+"\n");
+//									out.flush();
+//									out.close();
+//									
+//								} catch (IOException e) {
+//									// TODO Auto-generated catch block
+//									e.printStackTrace();
+//								}
+//								System.err.println("test - " + cls + "\tscale= " + scale + "\tap= " + ap + "\tlambda= " + lambda + "\tepsilon= " + epsilon);
 //								System.out.println("\n");
 							}
 		    			}
