@@ -55,7 +55,7 @@ for cls in classes:
         f= open(root+"metric_"+str(scale)+"_"+cls+"_"+str(best_cv)+"_pos_neg.txt")
         cnt = 0
         totalIoU = 0.0
-        object = False
+#         object = False
         for line in f:
             yp, h, image_path = line.strip().split(',')
             c, year, imp = image_path.split("/")[-1].split('_')
