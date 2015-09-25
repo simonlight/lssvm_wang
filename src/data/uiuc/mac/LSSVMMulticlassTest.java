@@ -101,11 +101,11 @@ public class LSSVMMulticlassTest {
 	private static double epsilon = 1e-2;
 	
 	//big path
-//	public static String simDir = "/home/wangxin/results/gaze_voc_actions_stefan/stdlssvm/";
-//	public static String sourceDir = "/home/wangxin/Data/gaze_voc_actions_stefan/";
+	public static String simDir = "/home/wangxin/results/gaze_voc_actions_stefan/stdlssvm/";
+	public static String sourceDir = "/home/wangxin/Data/gaze_voc_actions_stefan/";
 	
-	public static String simDir = "/home/wangxin/Data/ferrari_data/reduit_singlebb/";
-	public static String sourceDir = "/home/wangxin/Data/ferrari_data/POETdataset/POETdataset/";
+//	public static String simDir = "/home/wangxin/Data/ferrari_data/reduit_singlebb/";
+//	public static String sourceDir = "/home/wangxin/Data/ferrari_data/POETdataset/POETdataset/";
 
 //	public static String simDir = "/local/wangxin/results/gaze_voc_actions_stefan/";
 //	public static String sourceDir = "/local/wangxin/Data/gaze_voc_actions_stefan/";
