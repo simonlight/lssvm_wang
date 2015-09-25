@@ -312,12 +312,13 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 		double valmax = -Double.MAX_VALUE;
 		for(H h : enumerateH(x)) {
 			double val = valueOf(x,y,h,w);
+			System.out.println(val);
+			System.out.println(h);
+			System.out.println("------");
 			if(val>valmax){
 				valmax = val;
 				hpredict = h;
-				System.out.println(val);
-				System.out.println(h);
-				System.out.println("------");
+				
 			}
 		}
 		return hpredict;
