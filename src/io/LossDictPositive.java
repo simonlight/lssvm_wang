@@ -26,7 +26,7 @@ public class LossDictPositive {
 					double ETLoss = Double.parseDouble(br.readLine());
 					br.close();
 					fr.close();
-					map.put(childNode.getAbsolutePath(), ETLoss); 
+					map.put(childNode.getName(), ETLoss); 
 				
 				}
 	        			

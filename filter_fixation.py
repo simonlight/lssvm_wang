@@ -136,7 +136,7 @@ def calculate_gaze_ratio(train_list, gaze_path):
             for i_x in range(block_num):
                 for i_y in range(block_num):
                     ratio = np.sum(integrate_image[i_x:11-block_num+i_x, i_y:11-block_num+i_y])/total_fixations
-                    folder = root+"ETLoss_ratio/"+action_category+'/'+str(scale)+'/'
+                    folder = root + "ETLoss_ratio/"+action_category+'/'+str(scale)+'/'
                     #if not os.path.exists(folder):
                         #os.makedirs(folder)
                     #if scale == 1:
