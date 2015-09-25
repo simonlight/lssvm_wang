@@ -150,8 +150,8 @@ public class LSSVMMulticlassTest {
         	System.exit(-1);
 	    }
 		
-	    double[] lambdaCV = {1e-3};
-	    double[] epsilonCV = {1e-2};//1e-2
+	    double[] lambdaCV = {1e-3,1e-4,1e-5,1e-2,1e-1};//1e-4
+	    double[] epsilonCV = {1e-1,1e-2,1e-3,1e-4,1e-5};//1e-2
 	    
 
 	    String[] classes = {args[0]};	    
@@ -209,13 +209,13 @@ public class LSSVMMulticlassTest {
 					//List<TrainingSample<BagMIL>> listTrain = BagReader.readBagMIL(inputDir + "/multiclass_" + features + "_train_scale_" + scale + ".txt", numWords);
 					List<STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>> exampleTrain = new ArrayList<STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>>();
 					for(int i=0; i<listTrain.size(); i++) {
-						exampleTrain.add(new STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>(new LatentRepresentation<BagMIL, Integer>(listTrain.get(i).sample,0), listTrain.get(i).label));
+						exampleTrain.add(new STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>(new LatentRepresentation<BagMIL, Integer>(listTrain.get(i).sample,2), listTrain.get(i).label));
 					}
 
 					List<TrainingSample<BagMIL>> listTest = BagReader.readBagMIL(inputDir + "/"+className+"_val_scale_"+scale+"_matconvnet_m_2048_layer_20.txt", numWords);
 					List<STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>> exampleTest = new ArrayList<STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>>();
 					for(int i=0; i<listTest.size(); i++) {
-						exampleTest.add(new STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>(new LatentRepresentation<BagMIL, Integer>(listTest.get(i).sample,0), listTest.get(i).label));
+						exampleTest.add(new STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>(new LatentRepresentation<BagMIL, Integer>(listTest.get(i).sample,2), listTest.get(i).label));
 					}
 			
 	    			for(double epsilon : epsilonCV) {
@@ -301,7 +301,9 @@ public class LSSVMMulticlassTest {
 		    			}
 		    		}
 	    		}
-	    	}
+
+    		
+    		}
 	    }
 	}}
 	
