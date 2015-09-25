@@ -100,9 +100,9 @@ public class LSSVMMulticlassTestET {
 	private static int optim = 1;
 	private static double epsilon = 1e-2;
 	//racine
-	public static String simDir = "/home/wangxin/results/gaze_voc_actions_stefan/std_et/";
 	public static String sourceDir = "/home/wangxin/Data/gaze_voc_actions_stefan/";
-	
+	public static String simDir = sourceDir+"std_et/";
+	public static String lossPath = sourceDir+"ETLoss_dict/";
 	
 	public static int split = 1;
 	public static int scale = 100;
@@ -247,7 +247,7 @@ public class LSSVMMulticlassTestET {
 
 	    		    		LSSVMMulticlassFastBagMILET lsvm = new LSSVMMulticlassFastBagMILET(); 
 							lsvm.setLambda(lambda);
-							lsvm.setLossDict("/home/wangxin/Data/ferrari_data/reduit_allbb/ETLoss_dict/ETLOSS+_"+scale+".loss");
+							lsvm.setLossDict(lossPath+"ETLOSS+_"+scale+".loss");
 							lsvm.setTradeOff(tradeoff);
 
 							//lsvm.setInitType(init);
