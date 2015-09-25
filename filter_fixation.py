@@ -148,5 +148,6 @@ def calculate_gaze_ratio(train_list, gaze_path):
                     #loss_file.close()
                     check+=ratio
             print check
+            #
 calculate_gaze_ratio(train_list, gaze_path)
     
