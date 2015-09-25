@@ -1,7 +1,7 @@
 import collections
 
-std=open("/home/wangxin/results/gaze_voc_actions_stefan/stdlssvm/res_lssvm.txt")
-et=open("/home/wangxin/results/gaze_voc_actions_stefan/std_et/std_et_no_prediction.txt")
+std=open("/local/wangxin/Data/ferrari_data/res_std_new.txt")
+et=open("/local/wangxin/Data/ferrari_data/res_et_new.txt")
 
 res_std = collections.defaultdict(lambda : collections.defaultdict(lambda : None))
 res_et=collections.defaultdict(lambda : collections.defaultdict(lambda : None))
@@ -63,5 +63,5 @@ for k,v in res_std.items():
 	print  str(class_avg/c)+'\t',
 	print str(max_c)+'\t',
 	print str(min_c)+'\n',
-# print stdsum/61
-# print etsum/61
+print stdsum/61
+print etsum/61
