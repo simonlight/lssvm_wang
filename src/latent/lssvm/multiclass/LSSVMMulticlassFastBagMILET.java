@@ -52,6 +52,8 @@ public class LSSVMMulticlassFastBagMILET extends LSSVMMulticlassFastET<BagMIL,In
 		double gaze_ratio = lossMap.get(ETLossFileName);
 		if(yi == 1 && yp == 1) {
 			return (double)((yi^yp)+tradeoff*(1-gaze_ratio));
+			System.out.println(ETLossFileName);
+			System.out.println(1-gaze_ratio);
 		}
 		else {
 			return (double)((yi^yp));
