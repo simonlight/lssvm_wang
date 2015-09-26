@@ -43,9 +43,9 @@ public class BagReader {
 				ligne=br.readLine();
 				System.out.println(ligne);
 				int nbBag = Integer.parseInt(ligne);
-//				//test!!!!!!!!!!!!!
-//				nbBag=50;
-//				//
+				//test!!!!!!!!!!!!!
+				nbBag=50;
+				//
 				for(int i=0; i<nbBag; i++) {
 					
 					System.out.print(".");
@@ -184,6 +184,8 @@ public class BagReader {
 			System.out.println("Features file " + file.getAbsolutePath() + " does not exist");
 			System.exit(0);
 		}
+		
+		System.out.println(feature);
 		
 		return feature;
 		
