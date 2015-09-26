@@ -185,7 +185,7 @@ public class BagReader {
 			System.exit(0);
 		}
 		
-//		System.out.println(feature);
+		System.out.println(feature);
 		
 		return feature;
 		
