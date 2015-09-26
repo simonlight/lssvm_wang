@@ -144,7 +144,7 @@ public class LSSVMMulticlassTestET {
         	System.exit(-1);
 	    }
 		
-	    double[] lambdaCV = {1e-4};
+	    double[] lambdaCV = {1e-3};
 	    double[] epsilonCV = {1e-2};
 
 	    double[] tradeoffCV = {0.5};
