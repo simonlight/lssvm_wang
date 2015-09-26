@@ -176,7 +176,9 @@ public class BagReader {
 			feature = new double[l.size()];
 			for(int i=0; i<l.size(); i++) {
 				feature[i] = l.get(i);
+				System.out.println(l.get(i));
 			}
+			System.out.println(file.getName());
 			
 			//System.out.println("PPMI - read feature: " + file.getAbsoluteFile() + "\tdim: " + feature.length);
 		}
@@ -185,7 +187,6 @@ public class BagReader {
 			System.exit(0);
 		}
 		
-		System.out.println(feature);
 		
 		return feature;
 		
