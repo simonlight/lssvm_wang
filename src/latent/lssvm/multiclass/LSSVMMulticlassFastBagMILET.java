@@ -90,16 +90,16 @@ public class LSSVMMulticlassFastBagMILET extends LSSVMMulticlassFastET<BagMIL,In
         double ap = AveragePrecision.getAP(eval);
         return ap;
 	}
-	public double testAPRegion(List<STrainingSample<LatentRepresentation<BagMIL, Integer>, Integer>> l, int scale, String simDir, String className) {
+	public double testAPRegion(List<STrainingSample<LatentRepresentation<BagMIL, Integer>, Integer>> l, int scale, String simDir, String className, double tradeoff) {
 		
 		List<Evaluation<Integer>> eval = new ArrayList<Evaluation<Integer>>();
-		File resFile=new File(simDir+"overlapping/metric_"+String.valueOf(scale)+"_"+className+".txt");
+		File resFile=new File(simDir+"std_et/metric_"+String.valueOf(scale)+"_"+className+"_"+String.valueOf(tradeoff)+"_"+"pos_neg"+".txt");
 		resFile.getAbsoluteFile().getParentFile().mkdirs();
 		try {
 			BufferedWriter out = new BufferedWriter(new FileWriter(resFile));
 			for(int i=0; i<l.size(); i++) {
 	        	// calcul score(x,y,h,w) = argmax_{y,h} <w, \psi(x,y,h)>
-	        	Integer yp = prediction(l.get(i).input);
+				Integer yp = prediction(l.get(i).input);
 	        	Integer h = prediction(l.get(i).input.x, yp);
 	        	Integer yi = l.get(i).output;
 				out.write(Integer.valueOf(yp) +","+Integer.valueOf(yi) +","+ Integer.valueOf(h)+","+l.get(i).input.x.getName()+"\n");
