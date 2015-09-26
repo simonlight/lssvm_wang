@@ -145,10 +145,10 @@ public class LSSVMMulticlassTestET {
 	    }
 		
 	    double[] lambdaCV = {1e-1,1e-2,1e-3,1e-4,1e-5};
-	    double[] epsilonCV = {1e-1,1e-2,1e-3,1e-4,1e-5};
+	    double[] epsilonCV = {1e-2};
 
 //	    double[] tradeoffCV = {0.5};
-	    double[] tradeoffCV = {0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0};
+	    double[] tradeoffCV = {0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0,1.1,1.2,1.3,1.4,1.5,1.6,1.7,1.8,1.9,2};
 	    String[] classes = {args[0]};
 	    int[] scaleCV = {Integer.valueOf(args[1])};
 	    
@@ -235,7 +235,7 @@ public class LSSVMMulticlassTestET {
 			    			if(true){
 			    				lsvm.train(exampleTrain);
 			    				double ap_train = lsvm.testAPRegion(exampleTrain,scale, simDir, className, tradeoff);
-								System.err.println("train " + String.valueOf(tradeoff)+"\t"+cls + "\tscale= " + scale + "\tap= " + ap_train + "\tlambda= " + lambda + "\tepsilon= " + epsilon);
+								System.err.println("train " + String.valueOf(tradeoff)+" "+cls + " scale= " + scale + " ap= " + ap_train + " lambda= " + lambda + " epsilon= " + epsilon);
 								
 								//double acc = lsvm.test(exampleTrain);
 								//System.err.println("train - " + cls + "\tscale= " + scale + "\tacc= " + acc + "\tlambda= " + lambda + "\tepsilon= " + epsilon);
@@ -298,7 +298,7 @@ public class LSSVMMulticlassTestET {
 									// TODO Auto-generated catch block
 									e.printStackTrace();
 								}
-								System.err.println("test - " + cls + "\tscale= " + scale + "\tap= " + ap + "\tlambda= " + lambda + "\tepsilon= " + epsilon);
+								System.err.println("test "+ String.valueOf(tradeoff)+" "+cls + " scale= " + scale + " ap= " + ap + " lambda= " + lambda + " epsilon= " + epsilon);
 								System.out.println("\n");
 							}
 		    			}
