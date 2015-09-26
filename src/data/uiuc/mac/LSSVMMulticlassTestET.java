@@ -144,7 +144,7 @@ public class LSSVMMulticlassTestET {
         	System.exit(-1);
 	    }
 		
-	    double[] lambdaCV = {1e-3};
+	    double[] lambdaCV = {1e-4};
 	    double[] epsilonCV = {1e-2};
 
 	    double[] tradeoffCV = {0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0};
@@ -284,21 +284,21 @@ public class LSSVMMulticlassTestET {
 //									// TODO Auto-generated catch block
 //									e.printStackTrace();
 //								}
-//			    				double ap = lsvm.testAPRegion(exampleTest, scale, simDir, className, tradeoff);
-//								File resFile=new File(simDir+"std_et_no_prediction.txt");
-//								try {
-//									BufferedWriter out = new BufferedWriter(new FileWriter(resFile, true));
-//									//out.write(className+" "+scale+" "+acc+" "+ap+"\n");
-//									out.write(className+" "+String.valueOf(tradeoff)+" "+scale+" "+" "+ap+" "+ap_train+"\n");
-//									out.flush();
-//									out.close();
-//									
-//								} catch (IOException e) {
-//									// TODO Auto-generated catch block
-//									e.printStackTrace();
-//								}
-//								System.err.println("test - " + cls + "\tscale= " + scale + "\tap= " + ap + "\tlambda= " + lambda + "\tepsilon= " + epsilon);
-//								System.out.println("\n");
+			    				double ap = lsvm.testAPRegion(exampleTest, scale, simDir, className, tradeoff);
+								File resFile=new File(simDir+"std_et_no_prediction.txt");
+								try {
+									BufferedWriter out = new BufferedWriter(new FileWriter(resFile, true));
+									//out.write(className+" "+scale+" "+acc+" "+ap+"\n");
+									out.write(className+" "+String.valueOf(tradeoff)+" "+scale+" "+" "+ap+" "+ap_train+"\n");
+									out.flush();
+									out.close();
+									
+								} catch (IOException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+								System.err.println("test - " + cls + "\tscale= " + scale + "\tap= " + ap + "\tlambda= " + lambda + "\tepsilon= " + epsilon);
+								System.out.println("\n");
 							}
 		    			}
 	    		    	}
