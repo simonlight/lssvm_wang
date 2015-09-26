@@ -151,7 +151,7 @@ public class LSSVMMulticlassTest {
 	    }
 		
 	    double[] lambdaCV = {1e-1,1e-2,1e-3,1e-4,1e-5};//1e-4
-	    double[] epsilonCV = {1e-2};//1e-2
+	    double[] epsilonCV = {1e-1, 1e-2, 1e-3, 1e-4, 1e-5};//1e-2
 	    
 
 	    String[] classes = {args[0]};	    
