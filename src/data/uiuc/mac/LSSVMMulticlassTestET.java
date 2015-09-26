@@ -234,7 +234,7 @@ public class LSSVMMulticlassTestET {
 			    			//if(compute || fileClassifier == null) {
 			    			if(true){
 			    				lsvm.train(exampleTrain);
-			    				double ap_train = lsvm.testAPRegion(exampleTrain,scale, simDir, className, tradeoff);
+			    				double ap_train = lsvm.testAPRegion(exampleTrain, scale, simDir, className, tradeoff);
 								System.err.println("train " + String.valueOf(tradeoff)+" "+cls + " scale= " + scale + " ap= " + ap_train + " lambda= " + lambda + " epsilon= " + epsilon);
 								
 								//double acc = lsvm.test(exampleTrain);
