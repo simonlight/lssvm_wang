@@ -144,11 +144,11 @@ public class LSSVMMulticlassTestET {
         	System.exit(-1);
 	    }
 		
-	    double[] lambdaCV = {1e-1,1e-2,1e-3,1e-4,1e-5};
-	    double[] epsilonCV = {1e-2};
+	    double[] lambdaCV = {1e-4};
+	    double[] epsilonCV = {1e-2,1e-3,1e-4,1e-5,0};
 
 //	    double[] tradeoffCV = {0.5};
-	    double[] tradeoffCV = {0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0,1.1,1.2,1.3,1.4,1.5,1.6,1.7,1.8,1.9,2};
+	    double[] tradeoffCV = {0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0};
 	    String[] classes = {args[0]};
 	    int[] scaleCV = {Integer.valueOf(args[1])};
 	    
