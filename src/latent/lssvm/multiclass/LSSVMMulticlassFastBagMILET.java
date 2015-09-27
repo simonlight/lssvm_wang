@@ -90,10 +90,11 @@ public class LSSVMMulticlassFastBagMILET extends LSSVMMulticlassFastET<BagMIL,In
         double ap = AveragePrecision.getAP(eval);
         return ap;
 	}
-	public double testAPRegion(List<STrainingSample<LatentRepresentation<BagMIL, Integer>, Integer>> l, int scale, String simDir, String className, double tradeoff) {
+	public double testAPRegion(List<STrainingSample<LatentRepresentation<BagMIL, Integer>, Integer>> l, double epsilon, double lambda,int scale, String simDir, String className, double tradeoff) {
 		
 		List<Evaluation<Integer>> eval = new ArrayList<Evaluation<Integer>>();
-		File resFile=new File(simDir+"std_et/metric_"+String.valueOf(scale)+"_"+className+"_"+String.valueOf(tradeoff)+"_"+"pos_neg"+".txt");
+		File resFile=new File(simDir+"overlapping/metric_"+String.valueOf(scale)+"_"+Double.valueOf(epsilon)+"_"+Double.valueOf(lambda)+"_"+className+".txt");
+
 		resFile.getAbsoluteFile().getParentFile().mkdirs();
 		try {
 			BufferedWriter out = new BufferedWriter(new FileWriter(resFile));

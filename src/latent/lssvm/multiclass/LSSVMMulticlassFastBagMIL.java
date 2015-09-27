@@ -58,10 +58,10 @@ public class LSSVMMulticlassFastBagMIL extends LSSVMMulticlassFast<BagMIL,Intege
         double ap = AveragePrecision.getAP(eval);
         return ap;
 	}
-	public double testAPRegion(List<STrainingSample<LatentRepresentation<BagMIL, Integer>, Integer>> l, int scale, String simDir, String className) {
+	public double testAPRegion(List<STrainingSample<LatentRepresentation<BagMIL, Integer>, Integer>> l, double epsilon, double lambda,int scale, String simDir, String className) {
 		
 		List<Evaluation<Integer>> eval = new ArrayList<Evaluation<Integer>>();
-		File resFile=new File(simDir+"overlapping/metric_"+String.valueOf(scale)+"_"+className+".txt");
+		File resFile=new File(simDir+"overlapping/metric_"+String.valueOf(scale)+"_"+Double.valueOf(epsilon)+"_"+Double.valueOf(lambda)+"_"+className+".txt");
 		resFile.getAbsoluteFile().getParentFile().mkdirs();
 		try {
 			BufferedWriter out = new BufferedWriter(new FileWriter(resFile));
@@ -70,7 +70,7 @@ public class LSSVMMulticlassFastBagMIL extends LSSVMMulticlassFast<BagMIL,Intege
 	        	Integer yp = prediction(l.get(i).input);
 	        	Integer h = prediction(l.get(i).input.x, yp);
 	        	Integer yi = l.get(i).output;
-				out.write(Integer.valueOf(yp) +","+Integer.valueOf(yi) +","+ Integer.valueOf(h)+","+l.get(i).input.x.getName()+"\n");
+				out.write(Integer.valueOf(yp) +","+Integer.valueOf(yi) +","+Integer.valueOf(h)+","+l.get(i).input.x.getName()+"\n");
 				out.flush();
 	        	double score = valueOf(l.get(i).input.x,yp,h,w);
 	        	eval.add(new Evaluation<Integer>((l.get(i).output == 0 ? -1 : 1), (yp == 0 ? -1 : 1)*score));

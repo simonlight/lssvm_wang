@@ -150,8 +150,8 @@ public class LSSVMMulticlassTest {
         	System.exit(-1);
 	    }
 		
-	    double[] lambdaCV = {1e-1,1e-2,1e-3,1e-4,1e-5};//1e-4
-	    double[] epsilonCV = {1e-1, 1e-2, 1e-3, 1e-4, 1e-5};//1e-2
+	    double[] lambdaCV = {1e-4,1e-5};//1e-4
+	    double[] epsilonCV = {1e-2, 1e-3, 1e-4, 1e-5};//1e-2
 	    
 
 	    String[] classes = {args[0]};	    
@@ -283,7 +283,7 @@ public class LSSVMMulticlassTest {
 //									// TODO Auto-generated catch block
 //									e.printStackTrace();
 //								}
-								double ap = lsvm.testAPRegion(exampleTest, scale, simDir, className);
+								double ap = lsvm.testAPRegion(exampleTest, epsilon, lambda,scale, simDir, className);
 								File resFile=new File(simDir+"res_lssvm.txt");
 								try {
 									BufferedWriter out = new BufferedWriter(new FileWriter(resFile, true));
