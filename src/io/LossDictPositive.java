@@ -80,7 +80,7 @@ public class LossDictPositive {
 //		int[] scale_list={1,4,9};
 //		int[] scale_list={16};
 //		int[] scale_list={25};
-		int[] scale_list={36};
+		int[] scale_list={1,4,9,16,25};
 	    for (int scale_index=0; scale_index<scale_list.length;scale_index++){
         	int scale=scale_list[scale_index];
         	System.out.println(scale);
