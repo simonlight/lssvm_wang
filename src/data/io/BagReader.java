@@ -43,9 +43,9 @@ public class BagReader {
 				ligne=br.readLine();
 				System.out.println(ligne);
 				int nbBag = Integer.parseInt(ligne);
-				//test!!!!!!!!!!!!!
-				nbBag=2;
-				//
+//				//test!!!!!!!!!!!!!
+//				nbBag=2;
+//				//
 				for(int i=0; i<nbBag; i++) {
 					
 					System.out.print(".");
@@ -176,7 +176,6 @@ public class BagReader {
 			feature = new double[l.size()];
 			for(int i=0; i<l.size(); i++) {
 				feature[i] = l.get(i);
-				System.out.println(l.get(i));
 			}
 			
 			//System.out.println("PPMI - read feature: " + file.getAbsoluteFile() + "\tdim: " + feature.length);

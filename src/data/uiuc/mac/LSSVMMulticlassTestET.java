@@ -100,11 +100,11 @@ public class LSSVMMulticlassTestET {
 	private static int optim = 1;
 	private static double epsilon = 1e-2;
 	//racine
-//	public static String sourceDir = "/home/wangxin/Data/gaze_voc_actions_stefan/";
-//	public static String simDir = "/home/wangxin/results/gaze_voc_actions_stefan/"+"std_et/";
+	public static String sourceDir = "/home/wangxin/Data/gaze_voc_actions_stefan/";
+	public static String simDir = "/home/wangxin/results/gaze_voc_actions_stefan/"+"std_et/";
 //	
-	public static String simDir = "/home/wangxin/Data/ferrari_data/reduit_singlebb/";
-	public static String sourceDir = "/home/wangxin/Data/ferrari_data/POETdataset/POETdataset/";
+//	public static String simDir = "/home/wangxin/Data/ferrari_data/reduit_singlebb/";
+//	public static String sourceDir = "/home/wangxin/Data/ferrari_data/POETdataset/POETdataset/";
 	public static String lossPath = sourceDir+"ETLoss_dict/";
 	
 	public static int split = 1;
@@ -147,11 +147,12 @@ public class LSSVMMulticlassTestET {
         	System.exit(-1);
 	    }
 		
+//	    double[] lambdaCV = {1e-4,2e-4,3e-4,4e-4,5e-4,6e-4,7e-4,8e-4,9e-4,1e-3};
 	    double[] lambdaCV = {1e-4};
 	    double[] epsilonCV = {1e-2};
 
 //	    double[] tradeoffCV = {0.5};
-	    double[] tradeoffCV = {0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0};
+	    double[] tradeoffCV = {0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0,1.1,1.2,1.3,1.4,1.5};
 	    String[] classes = {args[0]};
 	    int[] scaleCV = {Integer.valueOf(args[1])};
 	    
