@@ -1,4 +1,4 @@
-for i in {309018..309047}
+for i in {441789..441798}
 do
 oardel $i
 done
