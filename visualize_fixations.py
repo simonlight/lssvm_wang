@@ -4,12 +4,14 @@ import os
 import numpy as np
 import itertools
 from matplotlib import pyplot as plt
+
 fixation_path = "/local/wangxin/Data/gaze_voc_actions_stefan/train_gazes"
 pascal_voc_2012_train_images = "/local/wangxin/Data/VOCdevkit_trainset/VOC2012/JPEGImages/"
 gaze_path="/local/wangxin/Data/gaze_voc_actions_stefan/train_gazes/"
+
 for root,dirs,files in os.walk(fixation_path):
     for file in files:
-        file = "2010_006960.json"
+        file = "2010_005042.xxxx"
         filename_root = file[:-5]#.json
         fixation = json.load(open(gaze_path+file)).values()
         img = pascal_voc_2012_train_images+filename_root+'.jpg'
