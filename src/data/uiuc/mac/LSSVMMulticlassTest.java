@@ -107,8 +107,6 @@ public class LSSVMMulticlassTest {
 //	public static String simDir = "/home/wangxin/Data/ferrari_data/reduit_singlebb/";
 //	public static String sourceDir = "/home/wangxin/Data/ferrari_data/POETdataset/POETdataset/";
 
-//	public static String simDir = "/local/wangxin/results/gaze_voc_actions_stefan/";
-//	public static String sourceDir = "/local/wangxin/Data/gaze_voc_actions_stefan/";
 	
 	public static int split = 1;
 	public static int scale = 100;
