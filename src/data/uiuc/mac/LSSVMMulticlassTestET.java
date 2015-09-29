@@ -289,7 +289,7 @@ public class LSSVMMulticlassTestET {
 //								}
 			    				
 			    				double ap = lsvm.testAPRegion(exampleTest, epsilon, lambda,scale, simDir, className, tradeoff);
-								File resFile=new File(simDir+"std_et.txt");
+								File resFile=new File(simDir+"std_et_walking.txt");
 								try {
 									BufferedWriter out = new BufferedWriter(new FileWriter(resFile, true));
 									//out.write(className+" "+scale+" "+acc+" "+ap+"\n");
