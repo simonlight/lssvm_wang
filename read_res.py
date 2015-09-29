@@ -24,10 +24,10 @@ def read_dict(res):
 		for k_lbd in res[k_cls].keys():
 			for k_scale in res[k_cls][k_lbd].keys():
 				for k_tradeoff in res[k_cls][k_lbd][k_scale].keys():
-					for v_aptest in res[k_cls][k_lbd][k_scale][k_tradeoff]:
+					for v_aptest in res[k_cls][k_lbd][k_scale][k_tradeoff].values():
 						if v_aptest > cv_res[k_cls][0]:
 							cv_res[k_cls][0] = v_aptest
-							cv_res[k_cls][1] = [k_cls,k_lbd,k_scale,k_tradeoff]
+							cv_res[k_cls][1] = [k_lbd,k_scale,k_tradeoff]
 	return cv_res
 cv_std_res = read_dict(std_res)
 print cv_std_res
