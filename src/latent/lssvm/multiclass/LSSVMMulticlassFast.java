@@ -3,6 +3,7 @@ package latent.lssvm.multiclass;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
 
@@ -28,6 +29,7 @@ public abstract class LSSVMMulticlassFast<X,H> implements LatentStructuralClassi
 	protected int cpmax = 50;
 	protected int cpmin = 5;
 	protected double epsilon = 1e-2;
+	
 	
 	//svm hyperplane
 	protected double[][] w = null;

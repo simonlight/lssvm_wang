@@ -41,7 +41,7 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 	protected int cpmin = 5;
 	protected double epsilon = 1e-2;
 	protected HashMap<String , Double> lossMap = new HashMap<String , Double>(); 
-	protected double tradeoff = 0.5;
+	protected double tradeoff;
 
 	//svm hyperplane
 	protected double[][] w = null;
