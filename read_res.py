@@ -8,7 +8,7 @@ et=open("/home/wangxin/results/gaze_voc_actions_stefan/std_et/std_et.txt")
 
 def read_res(result_file):
 	#Organize the dict like    category/lambda/scale/tradeoff/testap
-	res= collections.defaultdict(lambda : collections.defaultdict(lambda : collections.defaultdict(lambda : None)))
+	res= collections.defaultdict(lambda : collections.defaultdict(lambda : collections.defaultdict(lambda : collections.defaultdict(lambda : None))))
 
 	for line in result_file:
 		cls, tradeoff,scale,lbd,epsilon,aptest,aptrain = line.strip().split(' ')
