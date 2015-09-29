@@ -29,8 +29,12 @@ def read_dict(res):
 						cv_res[k_cls][0] = v_aptest
 						cv_res[k_cls][1] = [k_lbd,k_scale,k_tradeoff]
 	return cv_res
+
 cv_std_res = read_dict(std_res)
+cv_et_res = read_dict(et_res)
+
 print cv_std_res
+print cv_et_res
 # stdsum=0
 """for k,v in res_std.items():
 	print k,
