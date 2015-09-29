@@ -12,7 +12,7 @@ def read_res(result_file):
 
 	for line in result_file:
 		cls, tradeoff,scale,lbd,epsilon,aptest,aptrain = line.strip().split(' ')
-		res[cls][lbd][scale][tradeoff]=aptest
+		res[cls][lbd][scale][tradeoff]=float(aptest)
 	return res
 
 std_res = read_res(std)
