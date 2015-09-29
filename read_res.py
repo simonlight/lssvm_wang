@@ -24,7 +24,8 @@ def read_dict(res):
 		for k_lbd in res[k_cls].keys():
 			for k_scale in res[k_cls][k_lbd].keys():
 				for k_tradeoff in res[k_cls][k_lbd][k_scale].keys():
-					for v_aptest in res[k_cls][k_lbd][k_scale][k_tradeoff].values():
+					for v_aptest in res[k_cls][k_lbd][k_scale][k_tradeoff]:
+						print v_aptest
 						if v_aptest > cv_res[k_cls][0]:
 							cv_res[k_cls][0] = v_aptest
 							cv_res[k_cls][1] = [k_lbd,k_scale,k_tradeoff]
