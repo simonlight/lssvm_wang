@@ -145,7 +145,7 @@ public class LSSVMMulticlassTestET {
 //	    }
 		
 //	    double[] lambdaCV = {1e-4,2e-4,3e-4,4e-4,5e-4,6e-4,7e-4,8e-4,9e-4,1e-3};
-	    double[] lambdaCV = {1e-3};
+	    double[] lambdaCV = {1e-4};
 	    double[] epsilonCV = {1e-2};
 
 //	    double[] tradeoffCV = {0.0};
@@ -289,7 +289,7 @@ public class LSSVMMulticlassTestET {
 //								}
 			    				
 			    				double ap = lsvm.testAPRegion(exampleTest, epsilon, lambda,scale, simDir, className, tradeoff);
-								File resFile=new File(simDir+"std_et_walking.txt");
+								File resFile=new File(simDir+"std_et_walking_2.txt");
 								try {
 									BufferedWriter out = new BufferedWriter(new FileWriter(resFile, true));
 									//out.write(className+" "+scale+" "+acc+" "+ap+"\n");
