@@ -24,7 +24,7 @@ public abstract class LSSVMMulticlassFast<X,H> implements LatentStructuralClassi
 	protected int optim = 1;
 	protected double lambda = 1e-4;
 	protected int epochsLatentMax = 50;
-	protected int epochsLatentMin = 10;
+	protected int epochsLatentMin = 5;
 	protected int cpmax = 50;
 	protected int cpmin = 5;
 	protected double epsilon = 1e-2;
