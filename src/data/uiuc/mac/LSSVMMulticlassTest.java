@@ -95,10 +95,9 @@ public class LSSVMMulticlassTest {
 	
 	private static int cpmax = 500;
 	private static int cpmin = 10;
-	private static double lambda = 1e-2;
-	private static int init = 0;
+//	private static int init = 0;
 	private static int optim = 1;
-	private static double epsilon = 1e-2;
+//	private static double epsilon = 1e-2;
 	
 	//big path
 	public static String simDir = "/home/wangxin/results/gaze_voc_actions_stefan/stdlssvm/";
@@ -117,39 +116,39 @@ public class LSSVMMulticlassTest {
 		//
 		// Option parsing		
 	    // Create the parser
-	    CommandLineParser parser = new GnuParser();
-	    try {
-	    	// parse the command line arguments
-	    	CommandLine line = parser.parse( options, args );
-
-	    	if(line.hasOption("init")) {
-	    		init = Integer.parseInt(line.getOptionValue("i"));
-	    	}
-	    	if(line.hasOption("optim")) {
-	    		optim = Integer.parseInt(line.getOptionValue("o"));
-	    	}
-	    	if(line.hasOption("cuttingPlaneMax")) {
-	    		cpmax = Integer.parseInt(line.getOptionValue("cpmax"));
-	    	}
-	    	if(line.hasOption("cuttingPlaneMin")) {
-	    		cpmin = Integer.parseInt(line.getOptionValue("cpmin"));
-	    	}
-	    	
-	    	if(line.hasOption("numWords")) {
-	    		numWords = Integer.parseInt(line.getOptionValue("w"));
-	    	}
-	    	
-	    }
-	    catch(ParseException exp) {
-	        // oops, something went wrong
-	        System.err.println( "Parsing failed.  Reason: " + exp.getMessage() );
-        	HelpFormatter formatter = new HelpFormatter();
-        	formatter.printHelp( "Parameters", options );
-        	System.exit(-1);
-	    }
+//	    CommandLineParser parser = new GnuParser();
+//	    try {
+//	    	// parse the command line arguments
+//	    	CommandLine line = parser.parse( options, args );
+//
+//	    	if(line.hasOption("init")) {
+//	    		init = Integer.parseInt(line.getOptionValue("i"));
+//	    	}
+//	    	if(line.hasOption("optim")) {
+//	    		optim = Integer.parseInt(line.getOptionValue("o"));
+//	    	}
+//	    	if(line.hasOption("cuttingPlaneMax")) {
+//	    		cpmax = Integer.parseInt(line.getOptionValue("cpmax"));
+//	    	}
+//	    	if(line.hasOption("cuttingPlaneMin")) {
+//	    		cpmin = Integer.parseInt(line.getOptionValue("cpmin"));
+//	    	}
+//	    	
+//	    	if(line.hasOption("numWords")) {
+//	    		numWords = Integer.parseInt(line.getOptionValue("w"));
+//	    	}
+//	    	
+//	    }
+//	    catch(ParseException exp) {
+//	        // oops, something went wrong
+//	        System.err.println( "Parsing failed.  Reason: " + exp.getMessage() );
+//        	HelpFormatter formatter = new HelpFormatter();
+//        	formatter.printHelp( "Parameters", options );
+//        	System.exit(-1);
+//	    }
 		
-	    double[] lambdaCV = {1e-4,1e-5};//1e-4
-	    double[] epsilonCV = {1e-2, 1e-3, 1e-4, 1e-5};//1e-2
+	    double[] lambdaCV = {1e-4};//1e-4
+	    double[] epsilonCV = {1e-2};//1e-2
 	    
 
 	    String[] classes = {args[0]};	    

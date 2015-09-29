@@ -75,18 +75,18 @@ public class LossDictPositive {
 //        	map.clear();
 //        }
 		
-		String[] classList={"dog","cat", "motorbike", "boat", "aeroplane", "horse", "cow", "sofa", "diningtable", "bicycle"};
-//		String[] classList={"jumping", "phoning", "playinginstrument", "reading", "ridingbike", "ridinghorse", "running", "takingphoto", "usingcomputer", "walking"};
+//		String[] classList={"dog","cat", "motorbike", "boat", "aeroplane", "horse", "cow", "sofa", "diningtable", "bicycle"};
+		String[] classList={"jumping", "phoning", "playinginstrument", "reading", "ridingbike", "ridinghorse", "running", "takingphoto", "usingcomputer", "walking"};
 //		int[] scale_list={1,4,9};
 //		int[] scale_list={16};
 //		int[] scale_list={25};
-		int[] scale_list={1,4,9,16,25};
+		int[] scale_list={36};
 	    for (int scale_index=0; scale_index<scale_list.length;scale_index++){
         	int scale=scale_list[scale_index];
         	System.out.println(scale);
         	for (String imClass:classList){
-//	        	File inputFolder = new File("/home/wangxin/Data/gaze_voc_actions_stefan/ETLoss_ratio/"+imClass+"/"+String.valueOf(scale)+"/");
-	        	File inputFolder = new File("/home/wangxin/Data/ferrari_data/POETdataset/POETdataset/ETLoss_ratio/"+imClass+"/"+String.valueOf(scale)+"/");
+	        	File inputFolder = new File("/home/wangxin/Data/gaze_voc_actions_stefan/ETLoss_ratio/"+imClass+"/"+String.valueOf(scale)+"/");
+//	        	File inputFolder = new File("/home/wangxin/Data/ferrari_data/POETdataset/POETdataset/ETLoss_ratio/"+imClass+"/"+String.valueOf(scale)+"/");
 	        	traverse(inputFolder);
         	}
 //        	ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("/local/wangxin/Data/ferrari_data/reduit_allbb/ETLoss_dict/ETLOSS+_"+convert(scale)+".loss"));  
