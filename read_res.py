@@ -18,8 +18,19 @@ def read_res(result_file):
 std_res = read_res(std)
 et_res = read_res(et)
 
-print std_res.values()
+def read_dict(res):
+	cv_res = collections.defaultdict(lambda :[0,None])
+	for k_cls in res.keys():
+		for k_lbd in res[k_cls].keys():
+			for k_scale in res[k_cls][k_lbd].keys():
+				for k_tradeoff in res[k_cls][k_lbd][k_scale].keys():
+					for v_aptest in res[k_cls][k_lbd][k_scale][k_tradeoff]:
+						if v_aptest > cv_res[k_cls][0]:
+							cv_res[k_cls][0] = v_aptest
+							cv_res[k_cls][1] = [k_cls,k_lbd,k_scale,k_tradeoff]
 
+cv_std_res = read_dict(std_res)
+print cv_std_res
 # stdsum=0
 """for k,v in res_std.items():
 	print k,
