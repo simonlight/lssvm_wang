@@ -1,20 +1,22 @@
 import collections
 
-std=open("/local/wangxin/Data/ferrari_data/res_std_new.txt")
-et=open("/local/wangxin/Data/ferrari_data/res_et_new.txt")
+# std=open("/local/wangxin/Data/ferrari_data/res_std_new.txt")
+# et=open("/local/wangxin/Data/ferrari_data/res_et_new.txt")
 
-res_std = collections.defaultdict(lambda : collections.defaultdict(lambda : None))
-res_et=collections.defaultdict(lambda : collections.defaultdict(lambda : None))
+std=open("/home/wangxin/results/gaze_voc_actions_stefan/stdlssvm/res_lssvm.txt")
+et=open("/home/wangxin/results/gaze_voc_actions_stefan/std_et/std_et.txt")
 
-for line in std:
-	cls, scale,_,acc,_,ap=line.split()
-	res_std[cls][scale.split(":")[1]]=ap.split(":")[1]
-	#res_std[cls][scale.split(":")[1]]=acc.split(":")[1]
+def read_res(result_file):
+	#Organize the dict like    category/lambda/scale/tradeoff/testap
+	res= collections.defaultdict(lambda : collections.defaultdict(lambda : collections.defaultdict(lambda : None)))
 
-for line in et:
-	cls, scale,_,acc,_,ap=line.split()
-	res_et[cls][scale.split(":")[1]]=ap.split(":")[1]
-	#res_et[cls][scale.split(":")[1]]=acc.split(":")[1]
+	for line in result_file:
+		cls, tradeoff,scale,lbd,epsilon,aptest,aptrain = line.strip().split(' ')
+		res[cls][lbd][scale][tradeoff]=aptest
+	return res
+
+print read_res(std)
+
 stdsum=0
 """for k,v in res_std.items():
 	print k,
@@ -38,7 +40,8 @@ for k,v in res_et.items():
 			v_max=v_
 			k_max=k_
 	print k_max,v_max
-	etsum+=float(v_max)"""
+	etsum+=float(v_max)
+"""
 	
 
 	
