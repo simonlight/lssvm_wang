@@ -28,7 +28,7 @@ def read_dict(res):
 						if v_aptest > cv_res[k_cls][0]:
 							cv_res[k_cls][0] = v_aptest
 							cv_res[k_cls][1] = [k_cls,k_lbd,k_scale,k_tradeoff]
-
+	return cv_res
 cv_std_res = read_dict(std_res)
 print cv_std_res
 # stdsum=0
