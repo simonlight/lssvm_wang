@@ -147,7 +147,8 @@ public class LSSVMMulticlassTest {
 //        	System.exit(-1);
 //	    }
 		
-	    double[] lambdaCV = {1e-4,2e-4,3e-4,4e-4,5e-4,6e-4,7e-4,8e-4,9e-4,1e-3};//1e-4
+//	    double[] lambdaCV = {1e-4,2e-4,3e-4,4e-4,5e-4,6e-4,7e-4,8e-4,9e-4,1e-3};//1e-4
+	    double[] lambdaCV = {1e-3};//1e-4
 	    double[] epsilonCV = {1e-2};//1e-2
 	    
 
