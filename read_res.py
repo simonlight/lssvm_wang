@@ -15,7 +15,10 @@ def read_res(result_file):
 		res[cls][lbd][scale][tradeoff]=aptest
 	return res
 
-print read_res(std)
+std_res = read_res(std)
+et_res = read_res(et)
+
+print std_res.values()
 
 stdsum=0
 """for k,v in res_std.items():
