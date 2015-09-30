@@ -119,7 +119,6 @@ public class LSSVMMulticlassTestET {
 							lsvm.setLossDict(lossPath+"ETLOSS+_"+scale+".loss");
 							lsvm.setTradeOff(tradeoff);
 
-							//lsvm.setInitType(init);
 							lsvm.setOptim(optim);
 							lsvm.setCpmax(cpmax);
 							lsvm.setCpmin(cpmin);
