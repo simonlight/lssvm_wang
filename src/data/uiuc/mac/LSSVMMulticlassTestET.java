@@ -32,66 +32,66 @@ import fr.lip6.jkernelmachines.type.TrainingSample;
 
 public class LSSVMMulticlassTestET {
 	
-	static Option cOption = OptionBuilder.withArgName("regularization parameter C")
-			.hasArg()
-			.withDescription("c value")
-			.withLongOpt("c")
-			.create("c");
-	static Option initOption = OptionBuilder.withArgName("init type")
-			.hasArg()
-			.withDescription("init")
-			.withLongOpt("init")
-			.create("i");
-	static Option optimOption = OptionBuilder.withArgName("optim")
-			.hasArg()
-			.withDescription("optim")
-			.withLongOpt("optim")
-			.create("o");
-	static Option cpmaxOption = OptionBuilder.withArgName("cutting plane")
-			.hasArg()
-			.withDescription("maximum number of cutting plane")
-			.withLongOpt("cuttingPlaneMax")
-			.create("cpmax");
-	static Option cpminOption = OptionBuilder.withArgName("cutting plane")
-			.hasArg()
-			.withDescription("minimum number of cutting plane")
-			.withLongOpt("cuttingPlaneMax")
-			.create("cpmin");
-	static Option epsilonOption = OptionBuilder.withArgName("epsilon")
-			.hasArg()
-			.withDescription("epsilon")
-			.withLongOpt("epsilon")
-			.create("eps");
-	
-	static Option scaleOption = OptionBuilder.withArgName("scale")
-			.hasArg()
-			.withDescription("scale")
-			.withLongOpt("scale")
-			.create("s");
-	static Option splitOption = OptionBuilder.withArgName("slit")
-			.hasArg()
-			.withDescription("split")
-			.withLongOpt("split")
-			.create("sp");
-	static Option numWordsOption = OptionBuilder.withArgName("numWords")
-			.hasArg()
-			.withDescription("numWords")
-			.withLongOpt("numWords")
-			.create("w");
-	
-	static Options options = new Options();
-	
-	static {
-		options.addOption(cOption);
-		options.addOption(initOption);
-		options.addOption(optimOption);
-		options.addOption(cpmaxOption);
-		options.addOption(cpminOption);
-		options.addOption(epsilonOption);
-		options.addOption(scaleOption);
-		options.addOption(splitOption);
-		options.addOption(numWordsOption);
-	}
+//	static Option cOption = OptionBuilder.withArgName("regularization parameter C")
+//			.hasArg()
+//			.withDescription("c value")
+//			.withLongOpt("c")
+//			.create("c");
+//	static Option initOption = OptionBuilder.withArgName("init type")
+//			.hasArg()
+//			.withDescription("init")
+//			.withLongOpt("init")
+//			.create("i");
+//	static Option optimOption = OptionBuilder.withArgName("optim")
+//			.hasArg()
+//			.withDescription("optim")
+//			.withLongOpt("optim")
+//			.create("o");
+//	static Option cpmaxOption = OptionBuilder.withArgName("cutting plane")
+//			.hasArg()
+//			.withDescription("maximum number of cutting plane")
+//			.withLongOpt("cuttingPlaneMax")
+//			.create("cpmax");
+//	static Option cpminOption = OptionBuilder.withArgName("cutting plane")
+//			.hasArg()
+//			.withDescription("minimum number of cutting plane")
+//			.withLongOpt("cuttingPlaneMax")
+//			.create("cpmin");
+//	static Option epsilonOption = OptionBuilder.withArgName("epsilon")
+//			.hasArg()
+//			.withDescription("epsilon")
+//			.withLongOpt("epsilon")
+//			.create("eps");
+//	
+//	static Option scaleOption = OptionBuilder.withArgName("scale")
+//			.hasArg()
+//			.withDescription("scale")
+//			.withLongOpt("scale")
+//			.create("s");
+//	static Option splitOption = OptionBuilder.withArgName("slit")
+//			.hasArg()
+//			.withDescription("split")
+//			.withLongOpt("split")
+//			.create("sp");
+//	static Option numWordsOption = OptionBuilder.withArgName("numWords")
+//			.hasArg()
+//			.withDescription("numWords")
+//			.withLongOpt("numWords")
+//			.create("w");
+//	
+//	static Options options = new Options();
+//	
+//	static {
+//		options.addOption(cOption);
+//		options.addOption(initOption);
+//		options.addOption(optimOption);
+//		options.addOption(cpmaxOption);
+//		options.addOption(cpminOption);
+//		options.addOption(epsilonOption);
+//		options.addOption(scaleOption);
+//		options.addOption(splitOption);
+//		options.addOption(numWordsOption);
+//	}
 	
 	private static int cpmax = 500;
 	private static int cpmin = 10;
@@ -111,38 +111,6 @@ public class LSSVMMulticlassTestET {
 
 	public static void main(String[] args) {
 		
-		// Option parsing		
-	    // Create the parser
-//	    CommandLineParser parser = new GnuParser();
-//	    try {
-//	    	// parse the command line arguments
-//	    	CommandLine line = parser.parse( options, args );
-//
-//	    	if(line.hasOption("init")) {
-//	    		init = Integer.parseInt(line.getOptionValue("i"));
-//	    	}
-//	    	if(line.hasOption("optim")) {
-//	    		optim = Integer.parseInt(line.getOptionValue("o"));
-//	    	}
-//	    	if(line.hasOption("cuttingPlaneMax")) {
-//	    		cpmax = Integer.parseInt(line.getOptionValue("cpmax"));
-//	    	}
-//	    	if(line.hasOption("cuttingPlaneMin")) {
-//	    		cpmin = Integer.parseInt(line.getOptionValue("cpmin"));
-//	    	}
-//	    	
-//	    	if(line.hasOption("numWords")) {
-//	    		numWords = Integer.parseInt(line.getOptionValue("w"));
-//	    	}
-//	    	
-//	    }
-//	    catch(ParseException exp) {
-//	        // oops, something went wrong
-//	        System.err.println( "Parsing failed.  Reason: " + exp.getMessage() );
-//        	HelpFormatter formatter = new HelpFormatter();
-//        	formatter.printHelp( "Parameters", options );
-//        	System.exit(-1);
-//	    }
 		
 //	    double[] lambdaCV = {1e-4,2e-4,3e-4,4e-4,5e-4,6e-4,7e-4,8e-4,9e-4,1e-3};
 	    double[] lambdaCV = {1e-4};
