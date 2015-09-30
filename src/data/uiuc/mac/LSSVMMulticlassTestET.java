@@ -2,28 +2,22 @@ package data.uiuc.mac;
 
 import java.io.BufferedWriter;
 import java.io.File;
-
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import latent.LatentRepresentation;
 import latent.lssvm.multiclass.LSSVMMulticlassFastBagMILET;
 import latent.variable.BagMIL;
-
 import struct.STrainingSample;
 import data.io.BagReader;
 import fr.lip6.jkernelmachines.type.TrainingSample;
 
 public class LSSVMMulticlassTestET {
 	
-	
-	private static int cpmax = 500;
-	private static int cpmin = 10;
-	private static int optim = 1;
 	
 	//racine
 	public static String sourceDir = "/home/wangxin/Data/gaze_voc_actions_stefan/";
@@ -33,13 +27,18 @@ public class LSSVMMulticlassTestET {
 	//	public static String sourceDir = "/home/wangxin/Data/ferrari_data/POETdataset/POETdataset/";
 	public static String lossPath = sourceDir+"ETLoss_dict/";
 	
-	public static int split = 1;
-	public static int scale = 100;
 	//ensure dimension of features
 	private static int numWords = 2048;
-
+	
+	
+	
 	public static void main(String[] args) {
 		
+		int optim = 1;
+		int epochsLatentMax = 50;
+		int epochsLatentMin = 5;
+		int cpmax = 500;
+		int cpmin = 10;
 		
 	    double[] lambdaCV = {1e-3,2e-3};
 //	    double[] lambdaCV = {1e-4};
@@ -78,11 +77,8 @@ public class LSSVMMulticlassTestET {
     		    	for(double lambda : lambdaCV) {
 		    			
     		    		LSSVMMulticlassFastBagMILET lsvm = new LSSVMMulticlassFastBagMILET();
+    		    		
     		    		lsvm.setLambda(lambda);
-						//lsvm.setInitType(init);
-						lsvm.setOptim(optim);
-						lsvm.setCpmax(cpmax);
-						lsvm.setCpmin(cpmin);
 						lsvm.setEpsilon(epsilon);
 						
 		    			String suffix = "_" + lsvm.toString();
@@ -115,14 +111,16 @@ public class LSSVMMulticlassTestET {
 	    		    		for(double tradeoff : tradeoffCV){
 
 	    		    		LSSVMMulticlassFastBagMILET lsvm = new LSSVMMulticlassFastBagMILET(); 
-							lsvm.setLambda(lambda);
+							
+	    		    		lsvm.setOptim(optim);
+	    		    		lsvm.setEpochsLatentMax(epochsLatentMax);
+	    		    		lsvm.setEpochsLatentMin(epochsLatentMin);
+	    		    		lsvm.setCpmax(cpmax);
+	    		    		lsvm.setCpmin(cpmin);
+	    		    		lsvm.setLambda(lambda);
+	    		    		lsvm.setEpsilon(epsilon);
 							lsvm.setLossDict(lossPath+"ETLOSS+_"+scale+".loss");
 							lsvm.setTradeOff(tradeoff);
-
-							lsvm.setOptim(optim);
-							lsvm.setCpmax(cpmax);
-							lsvm.setCpmin(cpmin);
-							lsvm.setEpsilon(epsilon);
 							
 							String suffix = "_" + lsvm.toString();
 							File fileClassifier = testPresenceFile(classifierDir + "/" + className + "/", className + "_" + scale + suffix);

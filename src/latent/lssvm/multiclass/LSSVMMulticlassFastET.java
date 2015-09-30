@@ -33,15 +33,15 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 	 */
 	private static final long serialVersionUID = 987718067018611039L;
 	
-	protected int optim = 1;
-	protected double lambda = 1e-4;
-	protected int epochsLatentMax = 50;
-	protected int epochsLatentMin = 5;
-	protected int cpmax = 50;
-	protected int cpmin = 5;
-	protected double epsilon = 1e-2;
-	protected HashMap<String , Double> lossMap = new HashMap<String , Double>(); 
+	protected int optim;
+	protected int epochsLatentMax;
+	protected int epochsLatentMin;
+	protected int cpmax;
+	protected int cpmin;
+	protected double lambda;
+	protected double epsilon;
 	protected double tradeoff;
+	protected HashMap<String , Double> lossMap = new HashMap<String , Double>(); 
 
 	//svm hyperplane
 	protected double[][] w = null;
