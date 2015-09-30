@@ -6,7 +6,7 @@ import fr.lip6.jkernelmachines.evaluation.Evaluation;
 
 public class AveragePrecision {
 
-	public static double getAP(List<Evaluation<Integer>> l) {
+	public double getAP(List<Evaluation<Integer>> l) {
 		
 		if(l == null)
 			return Double.NaN;
