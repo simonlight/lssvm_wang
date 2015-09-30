@@ -10,9 +10,7 @@ public class AveragePrecision {
 		
 		if(l == null)
 			return Double.NaN;
-		System.out.println(l);
 		Collections.sort(l);
-		System.out.println(l);
 		int[] tp = new int[l.size()];
 		int[] fp = new int[l.size()];
 		
@@ -31,6 +29,9 @@ public class AveragePrecision {
 			}
 			tp[i] = cumtp;
 			fp[i] = cumfp;
+			System.out.println(cumtp);
+			System.out.println("-----");
+			System.out.println(cumfp);
 			i++;
 		}
 		
