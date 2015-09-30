@@ -2,7 +2,6 @@ package data.uiuc.mac;
 
 import java.io.BufferedWriter;
 import java.io.File;
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,7 +11,6 @@ import java.util.List;
 import latent.LatentRepresentation;
 import latent.lssvm.multiclass.LSSVMMulticlassFastBagMIL;
 import latent.variable.BagMIL;
-
 import struct.STrainingSample;
 import data.io.BagReader;
 import fr.lip6.jkernelmachines.type.TrainingSample;
@@ -20,36 +18,34 @@ import fr.lip6.jkernelmachines.type.TrainingSample;
 public class LSSVMMulticlassTest {
 	
 
-	
-	private static int cpmax = 500;
-	private static int cpmin = 10;
-//	private static int init = 0;
-	private static int optim = 1;
-//	private static double epsilon = 1e-2;
-	
-	//big path
-	public static String simDir = "/home/wangxin/results/gaze_voc_actions_stefan/stdlssvm/";
-	public static String sourceDir = "/home/wangxin/Data/gaze_voc_actions_stefan/";
-	
-//	public static String simDir = "/home/wangxin/Data/ferrari_data/reduit_singlebb/";
-//	public static String sourceDir = "/home/wangxin/Data/ferrari_data/POETdataset/POETdataset/";
-
-	
-	public static int split = 1;
-	public static int scale = 100;
-	//ensure dimension of features
-	private static int numWords = 2048;
 
 	public static void main(String[] args) {
 		
-	    double[] lambdaCV = {1e-4,2e-4,3e-4,4e-4,5e-4,6e-4,7e-4,8e-4,9e-4,1e-3};//1e-4
-//	    double[] lambdaCV = {1e-3,2e-3};//1e-4
-	    double[] epsilonCV = {1e-2};//1e-2
-	    
+		String sourceDir = "/home/wangxin/Data/gaze_voc_actions_stefan/";
+		String simDir = "/home/wangxin/results/gaze_voc_actions_stefan/stdlssvm/";
+		
+		//	public static String simDir = "/home/wangxin/Data/ferrari_data/reduit_singlebb/";
+		//	public static String sourceDir = "/home/wangxin/Data/ferrari_data/POETdataset/POETdataset/";
+		String lossPath = sourceDir+"ETLoss_dict/";
+		
+		//ensure dimension of features
+		int numWords = 2048;
+		
+		int optim = 1;
+		int epochsLatentMax = 50;
+		int epochsLatentMin = 5;
+		int cpmax = 500;
+		int cpmin = 10;
+		
+	    double[] lambdaCV = {1e-3,2e-3};
+//	    double[] lambdaCV = {1e-4};
+	    double[] epsilonCV = {1e-2};
 
-	    String[] classes = {args[0]};	    
+	    double[] tradeoffCV = {0.0};
+//	    double[] tradeoffCV = {0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0};
+	    String[] classes = {args[0]};
 	    int[] scaleCV = {Integer.valueOf(args[1])};
-	    //int[] scaleCV = {50};
+	    
 	    //int[] splitCV = {1,2,3,4,5};
 	    int[] splitCV = {1};
 	    
@@ -73,26 +69,26 @@ public class LSSVMMulticlassTest {
 				System.out.println("classifierDir: " + classifierDir + "\n");
 				System.err.println("split " + split + "\t cls " + cls);
     			
-    			for(double epsilon : epsilonCV) {
-    		    	for(double lambda : lambdaCV) {
-		    			
-    		    		LSSVMMulticlassFastBagMIL lsvm = new LSSVMMulticlassFastBagMIL(); 
-						lsvm.setLambda(lambda);
-						//lsvm.setInitType(init);
-						lsvm.setOptim(optim);
-						lsvm.setCpmax(cpmax);
-						lsvm.setCpmin(cpmin);
-						lsvm.setEpsilon(epsilon);
-
-		    			String suffix = "_" + lsvm.toString();
-		    			System.out.println(suffix);
-		    			File fileClassifier = testPresenceFile(classifierDir + "/" + className + "/", className + "_" + scale + suffix);
-		    			if(fileClassifier == null) {
-		    				compute = true;
-		    			}
-		    			
-    		    	}
-    			}
+//    			for(double epsilon : epsilonCV) {
+//    		    	for(double lambda : lambdaCV) {
+//		    			
+//    		    		LSSVMMulticlassFastBagMIL lsvm = new LSSVMMulticlassFastBagMIL(); 
+//						lsvm.setLambda(lambda);
+//						//lsvm.setInitType(init);
+//						lsvm.setOptim(optim);
+//						lsvm.setCpmax(cpmax);
+//						lsvm.setCpmin(cpmin);
+//						lsvm.setEpsilon(epsilon);
+//
+//		    			String suffix = "_" + lsvm.toString();
+//		    			System.out.println(suffix);
+//		    			File fileClassifier = testPresenceFile(classifierDir + "/" + className + "/", className + "_" + scale + suffix);
+//		    			if(fileClassifier == null) {
+//		    				compute = true;
+//		    			}
+//		    			
+//    		    	}
+//    			}
 				
 //				if(compute) {
     			if(true) {
@@ -113,12 +109,15 @@ public class LSSVMMulticlassTest {
 	    		    	for(double lambda : lambdaCV) {
 			    			
 	    		    		LSSVMMulticlassFastBagMIL lsvm = new LSSVMMulticlassFastBagMIL(); 
-							lsvm.setLambda(lambda);
-							//lsvm.setInitType(init);
-							lsvm.setOptim(optim);
-							lsvm.setCpmax(cpmax);
-							lsvm.setCpmin(cpmin);
-							lsvm.setEpsilon(epsilon);
+	    		    		
+	    		    		lsvm.setOptim(optim);
+	    		    		lsvm.setEpochsLatentMax(epochsLatentMax);
+	    		    		lsvm.setEpochsLatentMin(epochsLatentMin);
+	    		    		lsvm.setCpmax(cpmax);
+	    		    		lsvm.setCpmin(cpmin);
+	    		    		lsvm.setLambda(lambda);
+	    		    		lsvm.setEpsilon(epsilon);
+							
 							
 							String suffix = "_" + lsvm.toString();
 							File fileClassifier = testPresenceFile(classifierDir + "/" + className + "/", className + "_" + scale + suffix);

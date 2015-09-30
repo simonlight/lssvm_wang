@@ -22,13 +22,13 @@ public abstract class LSSVMMulticlassFast<X,H> implements LatentStructuralClassi
 	 */
 	private static final long serialVersionUID = 987718067018611039L;
 	
-	protected int optim = 1;
-	protected double lambda = 1e-4;
-	protected int epochsLatentMax = 50;
-	protected int epochsLatentMin = 5;
-	protected int cpmax = 50;
-	protected int cpmin = 5;
-	protected double epsilon = 1e-2;
+	protected int optim ;
+	protected double lambda;
+	protected int epochsLatentMax;
+	protected int epochsLatentMin;
+	protected int cpmax;
+	protected int cpmin;
+	protected double epsilon;
 	
 	
 	//svm hyperplane

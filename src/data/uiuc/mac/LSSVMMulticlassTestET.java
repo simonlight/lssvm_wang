@@ -19,20 +19,18 @@ import fr.lip6.jkernelmachines.type.TrainingSample;
 public class LSSVMMulticlassTestET {
 	
 	
-	//racine
-	public static String sourceDir = "/home/wangxin/Data/gaze_voc_actions_stefan/";
-	public static String simDir = "/home/wangxin/results/gaze_voc_actions_stefan/"+"std_et/";
-	
-	//	public static String simDir = "/home/wangxin/Data/ferrari_data/reduit_singlebb/";
-	//	public static String sourceDir = "/home/wangxin/Data/ferrari_data/POETdataset/POETdataset/";
-	public static String lossPath = sourceDir+"ETLoss_dict/";
-	
-	//ensure dimension of features
-	private static int numWords = 2048;
-	
-	
 	
 	public static void main(String[] args) {
+		
+		String sourceDir = "/home/wangxin/Data/gaze_voc_actions_stefan/";
+		String simDir = "/home/wangxin/results/gaze_voc_actions_stefan/"+"std_et/";
+		
+		//	public static String simDir = "/home/wangxin/Data/ferrari_data/reduit_singlebb/";
+		//	public static String sourceDir = "/home/wangxin/Data/ferrari_data/POETdataset/POETdataset/";
+		String lossPath = sourceDir+"ETLoss_dict/";
+		
+		//ensure dimension of features
+		int numWords = 2048;
 		
 		int optim = 1;
 		int epochsLatentMax = 50;
@@ -44,7 +42,7 @@ public class LSSVMMulticlassTestET {
 //	    double[] lambdaCV = {1e-4};
 	    double[] epsilonCV = {1e-2};
 
-	    double[] tradeoffCV = {0.0};
+	    double[] tradeoffCV = {0.0, 0.1};
 //	    double[] tradeoffCV = {0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0};
 	    String[] classes = {args[0]};
 	    int[] scaleCV = {Integer.valueOf(args[1])};
@@ -73,22 +71,29 @@ public class LSSVMMulticlassTestET {
 				System.out.println("classifierDir: " + classifierDir + "\n");
 				System.err.println("split " + split + "\t cls " + cls);
     			
-    			for(double epsilon : epsilonCV) {
-    		    	for(double lambda : lambdaCV) {
-		    			
-    		    		LSSVMMulticlassFastBagMILET lsvm = new LSSVMMulticlassFastBagMILET();
-    		    		
-    		    		lsvm.setLambda(lambda);
-						lsvm.setEpsilon(epsilon);
-						
-		    			String suffix = "_" + lsvm.toString();
-		    			System.out.println(suffix);
-		    			File fileClassifier = testPresenceFile(classifierDir + "/" + className + "/", className + "_" + scale + suffix);
-		    			if(fileClassifier == null) {
-		    				compute = true;
-		    			}
-    		    	}
-    			}
+//    			for(double epsilon : epsilonCV) {
+//    		    	for(double lambda : lambdaCV) {
+//		    			
+//    		    		LSSVMMulticlassFastBagMILET lsvm = new LSSVMMulticlassFastBagMILET();
+//    		    		
+//    		    		lsvm.setOptim(optim);
+//    		    		lsvm.setEpochsLatentMax(epochsLatentMax);
+//    		    		lsvm.setEpochsLatentMin(epochsLatentMin);
+//    		    		lsvm.setCpmax(cpmax);
+//    		    		lsvm.setCpmin(cpmin);
+//    		    		lsvm.setLambda(lambda);
+//    		    		lsvm.setEpsilon(epsilon);
+//						lsvm.setLossDict(lossPath+"ETLOSS+_"+scale+".loss");
+//						lsvm.setTradeOff(tradeoff);
+//						
+//		    			String suffix = "_" + lsvm.toString();
+//		    			System.out.println(suffix);
+//		    			File fileClassifier = testPresenceFile(classifierDir + "/" + className + "/", className + "_" + scale + suffix);
+//		    			if(fileClassifier == null) {
+//		    				compute = true;
+//		    			}
+//    		    	}
+//    			}
 				
 //				if(compute) {
 				if(true) {
