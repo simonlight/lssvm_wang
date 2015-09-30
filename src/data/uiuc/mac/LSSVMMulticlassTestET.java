@@ -41,7 +41,7 @@ public class LSSVMMulticlassTestET {
 	public static void main(String[] args) {
 		
 		
-	    double[] lambdaCV = {1e-4,2e-4};
+	    double[] lambdaCV = {1e-3,2e-3};
 //	    double[] lambdaCV = {1e-4};
 	    double[] epsilonCV = {1e-2};
 
