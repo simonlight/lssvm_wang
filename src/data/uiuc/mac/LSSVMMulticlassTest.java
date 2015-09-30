@@ -107,7 +107,7 @@ public class LSSVMMulticlassTest {
 	    		    	for(double lambda : lambdaCV) {
 			    			
 	    		    		LSSVMMulticlassFastBagMIL lsvm = new LSSVMMulticlassFastBagMIL(); 
-	    		    		
+	    		    		System.out.println(lsvm);
 	    		    		lsvm.setOptim(optim);
 	    		    		lsvm.setEpochsLatentMax(epochsLatentMax);
 	    		    		lsvm.setEpochsLatentMin(epochsLatentMin);
