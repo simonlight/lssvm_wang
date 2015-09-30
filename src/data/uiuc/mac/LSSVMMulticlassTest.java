@@ -2,13 +2,9 @@ package data.uiuc.mac;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -17,81 +13,13 @@ import latent.LatentRepresentation;
 import latent.lssvm.multiclass.LSSVMMulticlassFastBagMIL;
 import latent.variable.BagMIL;
 
-import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.CommandLineParser;
-import org.apache.commons.cli.GnuParser;
-import org.apache.commons.cli.HelpFormatter;
-import org.apache.commons.cli.Option;
-import org.apache.commons.cli.OptionBuilder;
-import org.apache.commons.cli.Options;
-import org.apache.commons.cli.ParseException;
-
 import struct.STrainingSample;
 import data.io.BagReader;
 import fr.lip6.jkernelmachines.type.TrainingSample;
 
 public class LSSVMMulticlassTest {
 	
-	static Option cOption = OptionBuilder.withArgName("regularization parameter C")
-			.hasArg()
-			.withDescription("c value")
-			.withLongOpt("c")
-			.create("c");
-	static Option initOption = OptionBuilder.withArgName("init type")
-			.hasArg()
-			.withDescription("init")
-			.withLongOpt("init")
-			.create("i");
-	static Option optimOption = OptionBuilder.withArgName("optim")
-			.hasArg()
-			.withDescription("optim")
-			.withLongOpt("optim")
-			.create("o");
-	static Option cpmaxOption = OptionBuilder.withArgName("cutting plane")
-			.hasArg()
-			.withDescription("maximum number of cutting plane")
-			.withLongOpt("cuttingPlaneMax")
-			.create("cpmax");
-	static Option cpminOption = OptionBuilder.withArgName("cutting plane")
-			.hasArg()
-			.withDescription("minimum number of cutting plane")
-			.withLongOpt("cuttingPlaneMax")
-			.create("cpmin");
-	static Option epsilonOption = OptionBuilder.withArgName("epsilon")
-			.hasArg()
-			.withDescription("epsilon")
-			.withLongOpt("epsilon")
-			.create("eps");
-	
-	static Option scaleOption = OptionBuilder.withArgName("scale")
-			.hasArg()
-			.withDescription("scale")
-			.withLongOpt("scale")
-			.create("s");
-	static Option splitOption = OptionBuilder.withArgName("slit")
-			.hasArg()
-			.withDescription("split")
-			.withLongOpt("split")
-			.create("sp");
-	static Option numWordsOption = OptionBuilder.withArgName("numWords")
-			.hasArg()
-			.withDescription("numWords")
-			.withLongOpt("numWords")
-			.create("w");
-	
-	static Options options = new Options();
-	
-	static {
-		options.addOption(cOption);
-		options.addOption(initOption);
-		options.addOption(optimOption);
-		options.addOption(cpmaxOption);
-		options.addOption(cpminOption);
-		options.addOption(epsilonOption);
-		options.addOption(scaleOption);
-		options.addOption(splitOption);
-		options.addOption(numWordsOption);
-	}
+
 	
 	private static int cpmax = 500;
 	private static int cpmin = 10;
@@ -113,39 +41,6 @@ public class LSSVMMulticlassTest {
 	private static int numWords = 2048;
 
 	public static void main(String[] args) {
-		//
-		// Option parsing		
-	    // Create the parser
-//	    CommandLineParser parser = new GnuParser();
-//	    try {
-//	    	// parse the command line arguments
-//	    	CommandLine line = parser.parse( options, args );
-//
-//	    	if(line.hasOption("init")) {
-//	    		init = Integer.parseInt(line.getOptionValue("i"));
-//	    	}
-//	    	if(line.hasOption("optim")) {
-//	    		optim = Integer.parseInt(line.getOptionValue("o"));
-//	    	}
-//	    	if(line.hasOption("cuttingPlaneMax")) {
-//	    		cpmax = Integer.parseInt(line.getOptionValue("cpmax"));
-//	    	}
-//	    	if(line.hasOption("cuttingPlaneMin")) {
-//	    		cpmin = Integer.parseInt(line.getOptionValue("cpmin"));
-//	    	}
-//	    	
-//	    	if(line.hasOption("numWords")) {
-//	    		numWords = Integer.parseInt(line.getOptionValue("w"));
-//	    	}
-//	    	
-//	    }
-//	    catch(ParseException exp) {
-//	        // oops, something went wrong
-//	        System.err.println( "Parsing failed.  Reason: " + exp.getMessage() );
-//        	HelpFormatter formatter = new HelpFormatter();
-//        	formatter.printHelp( "Parameters", options );
-//        	System.exit(-1);
-//	    }
 		
 //	    double[] lambdaCV = {1e-4,2e-4,3e-4,4e-4,5e-4,6e-4,7e-4,8e-4,9e-4,1e-3};//1e-4
 	    double[] lambdaCV = {1e-3};//1e-4
@@ -201,10 +96,8 @@ public class LSSVMMulticlassTest {
 				
 //				if(compute) {
     			if(true) {
-					//
 					List<TrainingSample<BagMIL>> listTrain = BagReader.readBagMIL(inputDir + "/"+className+"_train_scale_"+scale+"_matconvnet_m_2048_layer_20.txt", numWords);
 					
-					//List<TrainingSample<BagMIL>> listTrain = BagReader.readBagMIL(inputDir + "/multiclass_" + features + "_train_scale_" + scale + ".txt", numWords);
 					List<STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>> exampleTrain = new ArrayList<STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>>();
 					for(int i=0; i<listTrain.size(); i++) {
 						exampleTrain.add(new STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>(new LatentRepresentation<BagMIL, Integer>(listTrain.get(i).sample,0), listTrain.get(i).label));
