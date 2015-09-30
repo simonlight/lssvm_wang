@@ -2,13 +2,10 @@ package data.uiuc.mac;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -17,81 +14,12 @@ import latent.LatentRepresentation;
 import latent.lssvm.multiclass.LSSVMMulticlassFastBagMILET;
 import latent.variable.BagMIL;
 
-import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.CommandLineParser;
-import org.apache.commons.cli.GnuParser;
-import org.apache.commons.cli.HelpFormatter;
-import org.apache.commons.cli.Option;
-import org.apache.commons.cli.OptionBuilder;
-import org.apache.commons.cli.Options;
-import org.apache.commons.cli.ParseException;
-
 import struct.STrainingSample;
 import data.io.BagReader;
 import fr.lip6.jkernelmachines.type.TrainingSample;
 
 public class LSSVMMulticlassTestET {
 	
-//	static Option cOption = OptionBuilder.withArgName("regularization parameter C")
-//			.hasArg()
-//			.withDescription("c value")
-//			.withLongOpt("c")
-//			.create("c");
-//	static Option initOption = OptionBuilder.withArgName("init type")
-//			.hasArg()
-//			.withDescription("init")
-//			.withLongOpt("init")
-//			.create("i");
-//	static Option optimOption = OptionBuilder.withArgName("optim")
-//			.hasArg()
-//			.withDescription("optim")
-//			.withLongOpt("optim")
-//			.create("o");
-//	static Option cpmaxOption = OptionBuilder.withArgName("cutting plane")
-//			.hasArg()
-//			.withDescription("maximum number of cutting plane")
-//			.withLongOpt("cuttingPlaneMax")
-//			.create("cpmax");
-//	static Option cpminOption = OptionBuilder.withArgName("cutting plane")
-//			.hasArg()
-//			.withDescription("minimum number of cutting plane")
-//			.withLongOpt("cuttingPlaneMax")
-//			.create("cpmin");
-//	static Option epsilonOption = OptionBuilder.withArgName("epsilon")
-//			.hasArg()
-//			.withDescription("epsilon")
-//			.withLongOpt("epsilon")
-//			.create("eps");
-//	
-//	static Option scaleOption = OptionBuilder.withArgName("scale")
-//			.hasArg()
-//			.withDescription("scale")
-//			.withLongOpt("scale")
-//			.create("s");
-//	static Option splitOption = OptionBuilder.withArgName("slit")
-//			.hasArg()
-//			.withDescription("split")
-//			.withLongOpt("split")
-//			.create("sp");
-//	static Option numWordsOption = OptionBuilder.withArgName("numWords")
-//			.hasArg()
-//			.withDescription("numWords")
-//			.withLongOpt("numWords")
-//			.create("w");
-//	
-//	static Options options = new Options();
-//	
-//	static {
-//		options.addOption(cOption);
-//		options.addOption(initOption);
-//		options.addOption(optimOption);
-//		options.addOption(cpmaxOption);
-//		options.addOption(cpminOption);
-//		options.addOption(epsilonOption);
-//		options.addOption(scaleOption);
-//		options.addOption(splitOption);
-//		options.addOption(numWordsOption);
-//	}
 	
 	private static int cpmax = 500;
 	private static int cpmin = 10;
