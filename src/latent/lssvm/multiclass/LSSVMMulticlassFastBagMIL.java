@@ -73,6 +73,7 @@ public class LSSVMMulticlassFastBagMIL extends LSSVMMulticlassFast<BagMIL,Intege
 				out.write(Integer.valueOf(yp) +","+Integer.valueOf(yi) +","+Integer.valueOf(h)+","+l.get(i).input.x.getName()+"\n");
 				out.flush();
 	        	double score = valueOf(l.get(i).input.x,yp,h,w);
+	        	System.out.println("test score:"+i+","+score);
 	        	eval.add(new Evaluation<Integer>((l.get(i).output == 0 ? -1 : 1), (yp == 0 ? -1 : 1)*score));
 	                //System.out.println(l.get(i).label + "\t" + scores[i] + ";");
 	        }

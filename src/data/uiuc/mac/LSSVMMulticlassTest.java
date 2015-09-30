@@ -116,17 +116,13 @@ public class LSSVMMulticlassTest {
 	    		    		lsvm.setCpmin(cpmin);
 	    		    		lsvm.setLambda(lambda);
 	    		    		lsvm.setEpsilon(epsilon);
-	    		    		System.err.println(lsvm);
-							
+	    		    		
 							String suffix = "_" + lsvm.toString();
-							System.err.println(suffix);
 							File fileClassifier = testPresenceFile(classifierDir + "/" + className + "/", className + "_" + scale + suffix);
 			    			//if(compute || fileClassifier == null) {
 			    			if(true){
-			    				System.out.println(lsvm.getW());
 			    				lsvm.train(exampleTrain);
-			    				System.out.println(lsvm.getW());
-								double ap_train = lsvm.testAP(exampleTrain);
+			    				double ap_train = lsvm.testAP(exampleTrain);
 								System.err.println("train - " + cls + "\tscale= " + scale + "\tap= " + ap_train + "\tlambda= " + lambda + "\tepsilon= " + epsilon);
 								
 //								acc = lsvm.test(exampleTest);
