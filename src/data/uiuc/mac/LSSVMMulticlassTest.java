@@ -107,7 +107,7 @@ public class LSSVMMulticlassTest {
 	    		    	for(double lambda : lambdaCV) {
 			    			
 	    		    		LSSVMMulticlassFastBagMIL lsvm = new LSSVMMulticlassFastBagMIL(); 
-	    		    		System.out.println(lsvm);
+	    		    		
 	    		    		lsvm.setOptim(optim);
 	    		    		lsvm.setEpochsLatentMax(epochsLatentMax);
 	    		    		lsvm.setEpochsLatentMin(epochsLatentMin);
@@ -115,7 +115,7 @@ public class LSSVMMulticlassTest {
 	    		    		lsvm.setCpmin(cpmin);
 	    		    		lsvm.setLambda(lambda);
 	    		    		lsvm.setEpsilon(epsilon);
-							
+	    		    		System.err.println(lsvm);
 							
 							String suffix = "_" + lsvm.toString();
 							System.err.println(suffix);
