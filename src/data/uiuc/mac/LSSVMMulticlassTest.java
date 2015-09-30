@@ -24,6 +24,7 @@ public class LSSVMMulticlassTest {
 		String sourceDir = "/home/wangxin/Data/gaze_voc_actions_stefan/";
 		String simDir = "/home/wangxin/results/gaze_voc_actions_stefan/stdlssvm/";
 		
+		
 		//	public static String simDir = "/home/wangxin/Data/ferrari_data/reduit_singlebb/";
 		//	public static String sourceDir = "/home/wangxin/Data/ferrari_data/POETdataset/POETdataset/";
 		
@@ -122,8 +123,9 @@ public class LSSVMMulticlassTest {
 							File fileClassifier = testPresenceFile(classifierDir + "/" + className + "/", className + "_" + scale + suffix);
 			    			//if(compute || fileClassifier == null) {
 			    			if(true){
+			    				System.out.println(lsvm.getW());
 			    				lsvm.train(exampleTrain);
-			    				
+			    				System.out.println(lsvm.getW());
 								double ap_train = lsvm.testAP(exampleTrain);
 								System.err.println("train - " + cls + "\tscale= " + scale + "\tap= " + ap_train + "\tlambda= " + lambda + "\tepsilon= " + epsilon);
 								
