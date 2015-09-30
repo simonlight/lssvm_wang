@@ -26,7 +26,6 @@ public class LSSVMMulticlassTest {
 		
 		//	public static String simDir = "/home/wangxin/Data/ferrari_data/reduit_singlebb/";
 		//	public static String sourceDir = "/home/wangxin/Data/ferrari_data/POETdataset/POETdataset/";
-		String lossPath = sourceDir+"ETLoss_dict/";
 		
 		//ensure dimension of features
 		int numWords = 2048;
@@ -41,8 +40,7 @@ public class LSSVMMulticlassTest {
 //	    double[] lambdaCV = {1e-4};
 	    double[] epsilonCV = {1e-2};
 
-	    double[] tradeoffCV = {0.0};
-//	    double[] tradeoffCV = {0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0};
+	    
 	    String[] classes = {args[0]};
 	    int[] scaleCV = {Integer.valueOf(args[1])};
 	    
