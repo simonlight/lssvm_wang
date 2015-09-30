@@ -24,12 +24,13 @@ public class LSSVMMulticlassTestET {
 	private static int cpmax = 500;
 	private static int cpmin = 10;
 	private static int optim = 1;
+	
 	//racine
 	public static String sourceDir = "/home/wangxin/Data/gaze_voc_actions_stefan/";
 	public static String simDir = "/home/wangxin/results/gaze_voc_actions_stefan/"+"std_et/";
-//	
-//	public static String simDir = "/home/wangxin/Data/ferrari_data/reduit_singlebb/";
-//	public static String sourceDir = "/home/wangxin/Data/ferrari_data/POETdataset/POETdataset/";
+	
+	//	public static String simDir = "/home/wangxin/Data/ferrari_data/reduit_singlebb/";
+	//	public static String sourceDir = "/home/wangxin/Data/ferrari_data/POETdataset/POETdataset/";
 	public static String lossPath = sourceDir+"ETLoss_dict/";
 	
 	public static int split = 1;
@@ -40,12 +41,12 @@ public class LSSVMMulticlassTestET {
 	public static void main(String[] args) {
 		
 		
-//	    double[] lambdaCV = {1e-4,2e-4,3e-4,4e-4,5e-4,6e-4,7e-4,8e-4,9e-4,1e-3};
-	    double[] lambdaCV = {1e-4};
+	    double[] lambdaCV = {1e-4,2e-4};
+//	    double[] lambdaCV = {1e-4};
 	    double[] epsilonCV = {1e-2};
 
-//	    double[] tradeoffCV = {0.0};
-	    double[] tradeoffCV = {0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0};
+	    double[] tradeoffCV = {0.0};
+//	    double[] tradeoffCV = {0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0};
 	    String[] classes = {args[0]};
 	    int[] scaleCV = {Integer.valueOf(args[1])};
 	    
@@ -98,10 +99,8 @@ public class LSSVMMulticlassTestET {
 					//
 					List<TrainingSample<BagMIL>> listTrain = BagReader.readBagMIL(inputDir + "/"+className+"_train_scale_"+scale+"_matconvnet_m_2048_layer_20.txt", numWords);
 					
-					//List<TrainingSample<BagMIL>> listTrain = BagReader.readBagMIL(inputDir + "/multiclass_" + features + "_train_scale_" + scale + ".txt", numWords);
 					List<STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>> exampleTrain = new ArrayList<STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>>();
 					for(int i=0; i<listTrain.size(); i++) {
-//						for(int i=0; i<10; i++) {
 						exampleTrain.add(new STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>(new LatentRepresentation<BagMIL, Integer>(listTrain.get(i).sample,0), listTrain.get(i).label));
 					}
 
