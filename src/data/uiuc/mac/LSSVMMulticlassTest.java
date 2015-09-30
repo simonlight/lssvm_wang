@@ -36,7 +36,7 @@ public class LSSVMMulticlassTest {
 		int cpmax = 500;
 		int cpmin = 10;
 		
-	    double[] lambdaCV = {1e-3,2e-3};
+	    double[] lambdaCV = {2e-3};
 //	    double[] lambdaCV = {1e-4};
 	    double[] epsilonCV = {1e-2};
 
