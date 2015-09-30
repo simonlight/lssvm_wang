@@ -10,9 +10,9 @@ public class AveragePrecision {
 		
 		if(l == null)
 			return Double.NaN;
-		
+		System.out.println(l);
 		Collections.sort(l);
-		
+		System.out.println(l);
 		int[] tp = new int[l.size()];
 		int[] fp = new int[l.size()];
 		
