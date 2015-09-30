@@ -82,7 +82,7 @@ public class LSSVMMulticlassFastBagMIL extends LSSVMMulticlassFast<BagMIL,Intege
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		System.out.println(eval.size());
         double ap = AveragePrecision.getAP(eval);
         return ap;
 	}
