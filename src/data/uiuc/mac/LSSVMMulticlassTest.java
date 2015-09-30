@@ -106,7 +106,6 @@ public class LSSVMMulticlassTest {
 			
 	    			for(double epsilon : epsilonCV) {
 	    		    	for(double lambda : lambdaCV) {
-			    			
 	    		    		LSSVMMulticlassFastBagMIL lsvm = new LSSVMMulticlassFastBagMIL(); 
 	    		    		
 	    		    		lsvm.setOptim(optim);

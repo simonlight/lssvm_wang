@@ -55,7 +55,8 @@ public class LSSVMMulticlassFastBagMIL extends LSSVMMulticlassFast<BagMIL,Intege
         	eval.add(new Evaluation<Integer>((l.get(i).output == 0 ? -1 : 1), (y == 0 ? -1 : 1)*score));
             //System.out.println(l.get(i).label + "\t" + scores[i] + ";");
         }
-        double ap = AveragePrecision.getAP(eval);
+		AveragePrecision apmeasure = new AveragePrecision();
+        double ap = apmeasure.getAP(eval);
         return ap;
 	}
 	public double testAPRegion(List<STrainingSample<LatentRepresentation<BagMIL, Integer>, Integer>> l, double epsilon, double lambda,int scale, String simDir, String className) {
@@ -74,7 +75,7 @@ public class LSSVMMulticlassFastBagMIL extends LSSVMMulticlassFast<BagMIL,Intege
 				out.flush();
 	        	double score = valueOf(l.get(i).input.x,yp,h,w);
 	        	System.out.println("test score:"+i+","+score);
-	        	eval.add(new Evaluation<Integer>((l.get(i).output == 0 ? -1 : 1), (yp == 0 ? -1 : 1)*score));
+	        	eval.add(new Evaluation<Integer>((yi == 0 ? -1 : 1), (yp == 0 ? -1 : 1)*score));
 	                //System.out.println(l.get(i).label + "\t" + scores[i] + ";");
 	        }
 			out.close();
@@ -83,7 +84,8 @@ public class LSSVMMulticlassFastBagMIL extends LSSVMMulticlassFast<BagMIL,Intege
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        double ap = AveragePrecision.getAP(eval);
+		AveragePrecision apmeasure = new AveragePrecision();
+        double ap = apmeasure.getAP(eval);
         return ap;
 	}
 	

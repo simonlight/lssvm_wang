@@ -21,17 +21,16 @@ public class AveragePrecision {
 		//cumsum of true positives and false positives
 		for(Evaluation<Integer> e : l) {
 			if(e.sample == 1) {
+				
 				cumtp++;
 				totalpos++;
 			}
 			else {
+				
 				cumfp++;
 			}
 			tp[i] = cumtp;
 			fp[i] = cumfp;
-			System.out.println(cumtp);
-			System.out.println("-----");
-			System.out.println(cumfp);
 			i++;
 		}
 		
