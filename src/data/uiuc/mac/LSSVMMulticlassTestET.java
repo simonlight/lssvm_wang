@@ -24,7 +24,7 @@ public class LSSVMMulticlassTestET {
 		
 		String sourceDir = "/home/wangxin/Data/gaze_voc_actions_stefan/";
 		String simDir = "/home/wangxin/results/gaze_voc_actions_stefan/"+"std_et/";
-		
+		String testResultFileName = "test.txt";
 		//	public static String simDir = "/home/wangxin/Data/ferrari_data/reduit_singlebb/";
 		//	public static String sourceDir = "/home/wangxin/Data/ferrari_data/POETdataset/POETdataset/";
 		String lossPath = sourceDir+"ETLoss_dict/";
@@ -66,7 +66,6 @@ public class LSSVMMulticlassTestET {
 				String classifierDir = simDir + "classifier/lssvm_et/" ;
 				//example_files
 				String inputDir = sourceDir + "example_files/"+scale;
-//				String inputDirPositive = sourceDir + "example_files_pos_val/"+scale;
 
 				System.out.println("classifierDir: " + classifierDir + "\n");
 				System.err.println("split " + split + "\t cls " + cls);
@@ -99,21 +98,21 @@ public class LSSVMMulticlassTestET {
 				if(true) {
 					//
 					List<TrainingSample<BagMIL>> listTrain = BagReader.readBagMIL(inputDir + "/"+className+"_train_scale_"+scale+"_matconvnet_m_2048_layer_20.txt", numWords);
-					
-					List<STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>> exampleTrain = new ArrayList<STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>>();
-					for(int i=0; i<listTrain.size(); i++) {
-						exampleTrain.add(new STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>(new LatentRepresentation<BagMIL, Integer>(listTrain.get(i).sample,0), listTrain.get(i).label));
-					}
-
 					List<TrainingSample<BagMIL>> listTest = BagReader.readBagMIL(inputDir + "/"+className+"_val_scale_"+scale+"_matconvnet_m_2048_layer_20.txt", numWords);
-					List<STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>> exampleTest = new ArrayList<STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>>();
-					for(int i=0; i<listTest.size(); i++) {
-						exampleTest.add(new STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>(new LatentRepresentation<BagMIL, Integer>(listTest.get(i).sample,0), listTest.get(i).label));
-					}
 			
 	    			for(double epsilon : epsilonCV) {
 	    		    	for(double lambda : lambdaCV) {
 	    		    		for(double tradeoff : tradeoffCV){
+    						
+	    		    		List<STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>> exampleTrain = new ArrayList<STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>>();
+    						for(int i=0; i<listTrain.size(); i++) {
+    							exampleTrain.add(new STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>(new LatentRepresentation<BagMIL, Integer>(listTrain.get(i).sample,0), listTrain.get(i).label));
+    						}
+
+    						List<STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>> exampleTest = new ArrayList<STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>>();
+    						for(int i=0; i<listTest.size(); i++) {
+    							exampleTest.add(new STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>(new LatentRepresentation<BagMIL, Integer>(listTest.get(i).sample,0), listTest.get(i).label));
+    						}
 
 	    		    		LSSVMMulticlassFastBagMILET lsvm = new LSSVMMulticlassFastBagMILET(); 
 							
@@ -124,7 +123,8 @@ public class LSSVMMulticlassTestET {
 	    		    		lsvm.setCpmin(cpmin);
 	    		    		lsvm.setLambda(lambda);
 	    		    		lsvm.setEpsilon(epsilon);
-							lsvm.setLossDict(lossPath+"ETLOSS+_"+scale+".loss");
+							
+	    		    		lsvm.setLossDict(lossPath+"ETLOSS+_"+scale+".loss");
 							lsvm.setTradeOff(tradeoff);
 							
 							String suffix = "_" + lsvm.toString();
@@ -186,7 +186,7 @@ public class LSSVMMulticlassTestET {
 //								}
 			    				
 			    				double ap = lsvm.testAPRegion(exampleTest, epsilon, lambda,scale, simDir, className, tradeoff);
-								File resFile=new File(simDir+"test.txt");
+								File resFile=new File(simDir+simDir+testResultFileName);
 								try {
 									BufferedWriter out = new BufferedWriter(new FileWriter(resFile, true));
 									//out.write(className+" "+scale+" "+acc+" "+ap+"\n");

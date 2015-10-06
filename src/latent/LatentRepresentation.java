@@ -8,4 +8,5 @@ public class LatentRepresentation<X,H> {
 		this.x = x;
 		this.h = h;
 	}
+
 }

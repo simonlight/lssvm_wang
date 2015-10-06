@@ -3,14 +3,19 @@ import java.util.Collections;
 import java.util.List;
 
 import fr.lip6.jkernelmachines.evaluation.Evaluation;
-
+//compare with the code of voc 2012, the result is the same, but a little difference is with the 
+//standard average precision calculation.
 public class AveragePrecision {
 
-	public double getAP(List<Evaluation<Integer>> l) {
+	public static double getAP(List<Evaluation<Integer>> l) {
 		
 		if(l == null)
 			return Double.NaN;
+		
 		Collections.sort(l);
+		
+
+	
 		int[] tp = new int[l.size()];
 		int[] fp = new int[l.size()];
 		
@@ -19,6 +24,7 @@ public class AveragePrecision {
 		int totalpos = 0;
 		
 		//cumsum of true positives and false positives
+		
 		for(Evaluation<Integer> e : l) {
 			if(e.sample == 1) {
 				
@@ -51,7 +57,7 @@ public class AveragePrecision {
 		mrec[mrec.length-1] = 1;
 		
 		double[] mpre = new double[prec.length+2];
-		for(int j=0; j<prec.length; j++) {
+for(int j=0; j<prec.length; j++) {
 			mpre[j+1] = prec[j];
 		}
 		

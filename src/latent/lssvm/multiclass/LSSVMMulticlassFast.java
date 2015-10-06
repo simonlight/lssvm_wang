@@ -52,6 +52,7 @@ public abstract class LSSVMMulticlassFast<X,H> implements LatentStructuralClassi
 	@Override
 	public void train(List<STrainingSample<LatentRepresentation<X,H>,Integer>> l) {
 		
+		
 		if(l.isEmpty())
 			return;
 	
@@ -127,7 +128,7 @@ public abstract class LSSVMMulticlassFast<X,H> implements LatentStructuralClassi
 		List<Double> lc = new ArrayList<Double>();
 		
 		Object[] or = cuttingPlane(l);
-		double[][] gt = (double[][]) or[0];
+		double[][] gt = (double[][]) or[0];//2*2048
 		double ct = (Double) or[1];
 		
 		lg.add(gt);
@@ -135,7 +136,7 @@ public abstract class LSSVMMulticlassFast<X,H> implements LatentStructuralClassi
 		
 		double[][] gram = null;
 		double xi=0;
-		
+
 		while(t<cpmin || (t<=cpmax && VectorOp.dot(w,gt) < ct - xi - epsilon)) {
 			
 			System.out.print(".");
@@ -158,13 +159,13 @@ public abstract class LSSVMMulticlassFast<X,H> implements LatentStructuralClassi
 				gram[lc.size()-1][lc.size()-1] += 1e-8;
 			}
 			else {
-				gram = new double[lc.size()][lc.size()];
+				gram = new double[lc.size()][lc.size()];//1*1
 				for(int i=0; i<gram.length; i++) {
 					for(int j=i; j<gram.length; j++) {
 						gram[i][j] = VectorOp.dot(lg.get(j), lg.get(i));
 						gram[j][i] = gram[i][j];
 						if(i==j) {
-							gram[i][j] += 1e-8;
+							gram[i][j] += 1e-8;//add
 						}
 					}
 				}
@@ -183,15 +184,18 @@ public abstract class LSSVMMulticlassFast<X,H> implements LatentStructuralClassi
 					}
 				}
 			}
+			
+			
 			t++;
 
 			or = cuttingPlane(l);
 			gt = (double[][]) or[0];
 			ct = (Double) or[1];
-			
 			lg.add(gt);
 			lc.add(ct);
-		}
+		}			
+		
+
 		System.out.println(" Inner loop optimization finished.");
 	}
 	
@@ -207,13 +211,13 @@ public abstract class LSSVMMulticlassFast<X,H> implements LatentStructuralClassi
 			Integer yp = (Integer)or[0];
 			H hp = (H)or[1];
 			ct += delta(ts.output, yp);
-			double[] psi1 = psi(ts.input.x, hp);
+			double[] psi1 = psi(ts.input.x, hp);//2048
 			double[] psi2 = psi(ts.input.x, ts.input.h);
 			for(int d=0; d<w[ts.output].length; d++) {
 				gt[yp][d] 			-= psi1[d];
 				gt[ts.output][d] 	+= psi2[d];
 			}
-		}
+		}// at last a -1 multi all
 		ct /= n;
 		
 		for(int k=0; k<gt.length; k++) {
@@ -223,7 +227,7 @@ public abstract class LSSVMMulticlassFast<X,H> implements LatentStructuralClassi
 		}
 		
 		Object[] res = new Object[2];
-		res[0] = gt;
+		res[0] = gt; 
 		res[1] = ct;
 		return res;
 	}
@@ -291,6 +295,7 @@ public abstract class LSSVMMulticlassFast<X,H> implements LatentStructuralClassi
 		double valmax = -Double.MAX_VALUE;
 		for(int y : listClass) {
 			for(H h : enumerateH(ts.input.x)) {
+//				System.out.println("valueOf(ts.input.x,y,h,w) in loss augmented inference"+valueOf(ts.input.x,y,h,w));
 				double val = delta(ts.output, y) + valueOf(ts.input.x,y,h,w);
 				if(val>valmax){
 					valmax = val;

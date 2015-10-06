@@ -12,7 +12,6 @@ import latent.variable.BagMIL;
 import struct.STrainingSample;
 import util.AveragePrecision;
 import fr.lip6.jkernelmachines.evaluation.Evaluation;
-
 public class LSSVMMulticlassFastBagMIL extends LSSVMMulticlassFast<BagMIL,Integer> {
 
 	/**
@@ -51,12 +50,13 @@ public class LSSVMMulticlassFastBagMIL extends LSSVMMulticlassFast<BagMIL,Intege
         	Integer y = prediction(l.get(i).input);
         	Integer h = prediction(l.get(i).input.x, y);
         	double score = valueOf(l.get(i).input.x,y,h,w);
+
                 
         	eval.add(new Evaluation<Integer>((l.get(i).output == 0 ? -1 : 1), (y == 0 ? -1 : 1)*score));
             //System.out.println(l.get(i).label + "\t" + scores[i] + ";");
         }
-		AveragePrecision apmeasure = new AveragePrecision();
-        double ap = apmeasure.getAP(eval);
+		
+        double ap = AveragePrecision.getAP(eval);
         return ap;
 	}
 	public double testAPRegion(List<STrainingSample<LatentRepresentation<BagMIL, Integer>, Integer>> l, double epsilon, double lambda,int scale, String simDir, String className) {
@@ -73,8 +73,7 @@ public class LSSVMMulticlassFastBagMIL extends LSSVMMulticlassFast<BagMIL,Intege
 	        	Integer yi = l.get(i).output;
 				out.write(Integer.valueOf(yp) +","+Integer.valueOf(yi) +","+Integer.valueOf(h)+","+l.get(i).input.x.getName()+"\n");
 				out.flush();
-	        	double score = valueOf(l.get(i).input.x,yp,h,w);
-	        	System.out.println("test score:"+i+","+score);
+				double score = valueOf(l.get(i).input.x,yp,h,w);
 	        	eval.add(new Evaluation<Integer>((yi == 0 ? -1 : 1), (yp == 0 ? -1 : 1)*score));
 	                //System.out.println(l.get(i).label + "\t" + scores[i] + ";");
 	        }
@@ -84,8 +83,7 @@ public class LSSVMMulticlassFastBagMIL extends LSSVMMulticlassFast<BagMIL,Intege
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		AveragePrecision apmeasure = new AveragePrecision();
-        double ap = apmeasure.getAP(eval);
+        double ap = AveragePrecision.getAP(eval);
         return ap;
 	}
 	

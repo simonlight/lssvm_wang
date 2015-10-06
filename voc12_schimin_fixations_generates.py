@@ -28,16 +28,16 @@ timestamp    pupil_diameter    pupil_area    x_screen    y_screen    event
 
 from xml.dom import minidom
 
-fixation_path = "/local/wangxin/data/gaze_voc_actions_stefan/samples"
-pascal_voc_2012_action_train_listpath = "/local/wangxin/data/VOCdevkit_trainset/VOC2012/ImageSets/Action/trainval.txt"
-pascal_voc_2012_train_images = "/local/wangxin/data/VOCdevkit_trainset/VOC2012/JPEGImages/"
-pascal_voc_2012_annotations = "/local/wangxin/data/VOCdevkit_trainset/VOC2012/Annotations/"
+fixation_path = "/local/wangxin/Data/gaze_voc_actions_stefan/samples"
+pascal_voc_2012_action_train_listpath = "/local/wangxin/Data/VOCdevkit_trainset/VOC2012/ImageSets/Action/trainval.txt"
+pascal_voc_2012_train_images = "/local/wangxin/Data/VOCdevkit_trainset/VOC2012/JPEGImages/"
+pascal_voc_2012_annotations = "/local/wangxin/Data/VOCdevkit_trainset/VOC2012/Annotations/"
 
 action_names=["jumping", "phoning", "playinginstrument", "reading", "ridingbike", "ridinghorse", "running", "takingphoto", "usingcomputer", "walking"]
 
 def single_act_image(action_train_listpath, train_images, annotation_path):
     f = open (action_train_listpath)
-    f2 = open("/local/wangxin/data/gaze_voc_actions_stefan/action_train_image_list",'w')
+    f2 = open("/local/wangxin/Data/gaze_voc_actions_stefan/action_train_image_list",'w')
     several_action=0
     multi_action = 0
     single_action = 0

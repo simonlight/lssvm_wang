@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import data.uiuc.mac.LSSVMMulticlassTestET;
 import latent.LatentRepresentation;
 import latent.variable.BagMIL;
 import struct.STrainingSample;

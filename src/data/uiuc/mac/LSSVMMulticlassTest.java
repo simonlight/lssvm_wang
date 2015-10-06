@@ -21,9 +21,11 @@ public class LSSVMMulticlassTest {
 
 	public static void main(String[] args) {
 		
-		String sourceDir = "/home/wangxin/Data/gaze_voc_actions_stefan/";
-		String simDir = "/home/wangxin/results/gaze_voc_actions_stefan/stdlssvm/";
-		
+//		String sourceDir = "/home/wangxin/Data/gaze_voc_actions_stefan/";
+//		String simDir = "/home/wangxin/results/gaze_voc_actions_stefan/stdlssvm/";
+		String sourceDir = "/local/wangxin/Data/gaze_voc_actions_stefan/";
+		String simDir = "/local/wangxin/results/gaze_voc_actions_stefan/stdlssvm/";
+		String testResultFileName = "res.txt";
 		
 		//	public static String simDir = "/home/wangxin/Data/ferrari_data/reduit_singlebb/";
 		//	public static String sourceDir = "/home/wangxin/Data/ferrari_data/POETdataset/POETdataset/";
@@ -33,18 +35,19 @@ public class LSSVMMulticlassTest {
 		
 		int optim = 1;
 		int epochsLatentMax = 50;
-		int epochsLatentMin = 5;
+		int epochsLatentMin = 2;
 		int cpmax = 500;
 		int cpmin = 10;
 		
-	    double[] lambdaCV = {1e-3,2e-3};
+	    double[] lambdaCV = {1e-3,1e-3};
 //	    double[] lambdaCV = {1e-4};
 	    double[] epsilonCV = {1e-2};
 
 	    
-	    String[] classes = {args[0]};
-	    int[] scaleCV = {Integer.valueOf(args[1])};
-	    
+//	    String[] classes = {args[0]};
+//	    int[] scaleCV = {Integer.valueOf(args[1])};
+	    String[] classes = {"walking"};
+	    int[] scaleCV = {50};
 	    //int[] splitCV = {1,2,3,4,5};
 	    int[] splitCV = {1};
 	    
@@ -59,6 +62,7 @@ public class LSSVMMulticlassTest {
 	    for(String className: classes){
 	    for(int scale : scaleCV) {
     		for(int split : splitCV) {
+    			
     			String cls = String.valueOf(split);
     			//sauvgarder les classifieurs
 				String classifierDir = simDir + "classifier/lssvm/" ;
@@ -92,22 +96,25 @@ public class LSSVMMulticlassTest {
 //				if(compute) {
     			if(true) {
 					List<TrainingSample<BagMIL>> listTrain = BagReader.readBagMIL(inputDir + "/"+className+"_train_scale_"+scale+"_matconvnet_m_2048_layer_20.txt", numWords);
-					
-					List<STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>> exampleTrain = new ArrayList<STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>>();
-					for(int i=0; i<listTrain.size(); i++) {
-						exampleTrain.add(new STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>(new LatentRepresentation<BagMIL, Integer>(listTrain.get(i).sample,0), listTrain.get(i).label));
-					}
-
 					List<TrainingSample<BagMIL>> listTest = BagReader.readBagMIL(inputDir + "/"+className+"_val_scale_"+scale+"_matconvnet_m_2048_layer_20.txt", numWords);
-					List<STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>> exampleTest = new ArrayList<STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>>();
-					for(int i=0; i<listTest.size(); i++) {
-						exampleTest.add(new STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>(new LatentRepresentation<BagMIL, Integer>(listTest.get(i).sample,0), listTest.get(i).label));
-					}
-			
-	    			for(double epsilon : epsilonCV) {
+					
+					
+					for(double epsilon : epsilonCV) {
 	    		    	for(double lambda : lambdaCV) {
-	    		    		LSSVMMulticlassFastBagMIL lsvm = new LSSVMMulticlassFastBagMIL(); 
 	    		    		
+	    		    		//recharge the initial examples
+	    		    		List<STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>> exampleTrain = new ArrayList<STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>>();
+	    					for(int i=0; i<listTrain.size(); i++) {
+	    						exampleTrain.add(new STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>(new LatentRepresentation<BagMIL, Integer>(listTrain.get(i).sample,0), listTrain.get(i).label));
+	    					}
+
+	    					List<STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>> exampleTest = new ArrayList<STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>>();
+	    					for(int i=0; i<listTest.size(); i++) {
+	    						exampleTest.add(new STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>(new LatentRepresentation<BagMIL, Integer>(listTest.get(i).sample,0), listTest.get(i).label));
+	    					}
+
+	    					//initialization
+	    		    		LSSVMMulticlassFastBagMIL lsvm = new LSSVMMulticlassFastBagMIL(); 
 	    		    		lsvm.setOptim(optim);
 	    		    		lsvm.setEpochsLatentMax(epochsLatentMax);
 	    		    		lsvm.setEpochsLatentMin(epochsLatentMin);
@@ -120,6 +127,7 @@ public class LSSVMMulticlassTest {
 							File fileClassifier = testPresenceFile(classifierDir + "/" + className + "/", className + "_" + scale + suffix);
 			    			//if(compute || fileClassifier == null) {
 			    			if(true){
+
 			    				lsvm.train(exampleTrain);
 			    				double ap_train = lsvm.testAP(exampleTrain);
 								System.err.println("train - " + cls + "\tscale= " + scale + "\tap= " + ap_train + "\tlambda= " + lambda + "\tepsilon= " + epsilon);
@@ -170,7 +178,7 @@ public class LSSVMMulticlassTest {
 //									e.printStackTrace();
 //								}
 								double ap = lsvm.testAPRegion(exampleTest, epsilon, lambda,scale, simDir, className);
-								File resFile=new File(simDir+"res_lssvm.txt");
+								File resFile=new File(simDir+testResultFileName);
 								try {
 									BufferedWriter out = new BufferedWriter(new FileWriter(resFile, true));
 									out.write(className+" "+"notradeoff"+" "+scale+" "+lambda+" "+epsilon+" "+ap+" "+ap_train+"\n");
@@ -184,7 +192,8 @@ public class LSSVMMulticlassTest {
 								System.err.println("test - " + cls + "\tscale= " + scale + "\tap= " + ap + "\tlambda= " + lambda + "\tepsilon= " + epsilon);
 								System.out.println("\n");
 							}
-		    			}
+		    			
+	    		    	}
 		    		}
 	    		}
 
