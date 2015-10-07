@@ -19,7 +19,6 @@ import numpy as np
 classes=['cat', 'dog', 'bicycle', 'motorbike', 'boat', 'aeroplane', 'horse', 'cow', 'sofa', 'diningtable']
 import matplotlib.pyplot as plt
 import csv
-import numpy as np
 res = read_res(metric)
 x = np.array(range(10))
 my_xticks = classes
