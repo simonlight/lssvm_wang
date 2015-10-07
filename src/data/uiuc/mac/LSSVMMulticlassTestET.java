@@ -186,7 +186,7 @@ public class LSSVMMulticlassTestET {
 //								}
 			    				
 			    				double ap = lsvm.testAPRegion(exampleTest, epsilon, lambda,scale, simDir, className, tradeoff);
-								File resFile=new File(simDir+simDir+testResultFileName);
+								File resFile=new File(simDir+testResultFileName);
 								try {
 									BufferedWriter out = new BufferedWriter(new FileWriter(resFile, true));
 									//out.write(className+" "+scale+" "+acc+" "+ap+"\n");
