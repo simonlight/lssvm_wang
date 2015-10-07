@@ -69,30 +69,19 @@ public class LSSVMMulticlassFastBagMILET extends LSSVMMulticlassFastET<BagMIL,In
         	// calcul score(x,y,h,w) = argmax_{y,h} <w, \psi(x,y,h)>
         	Integer y = prediction(l.get(i).input);
         	Integer h = prediction(l.get(i).input.x, y);
-//        		File resFile=new File(simDir+"results_3/metric_"+String.valueOf(scale)+"_"+className+"_"+String.valueOf(tradeoff)+"_"+"pos_neg"+".txt");
-//        		try {
-//        			BufferedWriter out = new BufferedWriter(new FileWriter(resFile, true));
-//        			out.write(Integer.valueOf(y) +","+ Integer.valueOf(h)+","+l.get(i).input.x.getName()+"\n");
-//        			out.flush();
-//        			out.close();
-//        			
-//        		} catch (IOException e) {
-//        			// TODO Auto-generated catch block
-//        			e.printStackTrace();
-//        		}
-        	
         	double score = valueOf(l.get(i).input.x,y,h,w);
                 
         	eval.add(new Evaluation<Integer>((l.get(i).output == 0 ? -1 : 1), (y == 0 ? -1 : 1)*score));
-                //System.out.println(l.get(i).label + "\t" + scores[i] + ";");
         }
         double ap = AveragePrecision.getAP(eval);
         return ap;
 	}
+	
+	
 	public double testAPRegion(List<STrainingSample<LatentRepresentation<BagMIL, Integer>, Integer>> l, double epsilon, double lambda,int scale, String simDir, String className, double tradeoff) {
 		
 		List<Evaluation<Integer>> eval = new ArrayList<Evaluation<Integer>>();
-		File resFile=new File(simDir+"overlappingtest/metric_"+String.valueOf(tradeoff)+"_"+String.valueOf(scale)+"_"+Double.valueOf(epsilon)+"_"+Double.valueOf(lambda)+"_"+className+".txt");
+		File resFile=new File(simDir+"overlapping/metric_"+String.valueOf(tradeoff)+"_"+String.valueOf(scale)+"_"+Double.valueOf(epsilon)+"_"+Double.valueOf(lambda)+"_"+className+".txt");
 
 		resFile.getAbsoluteFile().getParentFile().mkdirs();
 		try {
@@ -106,7 +95,6 @@ public class LSSVMMulticlassFastBagMILET extends LSSVMMulticlassFastET<BagMIL,In
 				out.flush();
 	        	double score = valueOf(l.get(i).input.x,yp,h,w);
 	        	eval.add(new Evaluation<Integer>((l.get(i).output == 0 ? -1 : 1), (yp == 0 ? -1 : 1)*score));
-	                //System.out.println(l.get(i).label + "\t" + scores[i] + ";");
 	        }
 			out.close();
 	        	
