@@ -36,9 +36,9 @@ public class LSSVMMulticlassTestET {
 		
 		int optim = 1;
 		int epochsLatentMax = 50;
-		int epochsLatentMin = 50;
+		int epochsLatentMin = 5;
 		int cpmax = 500;
-		int cpmin = 100;
+		int cpmin = 10;
 		
 	    double[] lambdaCV = {1e-3};
 //	    double[] lambdaCV = {1e-4};
