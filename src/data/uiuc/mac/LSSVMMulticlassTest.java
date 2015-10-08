@@ -25,8 +25,8 @@ public class LSSVMMulticlassTest {
 		String simDir = "/home/wangxin/results/gaze_voc_actions_stefan/stdlssvm/";
 //		String sourceDir = "/local/wangxin/Data/gaze_voc_actions_stefan/";
 //		String simDir = "/local/wangxin/results/gaze_voc_actions_stefan/stdlssvm/";
-		String testResultFileName = "std_res.txt";
-		
+		String testResultFileName = "C1e-3.txt";
+		String detailFolder= "overlappingC1e-3";
 		//	public static String simDir = "/home/wangxin/Data/ferrari_data/reduit_singlebb/";
 		//	public static String sourceDir = "/home/wangxin/Data/ferrari_data/POETdataset/POETdataset/";
 		
@@ -176,7 +176,7 @@ public class LSSVMMulticlassTest {
 //									// TODO Auto-generated catch block
 //									e.printStackTrace();
 //								}
-								double ap = lsvm.testAPRegion(exampleTest, epsilon, lambda,scale, simDir, className);
+								double ap = lsvm.testAPRegion(exampleTest, epsilon, lambda,scale, simDir, className,detailFolder);
 								File resFile=new File(simDir+testResultFileName);
 								try {
 									BufferedWriter out = new BufferedWriter(new FileWriter(resFile, true));

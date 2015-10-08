@@ -192,7 +192,7 @@ public class LSSVMMulticlassTestETPosNeg {
 //									e.printStackTrace();
 //								}
 			    				
-			    				double ap = lsvm.testAPRegion(exampleTest, epsilon, lambda,scale, simDir, className, tradeoff);
+			    				double ap = lsvm.testAPRegion(exampleTest, epsilon, lambda,scale, simDir, className, tradeoff,detailFolder);
 								File resFile=new File(simDir+testResultFileName);
 								try {
 									BufferedWriter out = new BufferedWriter(new FileWriter(resFile, true));
