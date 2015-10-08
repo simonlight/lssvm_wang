@@ -24,8 +24,8 @@ public class LSSVMMulticlassTestET {
 		
 		String sourceDir = "/home/wangxin/Data/gaze_voc_actions_stefan/";
 		String simDir = "/home/wangxin/results/gaze_voc_actions_stefan/"+"std_et/";
-		String testResultFileName = "0.5gamma_1e-3Cdebug.txt";
-		String detailFolder= "overlappingC1e-3debug";
+		String testResultFileName = "Allgamma_1e-3C.txt";
+		String detailFolder= "overlappingC1e-3Allgamma";
 		//	public static String simDir = "/home/wangxin/Data/ferrari_data/reduit_singlebb/";
 		//	public static String sourceDir = "/home/wangxin/Data/ferrari_data/POETdataset/POETdataset/";
 		String lossPath = sourceDir+"ETLoss_dict/";
@@ -101,20 +101,20 @@ public class LSSVMMulticlassTestET {
 					//
 					List<TrainingSample<BagMIL>> listTrain = BagReader.readBagMIL(inputDir + "/"+className+"_train_scale_"+scale+"_matconvnet_m_2048_layer_20.txt", numWords);
 					List<TrainingSample<BagMIL>> listTest = BagReader.readBagMIL(inputDir + "/"+className+"_val_scale_"+scale+"_matconvnet_m_2048_layer_20.txt", numWords);
-					List<STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>> exampleTrain = new ArrayList<STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>>();
-					for(int i=0; i<listTrain.size(); i++) {
-						exampleTrain.add(new STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>(new LatentRepresentation<BagMIL, Integer>(listTrain.get(i).sample,0), listTrain.get(i).label));
-					}
-
-					List<STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>> exampleTest = new ArrayList<STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>>();
-					for(int i=0; i<listTest.size(); i++) {
-						exampleTest.add(new STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>(new LatentRepresentation<BagMIL, Integer>(listTest.get(i).sample,0), listTest.get(i).label));
-					}
+					
 	    			for(double epsilon : epsilonCV) {
 	    		    	for(double lambda : lambdaCV) {
 	    		    		for(double tradeoff : tradeoffCV){
     						
-	    		    		
+    		    			List<STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>> exampleTrain = new ArrayList<STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>>();
+    						for(int i=0; i<listTrain.size(); i++) {
+    							exampleTrain.add(new STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>(new LatentRepresentation<BagMIL, Integer>(listTrain.get(i).sample,0), listTrain.get(i).label));
+    						}
+
+    						List<STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>> exampleTest = new ArrayList<STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>>();
+    						for(int i=0; i<listTest.size(); i++) {
+    							exampleTest.add(new STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>(new LatentRepresentation<BagMIL, Integer>(listTest.get(i).sample,0), listTest.get(i).label));
+    						}
 
 	    		    		LSSVMMulticlassFastBagMILET lsvm = new LSSVMMulticlassFastBagMILET(); 
 							
