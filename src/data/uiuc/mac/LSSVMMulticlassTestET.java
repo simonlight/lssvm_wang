@@ -108,6 +108,7 @@ public class LSSVMMulticlassTestET {
 					}
 
 					List<STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>> exampleTest = new ArrayList<STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>>();
+					System.out.println("*************");
 					for(int i=0; i<listTest.size(); i++) {
 						exampleTest.add(new STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>(new LatentRepresentation<BagMIL, Integer>(listTest.get(i).sample,0), listTest.get(i).label));
 					}
@@ -116,6 +117,9 @@ public class LSSVMMulticlassTestET {
 	    		    		for(double tradeoff : tradeoffCV){
     						
     		    			for (STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer> t : exampleTrain){
+    		    				System.err.println(t.input.h);
+    		    			}
+    		    			for (STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer> t : exampleTest){
     		    				System.err.println(t.input.h);
     		    			}
 	    		    		
