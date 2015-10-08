@@ -24,8 +24,8 @@ public class LSSVMMulticlassTestET {
 		
 		String sourceDir = "/home/wangxin/Data/gaze_voc_actions_stefan/";
 		String simDir = "/home/wangxin/results/gaze_voc_actions_stefan/"+"std_et/";
-		String testResultFileName = "0.5gamma_1e-3C.txt";
-		String detailFolder= "overlappingC1e-3";
+		String testResultFileName = "0.5gamma_1e-3Cdebug.txt";
+		String detailFolder= "overlappingC1e-3debug";
 		//	public static String simDir = "/home/wangxin/Data/ferrari_data/reduit_singlebb/";
 		//	public static String sourceDir = "/home/wangxin/Data/ferrari_data/POETdataset/POETdataset/";
 		String lossPath = sourceDir+"ETLoss_dict/";
@@ -44,7 +44,7 @@ public class LSSVMMulticlassTestET {
 //	    double[] lambdaCV = {1e-4};
 	    double[] epsilonCV = {1e-2};
 
-	    double[] tradeoffCV = {0.5};
+	    double[] tradeoffCV = {0,0.5};
 //	    double[] tradeoffCV = {0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0};
 	    String[] classes = {args[0]};
 	    int[] scaleCV = {Integer.valueOf(args[1])};
