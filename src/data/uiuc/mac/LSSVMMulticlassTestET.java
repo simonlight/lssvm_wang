@@ -25,10 +25,12 @@ public class LSSVMMulticlassTestET {
 		String sourceDir = "/home/wangxin/Data/gaze_voc_actions_stefan/";
 		String simDir = "/home/wangxin/results/gaze_voc_actions_stefan/"+"std_et/";
 		String testResultFileName = "0.5gamma_1e-3C.txt";
+		String detailFolder= "overlappingC1e-3";
 		//	public static String simDir = "/home/wangxin/Data/ferrari_data/reduit_singlebb/";
 		//	public static String sourceDir = "/home/wangxin/Data/ferrari_data/POETdataset/POETdataset/";
 		String lossPath = sourceDir+"ETLoss_dict/";
 		
+
 		//ensure dimension of features
 		int numWords = 2048;
 		

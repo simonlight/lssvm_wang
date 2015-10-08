@@ -55,8 +55,10 @@ public class LSSVMMulticlassFastBagMILETPosNeg extends LSSVMMulticlassFastETPosN
 //		System.out.println(1-gaze_ratio);
 		if(yi == 1 && yp == 1) {
 			
-			return (double)((yi^yp)+tradeoff*(1-gaze_ratio) + tradeoff*(1-neg_gaze_ratio));
-
+			return (double)(0+tradeoff*(1-gaze_ratio));
+		}
+		else if (yi == 0 && yp == 0){
+			return (double)(0+tradeoff*(1-neg_gaze_ratio));
 		}
 		else {
 			return (double)((yi^yp));

@@ -27,8 +27,9 @@ public class LSSVMMulticlassTestETPosNeg {
 //		String testResultFileName = "test.txt";
 //		String sourceDir = "/local/wangxin/Data/gaze_voc_actions_stefan/";
 //		String simDir = "/local/wangxin/results/gaze_voc_actions_stefan/ETPosNeg/";
-		String testResultFileName = "res.txt";
-		
+		String testResultFileName = "resposneg.txt";
+		String detailFolder= "overlappingC1e-3";
+
 		//	public static String simDir = "/home/wangxin/Data/ferrari_data/reduit_singlebb/";
 		//	public static String sourceDir = "/home/wangxin/Data/ferrari_data/POETdataset/POETdataset/";
 		String lossPath = sourceDir+"ETLoss_dict/";
