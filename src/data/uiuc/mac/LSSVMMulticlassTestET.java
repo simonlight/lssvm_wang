@@ -118,7 +118,7 @@ public class LSSVMMulticlassTestET {
     		    			for (STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer> t : exampleTrain){
     		    				System.err.println(t.input.h);
     		    			}
-    						System.out.println("*************");
+    						System.err.println("*************");
 
     		    			for (STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer> t : exampleTest){
     		    				System.err.println(t.input.h);
