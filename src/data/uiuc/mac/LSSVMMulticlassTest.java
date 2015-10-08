@@ -21,11 +21,11 @@ public class LSSVMMulticlassTest {
 
 	public static void main(String[] args) {
 		
-//		String sourceDir = "/home/wangxin/Data/gaze_voc_actions_stefan/";
-//		String simDir = "/home/wangxin/results/gaze_voc_actions_stefan/stdlssvm/";
-		String sourceDir = "/local/wangxin/Data/gaze_voc_actions_stefan/";
-		String simDir = "/local/wangxin/results/gaze_voc_actions_stefan/stdlssvm/";
-		String testResultFileName = "res.txt";
+		String sourceDir = "/home/wangxin/Data/gaze_voc_actions_stefan/";
+		String simDir = "/home/wangxin/results/gaze_voc_actions_stefan/stdlssvm/";
+//		String sourceDir = "/local/wangxin/Data/gaze_voc_actions_stefan/";
+//		String simDir = "/local/wangxin/results/gaze_voc_actions_stefan/stdlssvm/";
+		String testResultFileName = "std_res.txt";
 		
 		//	public static String simDir = "/home/wangxin/Data/ferrari_data/reduit_singlebb/";
 		//	public static String sourceDir = "/home/wangxin/Data/ferrari_data/POETdataset/POETdataset/";
@@ -35,29 +35,28 @@ public class LSSVMMulticlassTest {
 		
 		int optim = 1;
 		int epochsLatentMax = 50;
-		int epochsLatentMin = 2;
+		int epochsLatentMin = 5;
 		int cpmax = 500;
 		int cpmin = 10;
 		
-	    double[] lambdaCV = {1e-3,1e-3};
+	    double[] lambdaCV = {1e-3};
 //	    double[] lambdaCV = {1e-4};
 	    double[] epsilonCV = {1e-2};
 
 	    
-//	    String[] classes = {args[0]};
-//	    int[] scaleCV = {Integer.valueOf(args[1])};
-	    String[] classes = {"walking"};
-	    int[] scaleCV = {50};
+	    String[] classes = {args[0]};
+	    int[] scaleCV = {Integer.valueOf(args[1])};
+//	    String[] classes = {"walking"};
+//	    int[] scaleCV = {50};
 	    //int[] splitCV = {1,2,3,4,5};
 	    int[] splitCV = {1};
-	    
+	    	
 	    System.out.println("lambda " + Arrays.toString(lambdaCV));
 	    System.out.println("epsilon " + Arrays.toString(epsilonCV));
 	    System.out.println("scale " + Arrays.toString(scaleCV));
 	    System.out.println("split " + Arrays.toString(splitCV) + "\n");
 		
 	    boolean compute = false;
-	    String features = "pure";
 	    
 	    for(String className: classes){
 	    for(int scale : scaleCV) {
