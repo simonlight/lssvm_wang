@@ -4,7 +4,7 @@ import collections
 # et=open("/local/wangxin/Data/ferrari_data/res_et_new.txt")
 
 std=open("/home/wangxin/results/gaze_voc_actions_stefan/stdlssvm/res_full.txt")
-et=open("/home/wangxin/results/gaze_voc_actions_stefan/std_et/std_et.txt")
+et=open("/home/wangxin/results/gaze_voc_actions_stefan/std_et/Allgamma_1e-3C.txt")
 
 def read_res(result_file):
 	#Organize the dict like    category/lambda/scale/tradeoff/testap
