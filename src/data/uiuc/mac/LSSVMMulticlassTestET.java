@@ -36,16 +36,16 @@ public class LSSVMMulticlassTestET {
 		
 		int optim = 1;
 		int epochsLatentMax = 50;
-		int epochsLatentMin = 5;
+		int epochsLatentMin = 50;
 		int cpmax = 500;
-		int cpmin = 10;
+		int cpmin = 100;
 		
 	    double[] lambdaCV = {1e-3};
 //	    double[] lambdaCV = {1e-4};
 	    double[] epsilonCV = {1e-2};
 
 //	    double[] tradeoffCV = {0,0.5};
-	    double[] tradeoffCV = {0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5};
+	    double[] tradeoffCV = {0.5};
 //	    double[] tradeoffCV = {0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0};
 	    String[] classes = {args[0]};
 	    int[] scaleCV = {Integer.valueOf(args[1])};
@@ -103,27 +103,19 @@ public class LSSVMMulticlassTestET {
 					List<TrainingSample<BagMIL>> listTrain = BagReader.readBagMIL(inputDir + "/"+className+"_train_scale_"+scale+"_matconvnet_m_2048_layer_20.txt", numWords);
 					List<TrainingSample<BagMIL>> listTest = BagReader.readBagMIL(inputDir + "/"+className+"_val_scale_"+scale+"_matconvnet_m_2048_layer_20.txt", numWords);
 					List<STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>> exampleTrain = new ArrayList<STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>>();
-					for(int i=0; i<listTrain.size(); i++) {
-						exampleTrain.add(new STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>(new LatentRepresentation<BagMIL, Integer>(listTrain.get(i).sample,0), listTrain.get(i).label));
-					}
-
-					List<STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>> exampleTest = new ArrayList<STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>>();
-					for(int i=0; i<listTest.size(); i++) {
-						exampleTest.add(new STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>(new LatentRepresentation<BagMIL, Integer>(listTest.get(i).sample,0), listTest.get(i).label));
-					}
+					
 	    			for(double epsilon : epsilonCV) {
 	    		    	for(double lambda : lambdaCV) {
 	    		    		for(double tradeoff : tradeoffCV){
-    						
-    		    			for (STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer> t : exampleTrain){
-    		    				System.err.println(t.input.h);
-    		    			}
-    						System.err.println("*************");
+  
+    		    			for(int i=0; i<listTrain.size(); i++) {
+    							exampleTrain.add(new STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>(new LatentRepresentation<BagMIL, Integer>(listTrain.get(i).sample,0), listTrain.get(i).label));
+    						}
 
-    		    			for (STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer> t : exampleTest){
-    		    				System.err.println(t.input.h);
-    		    			}
-	    		    		
+    						List<STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>> exampleTest = new ArrayList<STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>>();
+    						for(int i=0; i<listTest.size(); i++) {
+    							exampleTest.add(new STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>(new LatentRepresentation<BagMIL, Integer>(listTest.get(i).sample,0), listTest.get(i).label));
+    						}
 	    		    		LSSVMMulticlassFastBagMILET lsvm = new LSSVMMulticlassFastBagMILET(); 
 							
 	    		    		lsvm.setOptim(optim);
