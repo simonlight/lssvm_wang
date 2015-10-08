@@ -115,7 +115,7 @@ public class LSSVMMulticlassTestET {
 	    		    	for(double lambda : lambdaCV) {
 	    		    		for(double tradeoff : tradeoffCV){
     						
-    		    			for (STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer> t : exampleTest){
+    		    			for (STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer> t : exampleTrain){
     		    				System.err.println(t.input.h);
     		    			}
 	    		    		
