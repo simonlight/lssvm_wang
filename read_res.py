@@ -3,7 +3,7 @@ import collections
 # std=open("/local/wangxin/Data/ferrari_data/res_std_new.txt")
 # et=open("/local/wangxin/Data/ferrari_data/res_et_new.txt")
 
-std=open("/home/wangxin/results/gaze_voc_actions_stefan/stdlssvm/res_full.txt")
+std=open("/home/wangxin/results/gaze_voc_actions_stefan/stdlssvm/C1e-3.txt")
 et=open("/home/wangxin/results/gaze_voc_actions_stefan/std_et/Allgamma_1e-3C.txt")
 
 def read_res(result_file):
