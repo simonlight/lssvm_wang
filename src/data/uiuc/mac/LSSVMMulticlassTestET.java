@@ -115,8 +115,10 @@ public class LSSVMMulticlassTestET {
 	    		    	for(double lambda : lambdaCV) {
 	    		    		for(double tradeoff : tradeoffCV){
     						
-    		    			
-
+    		    			for (STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer> t : exampleTest){
+    		    				System.err.println(t.input.h);
+    		    			}
+	    		    		
 	    		    		LSSVMMulticlassFastBagMILET lsvm = new LSSVMMulticlassFastBagMILET(); 
 							
 	    		    		lsvm.setOptim(optim);
