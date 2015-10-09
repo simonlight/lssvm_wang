@@ -44,7 +44,7 @@ public class BagReader {
 				System.out.println(ligne);
 				int nbBag = Integer.parseInt(ligne);
 				//test!!!!!!!!!!!!!
-				nbBag=7;
+				nbBag=10;
 				//
 				for(int i=0; i<nbBag; i++) {
 					
