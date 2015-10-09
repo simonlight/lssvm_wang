@@ -31,7 +31,7 @@ def color_map(color):
     
 for root,dirs,files in os.walk(fixation_path):
     for file in files:
-        file = "2012_001112.json"
+        file = "2012_001111.json"
         filename_root = file[:-5]#.json
         fixation = json.load(open(gaze_path+file)).values()
         img = pascal_voc_2012_train_images+filename_root+'.jpg'
