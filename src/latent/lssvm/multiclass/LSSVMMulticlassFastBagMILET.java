@@ -45,10 +45,15 @@ public class LSSVMMulticlassFastBagMILET extends LSSVMMulticlassFastET<BagMIL,In
 		dim = l.get(0).input.x.getFeature(0).length;
 	}
 	
+	//50--36, 60--25, 70--16...
+	public int convertScale(int scale){
+		return (int)(Math.pow((1+(100-scale)/10),2));
+	}
+	
 	public Integer getGazeInitRegion(BagMIL x, int scale){
 		Integer maxH=-1;
 		double maxGazeRatio = -1;
-		for (Integer h=0;h<36;h++){
+		for (Integer h=0;h<convertScale(scale);h++){
 			double gazeRatio = getGazeRatio(x, h);
 			if (gazeRatio>=maxGazeRatio){
 				maxH=h;
