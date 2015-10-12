@@ -13,6 +13,7 @@ import latent.variable.BagMIL;
 import struct.STrainingSample;
 import util.AveragePrecision;
 import fr.lip6.jkernelmachines.evaluation.Evaluation;
+import fr.lip6.jkernelmachines.type.TrainingSample;
 
 public class LSSVMMulticlassFastBagMILET extends LSSVMMulticlassFastET<BagMIL,Integer> {
 
@@ -43,18 +44,34 @@ public class LSSVMMulticlassFastBagMILET extends LSSVMMulticlassFastET<BagMIL,In
 		// initialize the one class model dimension
 		dim = l.get(0).input.x.getFeature(0).length;
 	}
-
 	
-	protected double delta(Integer yi, Integer yp, BagMIL x, Integer h)  {
+	public Integer getGazeInitRegion(BagMIL x){
+		Integer maxH=-1;
+		double maxGazeRatio = -1;
+		for (Integer h=0;h<36;h++){
+			double gazeRatio = getGazeRatio(x, h);
+			if (gazeRatio>=maxGazeRatio){
+				maxH=h;
+				maxGazeRatio = gazeRatio;
+			}
+		}
+		return maxH;
+	}
+	
+	protected double getGazeRatio(BagMIL x, Integer h){
 		String featurePath[] = x.getFileFeature(h).split("/");
 		String ETLossFileName = featurePath[featurePath.length - 1];
 		double gaze_ratio = lossMap.get(ETLossFileName);
+		return gaze_ratio;
+	}
+	
+	protected double delta(Integer yi, Integer yp, BagMIL x, Integer h)  {
+		double gaze_ratio = getGazeRatio(x, h);
 //		System.out.println(ETLossFileName);
 //		System.out.println(1-gaze_ratio);
 		if(yi == 1 && yp == 1) {
-			
+//			System.out.println(tradeoff*(1-gaze_ratio));
 			return (double)((yi^yp)+tradeoff*(1-gaze_ratio));
-
 		}
 		else {
 			return (double)((yi^yp));
@@ -70,7 +87,7 @@ public class LSSVMMulticlassFastBagMILET extends LSSVMMulticlassFastET<BagMIL,In
         	Integer y = prediction(l.get(i).input);
         	Integer h = prediction(l.get(i).input.x, y);
         	double score = valueOf(l.get(i).input.x,y,h,w);
-                
+
         	eval.add(new Evaluation<Integer>((l.get(i).output == 0 ? -1 : 1), (y == 0 ? -1 : 1)*score));
         }
         double ap = AveragePrecision.getAP(eval);
@@ -90,6 +107,7 @@ public class LSSVMMulticlassFastBagMILET extends LSSVMMulticlassFastET<BagMIL,In
 	        	// calcul score(x,y,h,w) = argmax_{y,h} <w, \psi(x,y,h)>
 				Integer yp = prediction(l.get(i).input);
 	        	Integer h = prediction(l.get(i).input.x, yp);
+
 	        	Integer yi = l.get(i).output;
 				out.write(Integer.valueOf(yp) +","+Integer.valueOf(yi) +","+ Integer.valueOf(h)+","+l.get(i).input.x.getName()+"\n");
 				out.flush();

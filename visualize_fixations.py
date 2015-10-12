@@ -4,6 +4,7 @@ import os
 import numpy as np
 import itertools
 from matplotlib import pyplot as plt
+from spyderlib.widgets.internalshell import SysOutput
 ###CONFIG###
 fixation_path = "/local/wangxin/Data/gaze_voc_actions_stefan/train_gazes/"
 pascal_voc_2012_train_images = "/local/wangxin/Data/VOCdevkit_trainset/VOC2012/JPEGImages/"
@@ -31,7 +32,7 @@ def color_map(color):
     
 for root,dirs,files in os.walk(fixation_path):
     for file in files:
-        file = "2012_001111.json"
+        file = "2012_003108.json"
         filename_root = file[:-5]#.json
         fixation = json.load(open(gaze_path+file)).values()
         img = pascal_voc_2012_train_images+filename_root+'.jpg'

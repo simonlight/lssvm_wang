@@ -21,10 +21,10 @@ public class LSSVMMulticlassTest {
 
 	public static void main(String[] args) {
 		
-		String sourceDir = "/home/wangxin/Data/gaze_voc_actions_stefan/";
-		String simDir = "/home/wangxin/results/gaze_voc_actions_stefan/stdlssvm/";
-//		String sourceDir = "/local/wangxin/Data/gaze_voc_actions_stefan/";
-//		String simDir = "/local/wangxin/results/gaze_voc_actions_stefan/stdlssvm/";
+//		String sourceDir = "/home/wangxin/Data/gaze_voc_actions_stefan/";
+//		String simDir = "/home/wangxin/results/gaze_voc_actions_stefan/stdlssvm/";
+		String sourceDir = "/local/wangxin/Data/gaze_voc_actions_stefan/";
+		String simDir = "/local/wangxin/results/gaze_voc_actions_stefan/stdlssvm/";
 		String testResultFileName = "C1e-3.txt";
 		String detailFolder= "overlappingC1e-3";
 		//	public static String simDir = "/home/wangxin/Data/ferrari_data/reduit_singlebb/";
@@ -45,10 +45,10 @@ public class LSSVMMulticlassTest {
 	    double[] tradeoffCV = {0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5};
 
 	    
-	    String[] classes = {args[0]};
-	    int[] scaleCV = {Integer.valueOf(args[1])};
-//	    String[] classes = {"walking"};
-//	    int[] scaleCV = {50};
+//	    String[] classes = {args[0]};
+//	    int[] scaleCV = {Integer.valueOf(args[1])};
+	    String[] classes = {"walking"};
+	    int[] scaleCV = {50};
 	    //int[] splitCV = {1,2,3,4,5};
 	    int[] splitCV = {1};
 	    	
@@ -97,6 +97,7 @@ public class LSSVMMulticlassTest {
     			if(true) {
 					List<TrainingSample<BagMIL>> listTrain = BagReader.readBagMIL(inputDir + "/"+className+"_train_scale_"+scale+"_matconvnet_m_2048_layer_20.txt", numWords);
 					List<TrainingSample<BagMIL>> listTest = BagReader.readBagMIL(inputDir + "/"+className+"_val_scale_"+scale+"_matconvnet_m_2048_layer_20.txt", numWords);
+					
 					List<STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>> exampleTrain = new ArrayList<STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>>();
 					for(int i=0; i<listTrain.size(); i++) {
 						exampleTrain.add(new STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>(new LatentRepresentation<BagMIL, Integer>(listTrain.get(i).sample,0), listTrain.get(i).label));

@@ -2,11 +2,12 @@ package data.uiuc.mac;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 
 import latent.LatentRepresentation;
@@ -22,12 +23,14 @@ public class LSSVMMulticlassTestET {
 	
 	public static void main(String[] args) {
 		
-		String sourceDir = "/home/wangxin/Data/gaze_voc_actions_stefan/";
-		String simDir = "/home/wangxin/results/gaze_voc_actions_stefan/"+"std_et/";
+//		String sourceDir = "/home/wangxin/Data/gaze_voc_actions_stefan/";
+//		String simDir = "/home/wangxin/results/gaze_voc_actions_stefan/"+"std_et/";
+		String sourceDir = "/local/wangxin/Data/gaze_voc_actions_stefan/";
+		String simDir = "/local/wangxin/results/gaze_voc_actions_stefan/std_et/";
 		String testResultFileName = "Allgamma_1e-3C.txt";
 		String detailFolder= "overlappingC1e-3Allgamma";
-		//	public static String simDir = "/home/wangxin/Data/ferrari_data/reduit_singlebb/";
-		//	public static String sourceDir = "/home/wangxin/Data/ferrari_data/POETdataset/POETdataset/";
+//		public static String simDir = "/home/wangxin/Data/ferrari_data/reduit_singlebb/";
+//		public static String sourceDir = "/home/wangxin/Data/ferrari_data/POETdataset/POETdataset/";
 		String lossPath = sourceDir+"ETLoss_dict/";
 		
 
@@ -45,10 +48,12 @@ public class LSSVMMulticlassTestET {
 	    double[] epsilonCV = {1e-2};
 
 //	    double[] tradeoffCV = {0,0.5};
-	    double[] tradeoffCV = {10000};
-//	    double[] tradeoffCV = {0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0};
+	    double[] tradeoffCV = {0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0};
 	    String[] classes = {args[0]};
 	    int[] scaleCV = {Integer.valueOf(args[1])};
+	    
+//	    String[] classes = {"walking"};
+//	    int[] scaleCV = {50};
 	    
 	    //int[] splitCV = {1,2,3,4,5};
 	    int[] splitCV = {1};
@@ -99,11 +104,12 @@ public class LSSVMMulticlassTestET {
 				
 //				if(compute) {
 				if(true) {
-					//
+					
 					List<TrainingSample<BagMIL>> listTrain = BagReader.readBagMIL(inputDir + "/"+className+"_train_scale_"+scale+"_matconvnet_m_2048_layer_20.txt", numWords);
-					List<TrainingSample<BagMIL>> listTest = BagReader.readBagMIL(inputDir + "/"+className+"_val_scale_"+scale+"_matconvnet_m_2048_layer_20.txt", numWords);
-	    			
-	    			for(double epsilon : epsilonCV) {
+					List<TrainingSample<BagMIL>> listTest = BagReader.readBagMIL(inputDir + "/"+className+"_val_scale_"+scale+"_matconvnet_m_2048_layer_20.txt", numWords); 
+		        	
+					
+					for(double epsilon : epsilonCV) {
 	    		    	for(double lambda : lambdaCV) {
 	    		    		for(double tradeoff : tradeoffCV){
     						
@@ -111,18 +117,17 @@ public class LSSVMMulticlassTestET {
 
     		    			for(int i=0; i<listTrain.size(); i++) {
     							exampleTrain.add(new STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>(new LatentRepresentation<BagMIL, Integer>(listTrain.get(i).sample,0), listTrain.get(i).label));
-    							System.out.println(listTrain.get(i).label);
+    							
     		    			}
 
     						List<STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>> exampleTest = new ArrayList<STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>>();
     						for(int i=0; i<listTest.size(); i++) {
-    							exampleTest.add(new STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>(new LatentRepresentation<BagMIL, Integer>(listTest.get(i).sample,0), listTest.get(i).label));
-    							System.out.println(listTest.get(i).label);
-        		    			
+    							exampleTest.add(new STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>(new LatentRepresentation<BagMIL, Integer>(listTest.get(i).sample,0), listTest.get(i).label));    			
     						}
     						
-	    		    		LSSVMMulticlassFastBagMILET lsvm = new LSSVMMulticlassFastBagMILET(); 
-							
+    						LSSVMMulticlassFastBagMILET lsvm = new LSSVMMulticlassFastBagMILET(); 
+    												
+	    		    		
 	    		    		lsvm.setOptim(optim);
 	    		    		lsvm.setEpochsLatentMax(epochsLatentMax);
 	    		    		lsvm.setEpochsLatentMin(epochsLatentMin);
@@ -133,6 +138,13 @@ public class LSSVMMulticlassTestET {
 							
 	    		    		lsvm.setLossDict(lossPath+"ETLOSS+_"+scale+".loss");
 							lsvm.setTradeOff(tradeoff);
+							
+							//Initialize the region by fixations
+							for(STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer> ts : exampleTrain){
+    							ts.input.h = lsvm.getGazeInitRegion(ts.input.x);
+//    							System.out.println(ts.input.x);
+//    							System.out.println(ts.input.h);
+    						}    
 							
 							String suffix = "_" + lsvm.toString();
 							File fileClassifier = testPresenceFile(classifierDir + "/" + className + "/", className + "_" + scale + suffix);

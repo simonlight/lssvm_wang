@@ -1,25 +1,16 @@
 package latent.lssvm.multiclass;
 
-import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.File;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Vector;
-
-import javax.imageio.ImageIO;
-
 import latent.LatentRepresentation;
 import latent.LatentStructuralClassifier;
-import latent.variable.BagMIL;
 import solver.MosekSolver;
 import struct.STrainingSample;
 import util.VectorOp;
@@ -115,7 +106,7 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 		int el=0;
 		double decrement = 0;
 		double precObj = 0;
-		while(el<epochsLatentMin || (el<=epochsLatentMax && decrement < 0)) {
+		while(el<epochsLatentMin || (el<=epochsLatentMax && decrement < 0)) {//if objecttif functions does not decrease, stop!
 			System.out.println("epoch latent " + el);
 			trainCCCPCP1Slack(l);
 			double obj = primalObj(l);
@@ -126,6 +117,7 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 			
 			for(STrainingSample<LatentRepresentation<X,H>,Integer> ts : l){
 				ts.input.h = prediction(ts.input.x,ts.output);
+
 			}
 		}
 	}
@@ -148,8 +140,8 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 		double[][] gram = null;
 		double xi=0;
 		
-		while(t<cpmin || (t<=cpmax && VectorOp.dot(w,gt) < ct - xi - epsilon)) {
-			
+		while(t<cpmin || (t<=cpmax && VectorOp.dot(w, gt) < ct - xi - epsilon)) {//why this stop condition
+			//Not clear for this part
 			System.out.print(".");
 			if(t == cpmax) {
 				System.out.print(" # max iter ");
@@ -208,23 +200,26 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 	}
 	
 	public Object[] cuttingPlane(List<STrainingSample<LatentRepresentation<X,H>,Integer>> l) {
-		// compute g(t) and c(t)
+		// compute g(t) and c(t): 
+		// g(t) gradient
+		// c(t) cost
 		double[][] gt = new double[w.length][w[0].length];
 		double ct = 0;
 		double n = l.size();
 		for(int i=0; i<l.size(); i++){
 			STrainingSample<LatentRepresentation<X,H>,Integer> ts = l.get(i);			
-			Object[] or = lossAugmentedInference(ts);
-			Integer yp = (Integer)or[0];
+			Object[] or = lossAugmentedInference(ts);//max yp, max hp
+			Integer yp = (Integer)or[0];//
 			H hp = (H)or[1];
 			ct += delta(ts.output, yp, ts.input.x, hp);
-			double[] psi1 = psi(ts.input.x, hp);
-			double[] psi2 = psi(ts.input.x, ts.input.h);
+			double[] psi1 = psi(ts.input.x, hp); 
+			double[] psi2 = psi(ts.input.x, ts.input.h);//ts.input.h , the max h of the second term
 			for(int d=0; d<w[ts.output].length; d++) {
 				gt[yp][d] 			-= psi1[d];
 				gt[ts.output][d] 	+= psi2[d];
 			}
 		}
+		
 		ct /= n;
 		
 		for(int k=0; k<gt.length; k++) {
@@ -236,7 +231,7 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 		Object[] res = new Object[2];
 		res[0] = gt;
 		res[1] = ct;
-		return res;
+		return res; 
 	}
 	
 	/**
@@ -291,6 +286,7 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 		int ypredict = -1;
 		H hpredict = null;
 		double valmax = -Double.MAX_VALUE;
+
 		for(int y : listClass) {
 			for(H h : enumerateH(ts.input.x)) {
 				double val = delta(ts.output, y, ts.input.x, h) + valueOf(ts.input.x,y,h,w);
@@ -304,6 +300,7 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 		Object[] res = new Object[2];
 		res[0] = ypredict;
 		res[1] = hpredict;
+		
 		return res;
 	}
 
@@ -312,9 +309,6 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 		double valmax = -Double.MAX_VALUE;
 		for(H h : enumerateH(x)) {
 			double val = valueOf(x,y,h,w);
-//			System.out.println(val);
-//			System.out.println(h);
-//			System.out.println("------");
 			if(val>valmax){
 				valmax = val;
 				hpredict = h;
