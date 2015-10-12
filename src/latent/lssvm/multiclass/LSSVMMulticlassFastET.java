@@ -243,7 +243,9 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 		for(STrainingSample<LatentRepresentation<X,H>,Integer> ts : l) {
 			Object[] or = lossAugmentedInference(ts);
 			Integer yp = (Integer)or[0];
-			loss += delta(ts.output,yp, ts.input.x, (H)or[1]);
+			H hp = (H)or[1];
+			loss += delta(ts.output,yp, ts.input.x, hp);
+			loss += valueOf(ts.input.x,yp,hp,w)-valueOf(ts.input.x,ts.output,prediction(ts.input.x,ts.output),w);
 		}
 		loss /= l.size();
 		return loss;	
@@ -328,28 +330,28 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 	 * @param l list of training samples
 	 * @return accuracy
 	 */
-	protected double accuracy(List<STrainingSample<LatentRepresentation<X, H>, Integer>> l){
-		double accuracy = 0;
-		int nb = 0;
-		for(STrainingSample<LatentRepresentation<X,H>,Integer> ts : l){
-			int ypredict = prediction(ts.input);
-			if(ts.output == ypredict){	
-				nb++;
-			}
-		}
-		accuracy = (double)nb/(double)l.size();
-		System.out.println("Accuracy: " + accuracy*100 + " % \t(" + nb + "/" + l.size() +")");
-		return accuracy;
-	}
-	
-	public double test(List<STrainingSample<LatentRepresentation<X, H>,Integer>> l) {
-		double[] nb = new double[listClass.size()];
-		for(STrainingSample<LatentRepresentation<X, H>,Integer> ts : l) {
-			nb[ts.output]++;
-		}
-		System.out.println("Test - class: " + listClass + "\t" + Arrays.toString(nb));
-		return accuracy(l);
-	}
+//	protected double accuracy(List<STrainingSample<LatentRepresentation<X, H>, Integer>> l){
+//		double accuracy = 0;
+//		int nb = 0;
+//		for(STrainingSample<LatentRepresentation<X,H>,Integer> ts : l){
+//			int ypredict = prediction(ts.input);
+//			if(ts.output == ypredict){	
+//				nb++;
+//			}
+//		}
+//		accuracy = (double)nb/(double)l.size();
+//		System.out.println("Accuracy: " + accuracy*100 + " % \t(" + nb + "/" + l.size() +")");
+//		return accuracy;
+//	}
+//	
+//	public double test(List<STrainingSample<LatentRepresentation<X, H>,Integer>> l) {
+//		double[] nb = new double[listClass.size()];
+//		for(STrainingSample<LatentRepresentation<X, H>,Integer> ts : l) {
+//			nb[ts.output]++;
+//		}
+//		System.out.println("Test - class: " + listClass + "\t" + Arrays.toString(nb));
+//		return accuracy(l);
+//	}
 
 	
 	protected double matrixProduct(double[] alphas, double[][] gram) {
