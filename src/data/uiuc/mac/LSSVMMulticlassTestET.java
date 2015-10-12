@@ -23,10 +23,10 @@ public class LSSVMMulticlassTestET {
 	
 	public static void main(String[] args) {
 		
-//		String sourceDir = "/home/wangxin/Data/gaze_voc_actions_stefan/";
-//		String simDir = "/home/wangxin/results/gaze_voc_actions_stefan/"+"std_et/";
-		String sourceDir = "/local/wangxin/Data/gaze_voc_actions_stefan/";
-		String simDir = "/local/wangxin/results/gaze_voc_actions_stefan/std_et/";
+		String sourceDir = "/home/wangxin/Data/gaze_voc_actions_stefan/";
+		String simDir = "/home/wangxin/results/gaze_voc_actions_stefan/"+"std_et/";
+//		String sourceDir = "/local/wangxin/Data/gaze_voc_actions_stefan/";
+//		String simDir = "/local/wangxin/results/gaze_voc_actions_stefan/std_et/";
 		String testResultFileName = "Allgamma_1e-3C.txt";
 		String detailFolder= "overlappingC1e-3Allgamma";
 //		public static String simDir = "/home/wangxin/Data/ferrari_data/reduit_singlebb/";
@@ -141,7 +141,7 @@ public class LSSVMMulticlassTestET {
 							
 							//Initialize the region by fixations
 							for(STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer> ts : exampleTrain){
-    							ts.input.h = lsvm.getGazeInitRegion(ts.input.x);
+    							ts.input.h = lsvm.getGazeInitRegion(ts.input.x, scale);
 //    							System.out.println(ts.input.x);
 //    							System.out.println(ts.input.h);
     						}    
