@@ -27,8 +27,8 @@ public class LSSVMMulticlassTestET {
 		String simDir = "/home/wangxin/results/gaze_voc_actions_stefan/"+"std_et/";
 //		String sourceDir = "/local/wangxin/Data/gaze_voc_actions_stefan/";
 //		String simDir = "/local/wangxin/results/gaze_voc_actions_stefan/std_et/";
-		String testResultFileName = "Allgamma_1e-3C.txt";
-		String detailFolder= "overlappingC1e-3Allgamma";
+		String testResultFileName = "c1000.txt";
+		String detailFolder= "c1000clean";
 //		public static String simDir = "/home/wangxin/Data/ferrari_data/reduit_singlebb/";
 //		public static String sourceDir = "/home/wangxin/Data/ferrari_data/POETdataset/POETdataset/";
 		String lossPath = sourceDir+"ETLoss_dict/";
