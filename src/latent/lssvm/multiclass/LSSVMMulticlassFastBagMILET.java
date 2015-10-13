@@ -17,7 +17,7 @@ import fr.lip6.jkernelmachines.evaluation.Evaluation;
 public class LSSVMMulticlassFastBagMILET extends LSSVMMulticlassFastET<BagMIL,Integer> {
 
 	private static final long serialVersionUID = -7682761029498647460L;
-
+	public String gazeType;
 	@Override
 	protected List<Integer> enumerateH(BagMIL x) {
 		//how many kinds of latent values
@@ -50,7 +50,7 @@ public class LSSVMMulticlassFastBagMILET extends LSSVMMulticlassFastET<BagMIL,In
 		Integer maxH=-1;
 		double maxGazeRatio = -1;
 		for (Integer h=0;h<convertScale(scale);h++){
-			double gazeRatio = getGazeRatio(x, h);
+			double gazeRatio = getGazeRatio(x, h, gazeType);
 			if (gazeRatio>=maxGazeRatio){
 				maxH=h;
 				maxGazeRatio = gazeRatio;
@@ -59,21 +59,32 @@ public class LSSVMMulticlassFastBagMILET extends LSSVMMulticlassFastET<BagMIL,In
 		return maxH;
 	}
 	
-	protected double getGazeRatio(BagMIL x, Integer h){
-		String cls = x.getName().split("_")[0];
-		String featurePath[] = x.getFileFeature(h).split("/");
-		String ETLossFileName = featurePath[featurePath.length - 1];
-		System.out.println(cls+"_"+ETLossFileName);
-		//horse_2008_005215_5_5.txt=0.0833333333333
-		double gaze_ratio = lossMap.get(cls+"_"+ETLossFileName);
-		return gaze_ratio;
+	protected double getGazeRatio(BagMIL x, Integer h, String gazeType){
+		if (gazeType.equals("ferrari")){
+			String cls = x.getName().split("_")[0];
+			String featurePath[] = x.getFileFeature(h).split("/");
+			String ETLossFileName = featurePath[featurePath.length - 1];
+			System.out.println(cls+"_"+ETLossFileName);
+			double gaze_ratio = lossMap.get(cls+"_"+ETLossFileName);
+			return gaze_ratio;
+		}
+		else if (gazeType.equals("stefan")){
+			String featurePath[] = x.getFileFeature(h).split("/");
+			String ETLossFileName = featurePath[featurePath.length - 1];
+			double gaze_ratio = lossMap.get(ETLossFileName);
+			return gaze_ratio;
+		}
+		else {
+			System.err.println("error gazeType");
+			return -1000.0;
+		}
 	}
 	
 	protected double delta(Integer yi, Integer yp, BagMIL x, Integer h)  {
 //		System.out.println(ETLossFileName);
 //		System.out.println(1-gaze_ratio);
 		if(yi == 1 && yp == 1) {
-			double gaze_ratio = getGazeRatio(x, h);
+			double gaze_ratio = getGazeRatio(x, h, gazeType);
 			//			System.out.println(tradeoff*(1-gaze_ratio));
 			return (double)(0+tradeoff*(1-gaze_ratio));
 		}

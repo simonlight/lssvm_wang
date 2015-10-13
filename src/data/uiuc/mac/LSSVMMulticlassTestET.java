@@ -31,7 +31,7 @@ public class LSSVMMulticlassTestET {
 		String sourceDir = "/home/wangxin/Data/ferrari_gaze/";
 		String simDir = "/home/wangxin/results/gaze_voc_object_ferrari/";
 		String lossPath = sourceDir+"ETLoss_dict/";
-		
+		String gazeType = "ferrari";
 		String testResultFileName = "c1000.txt";
 		String detailFolder= "c1000clean";
 		
@@ -137,7 +137,7 @@ public class LSSVMMulticlassTestET {
 	    		    		lsvm.setCpmin(cpmin);
 	    		    		lsvm.setLambda(lambda);
 	    		    		lsvm.setEpsilon(epsilon);
-							
+							lsvm.setGazeType(gazeType);
 	    		    		lsvm.setLossDict(lossPath+"ETLOSS+_"+scale+".loss");
 							lsvm.setTradeOff(tradeoff);
 							

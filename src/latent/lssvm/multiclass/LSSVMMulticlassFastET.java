@@ -32,6 +32,8 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 	protected double lambda;
 	protected double epsilon;
 	protected double tradeoff;
+	protected String gazeType;
+	
 	protected HashMap<String , Double> lossMap = new HashMap<String , Double>(); 
 
 	//svm hyperplane
@@ -427,6 +429,12 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 	}
 	public void setEpsilon(double epsilon) {
 		this.epsilon = epsilon;
+	}
+	public String getGazeType() {
+		return gazeType;
+	}
+	public void setGazeType(String gazeType) {
+		this.gazeType = gazeType;
 	}
 	public void setTradeOff(double tradeoff){
 		this.tradeoff = tradeoff;
