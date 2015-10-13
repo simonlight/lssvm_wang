@@ -13,13 +13,9 @@ import latent.variable.BagMIL;
 import struct.STrainingSample;
 import util.AveragePrecision;
 import fr.lip6.jkernelmachines.evaluation.Evaluation;
-import fr.lip6.jkernelmachines.type.TrainingSample;
 
 public class LSSVMMulticlassFastBagMILET extends LSSVMMulticlassFastET<BagMIL,Integer> {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -7682761029498647460L;
 
 	@Override
@@ -76,7 +72,7 @@ public class LSSVMMulticlassFastBagMILET extends LSSVMMulticlassFastET<BagMIL,In
 //		System.out.println(1-gaze_ratio);
 		if(yi == 1 && yp == 1) {
 //			System.out.println(tradeoff*(1-gaze_ratio));
-			return (double)((yi^yp)+tradeoff*(1-gaze_ratio));
+			return (double)(0+tradeoff*(1-gaze_ratio));
 		}
 		else {
 			return (double)((yi^yp));

@@ -43,9 +43,9 @@ public class BagReader {
 				ligne=br.readLine();
 				System.out.println(ligne);
 				int nbBag = Integer.parseInt(ligne);
-//				//test!!!!!!!!!!!!!
-//				nbBag=7;
-//				//
+				//test!!!!!!!!!!!!!
+				nbBag=7;
+				//
 				for(int i=0; i<nbBag; i++) {
 					
 					System.out.print(".");
@@ -83,7 +83,8 @@ public class BagReader {
 				
 				br.close();
 				System.out.println("\nnb bags: " + list.size() + "\tnb instances: " + nbInstancesAll + "\tnb moyen instances: " + (nbInstancesAll/list.size()));
-			
+				
+				//L2 norm
 				for(TrainingSample<BagMIL> ts : list) {
 					for(int i=0; i<ts.sample.getFeatures().size(); i++) {
 						VectorOp.normL2(ts.sample.getFeature(i));

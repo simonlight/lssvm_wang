@@ -13,8 +13,9 @@ def contains_class(im, cls):
         return '1'
     else:
         return '0'
+
 # eye-trackered images we actually have
-def etImages(root ):
+def etImages(root):
     #there are some images are duplicated in content with different names
     list_files = [files for root, dirs, files in os.walk(root)][0]
     return list_files
@@ -45,7 +46,7 @@ def generate(refpath, cls, file_typ, scale, vm):
     
     with open(refpath) as t:
         for line in t:
-            name, _,res = line.split()
+            name, _, res = line.split()
             name = name.strip()+'.jpg'
             res = res.strip()
             ref_files[name]=res

@@ -23,10 +23,10 @@ public class LSSVMMulticlassTestET {
 	
 	public static void main(String[] args) {
 		
-		String sourceDir = "/home/wangxin/Data/gaze_voc_actions_stefan/";
-		String simDir = "/home/wangxin/results/gaze_voc_actions_stefan/"+"std_et/";
-//		String sourceDir = "/local/wangxin/Data/gaze_voc_actions_stefan/";
-//		String simDir = "/local/wangxin/results/gaze_voc_actions_stefan/std_et/";
+//		String sourceDir = "/home/wangxin/Data/gaze_voc_actions_stefan/";
+//		String simDir = "/home/wangxin/results/gaze_voc_actions_stefan/"+"std_et/";
+		String sourceDir = "/local/wangxin/Data/gaze_voc_actions_stefan/";
+		String simDir = "/local/wangxin/results/gaze_voc_actions_stefan/std_et/";
 		String testResultFileName = "c1000.txt";
 		String detailFolder= "c1000clean";
 //		public static String simDir = "/home/wangxin/Data/ferrari_data/reduit_singlebb/";
@@ -47,13 +47,13 @@ public class LSSVMMulticlassTestET {
 //	    double[] lambdaCV = {1e-4};
 	    double[] epsilonCV = {1e-2};
 
-//	    double[] tradeoffCV = {0,0.5};
-	    double[] tradeoffCV = {0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0,5.0,10.0,20,50,100};
-	    String[] classes = {args[0]};
-	    int[] scaleCV = {Integer.valueOf(args[1])};
+	    double[] tradeoffCV = {0,0.5};
+//	    double[] tradeoffCV = {0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0,5.0,10.0,20,50,100};
+//	    String[] classes = {args[0]};
+//	    int[] scaleCV = {Integer.valueOf(args[1])};
 	    
-//	    String[] classes = {"walking"};
-//	    int[] scaleCV = {50};
+	    String[] classes = {"walking"};
+	    int[] scaleCV = {50};
 	    
 	    //int[] splitCV = {1,2,3,4,5};
 	    int[] splitCV = {1};
@@ -142,8 +142,6 @@ public class LSSVMMulticlassTestET {
 							//Initialize the region by fixations
 							for(STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer> ts : exampleTrain){
     							ts.input.h = lsvm.getGazeInitRegion(ts.input.x, scale);
-//    							System.out.println(ts.input.x);
-//    							System.out.println(ts.input.h);
     						}    
 							
 							String suffix = "_" + lsvm.toString();
