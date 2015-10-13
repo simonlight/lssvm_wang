@@ -17,7 +17,6 @@ import fr.lip6.jkernelmachines.evaluation.Evaluation;
 public class LSSVMMulticlassFastBagMILET extends LSSVMMulticlassFastET<BagMIL,Integer> {
 
 	private static final long serialVersionUID = -7682761029498647460L;
-	public String gazeType;
 	@Override
 	protected List<Integer> enumerateH(BagMIL x) {
 		//how many kinds of latent values
