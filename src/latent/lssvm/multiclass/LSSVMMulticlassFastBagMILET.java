@@ -60,7 +60,7 @@ public class LSSVMMulticlassFastBagMILET extends LSSVMMulticlassFastET<BagMIL,In
 	}
 	
 	protected double getGazeRatio(BagMIL x, Integer h, String gazeType){
-		if (gazeType.equals("ferrari")){
+		if (gazeType=="ferrari"){
 			String cls = x.getName().split("_")[0];
 			String featurePath[] = x.getFileFeature(h).split("/");
 			String ETLossFileName = featurePath[featurePath.length - 1];
