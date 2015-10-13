@@ -70,11 +70,11 @@ public class LSSVMMulticlassFastBagMILET extends LSSVMMulticlassFastET<BagMIL,In
 	}
 	
 	protected double delta(Integer yi, Integer yp, BagMIL x, Integer h)  {
-		double gaze_ratio = getGazeRatio(x, h);
 //		System.out.println(ETLossFileName);
 //		System.out.println(1-gaze_ratio);
 		if(yi == 1 && yp == 1) {
-//			System.out.println(tradeoff*(1-gaze_ratio));
+			double gaze_ratio = getGazeRatio(x, h);
+			//			System.out.println(tradeoff*(1-gaze_ratio));
 			return (double)(0+tradeoff*(1-gaze_ratio));
 		}
 		else {
