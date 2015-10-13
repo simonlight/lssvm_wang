@@ -61,6 +61,7 @@ public class LSSVMMulticlassFastBagMILET extends LSSVMMulticlassFastET<BagMIL,In
 	
 	protected double getGazeRatio(BagMIL x, Integer h){
 		String imgName = x.getName().split("/")[0]+".txt";
+		System.out.println(imgName);
 		double gaze_ratio = lossMap.get(imgName);
 		return gaze_ratio;
 	}
