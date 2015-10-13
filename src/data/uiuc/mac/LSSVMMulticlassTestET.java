@@ -25,13 +25,15 @@ public class LSSVMMulticlassTestET {
 		
 //		String sourceDir = "/home/wangxin/Data/gaze_voc_actions_stefan/";
 //		String simDir = "/home/wangxin/results/gaze_voc_actions_stefan/"+"std_et/";
-		String sourceDir = "/local/wangxin/Data/gaze_voc_actions_stefan/";
-		String simDir = "/local/wangxin/results/gaze_voc_actions_stefan/std_et/";
+//		String sourceDir = "/local/wangxin/Data/gaze_voc_actions_stefan/";
+//		String simDir = "/local/wangxin/results/gaze_voc_actions_stefan/std_et/";
+		
+		String sourceDir = "/home/wangxin/Data/ferrari_gaze/";
+		String simDir = "/home/wangxin/results/gaze_voc_object_ferrari/";
+		String lossPath = sourceDir+"ETLoss_dict/";
+		
 		String testResultFileName = "c1000.txt";
 		String detailFolder= "c1000clean";
-//		public static String simDir = "/home/wangxin/Data/ferrari_data/reduit_singlebb/";
-//		public static String sourceDir = "/home/wangxin/Data/ferrari_data/POETdataset/POETdataset/";
-		String lossPath = sourceDir+"ETLoss_dict/";
 		
 
 		//ensure dimension of features
@@ -49,11 +51,11 @@ public class LSSVMMulticlassTestET {
 
 	    double[] tradeoffCV = {0,0.5};
 //	    double[] tradeoffCV = {0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0,5.0,10.0,20,50,100};
-//	    String[] classes = {args[0]};
-//	    int[] scaleCV = {Integer.valueOf(args[1])};
+	    String[] classes = {args[0]};
+	    int[] scaleCV = {Integer.valueOf(args[1])};
 	    
-	    String[] classes = {"walking"};
-	    int[] scaleCV = {50};
+//	    String[] classes = {"walking"};
+//	    int[] scaleCV = {50};
 	    
 	    //int[] splitCV = {1,2,3,4,5};
 	    int[] splitCV = {1};

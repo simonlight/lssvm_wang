@@ -27,6 +27,7 @@ public class LossDictPositive {
 					br.close();
 					fr.close();
 					map.put(childNode.getName(), ETLoss); 
+					System.out.println(childNode.getName());
 				
 				}
 	        			
@@ -75,8 +76,8 @@ public class LossDictPositive {
 //        	map.clear();
 //        }
 		
-//		String[] classList={"dog","cat", "motorbike", "boat", "aeroplane", "horse", "cow", "sofa", "diningtable", "bicycle"};
-		String[] classList={"jumping", "phoning", "playinginstrument", "reading", "ridingbike", "ridinghorse", "running", "takingphoto", "usingcomputer", "walking"};
+		String[] classList={"dog","cat", "motorbike", "boat", "aeroplane", "horse", "cow", "sofa", "diningtable", "bicycle"};
+//		String[] classList={"jumping", "phoning", "playinginstrument", "reading", "ridingbike", "ridinghorse", "running", "takingphoto", "usingcomputer", "walking"};
 //		int[] scale_list={1,4,9};
 //		int[] scale_list={16};
 //		int[] scale_list={25};
@@ -85,12 +86,12 @@ public class LossDictPositive {
         	int scale=scale_list[scale_index];
         	System.out.println(scale);
         	for (String imClass:classList){
-	        	File inputFolder = new File("/local/wangxin/Data/gaze_voc_actions_stefan/ETLoss_ratio/"+imClass+"/"+String.valueOf(scale)+"/");
-//	        	File inputFolder = new File("/home/wangxin/Data/ferrari_data/POETdataset/POETdataset/ETLoss_ratio/"+imClass+"/"+String.valueOf(scale)+"/");
+//	        	File inputFolder = new File("/local/wangxin/Data/gaze_voc_actions_stefan/ETLoss_ratio/"+imClass+"/"+String.valueOf(scale)+"/");
+	        	File inputFolder = new File("/local/wangxin/Data/ferrari_data/ETLoss_ratio/"+imClass+"/"+String.valueOf(scale)+"/");
 	        	traverse(inputFolder);
         	}
-        	ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("/local/wangxin/Data/gaze_voc_actions_stefan/ETLoss_dict/ETLOSS+_"+convert(scale)+".loss"));  
-//        	ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("/home/wangxin/Data/ferrari_data/POETdataset/POETdataset/ETLoss_dict/ETLOSS+_"+convert(scale)+".loss"));  
+//        	ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("/local/wangxin/Data/gaze_voc_actions_stefan/ETLoss_dict/ETLOSS+_"+convert(scale)+".loss"));  
+        	ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("/local/wangxin/Data/ferrari_data/ETLoss_dict/ETLOSS+_"+convert(scale)+".loss"));  
         	os.writeObject(map);
         	os.close();
         	map.clear();
