@@ -23,15 +23,15 @@ public class LSSVMMulticlassTestET {
 	
 	public static void main(String[] args) {
 		
-		String sourceDir = "/home/wangxin/Data/gaze_voc_actions_stefan/";
-		String simDir = "/home/wangxin/results/gaze_voc_actions_stefan/"+"std_et/";
-		String gazeType = "stefan";
+//		String sourceDir = "/home/wangxin/Data/gaze_voc_actions_stefan/";
+//		String simDir = "/home/wangxin/results/gaze_voc_actions_stefan/"+"std_et/";
+//		String gazeType = "stefan";
 	//		String sourceDir = "/local/wangxin/Data/gaze_voc_actions_stefan/";
 //		String simDir = "/local/wangxin/results/gaze_voc_actions_stefan/std_et/";
 		
-//		String sourceDir = "/home/wangxin/Data/ferrari_gaze/";
-//		String simDir = "/home/wangxin/results/gaze_voc_object_ferrari/";
-//		String gazeType = "ferrari";
+		String sourceDir = "/home/wangxin/Data/ferrari_gaze/";
+		String simDir = "/home/wangxin/results/gaze_voc_object_ferrari/";
+		String gazeType = "ferrari";
 		
 		String lossPath = sourceDir+"ETLoss_dict/";
 		String testResultFileName = "c1000.txt";
