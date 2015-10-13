@@ -60,10 +60,10 @@ public class LSSVMMulticlassFastBagMILET extends LSSVMMulticlassFastET<BagMIL,In
 	}
 	
 	protected double getGazeRatio(BagMIL x, Integer h){
-		String imgName = x.getName().split("/")[0].replace(".jpg",".txt");
-		System.out.println(imgName);
-		System.out.println(lossMap.keySet());
-		double gaze_ratio = lossMap.get(imgName);
+		String cls = x.getName().split("_")[0];
+		String featurePath[] = x.getFileFeature(h).split("/");
+		String ETLossFileName = featurePath[featurePath.length - 1];
+		double gaze_ratio = lossMap.get(cls+"_"+ETLossFileName);
 		return gaze_ratio;
 	}
 	
