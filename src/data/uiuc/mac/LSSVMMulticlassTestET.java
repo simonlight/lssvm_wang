@@ -44,7 +44,7 @@ public class LSSVMMulticlassTestET {
 		
 		String lossPath = sourceDir+"ETLoss_dict/";
 		String testResultFileName = "full_ferrari_all_scales.txt";
-		String detailFolder= "full_ferrari_all_scales.txt";
+		String detailFolder= "full_ferrari_all_scales/";
 		
 
 		//ensure dimension of features
