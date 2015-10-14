@@ -24,18 +24,25 @@ public class LSSVMMulticlassTestET {
 	public static void main(String[] args) {
 		
 //		String sourceDir = "/home/wangxin/Data/gaze_voc_actions_stefan/";
-//		String simDir = "/home/wangxin/results/gaze_voc_actions_stefan/"+"std_et/";
+//		String simDir = "/home/wangxin/results/ferrari_gaze/std_et/";
 //		String gazeType = "stefan";
-	//		String sourceDir = "/local/wangxin/Data/gaze_voc_actions_stefan/";
-//		String simDir = "/local/wangxin/results/gaze_voc_actions_stefan/std_et/";
-		
-		String sourceDir = "/home/wangxin/Data/ferrari_gaze/";
-		String simDir = "/home/wangxin/results/gaze_voc_object_ferrari/";
+//			String sourceDir = "/local/wangxin/Data/gaze_voc_actions_stefan/";
+//		String simDir = "/local/wangxin/results/stefan_gaze/std_et/";
+//		String gazeType = "stefan";
+
+//		String sourceDir = "/home/wangxin/Data/ferrari_gaze/";
+//		String simDir = "/home/wangxin/results/ferrari_gaze/std_et/";
+//		String gazeType = "ferrari";
+		String sourceDir = "/local/wangxin/Data/ferrari_gaze/";
+		String simDir = "/local/wangxin/results/ferrari_gaze/std_et/";
 		String gazeType = "ferrari";
+
+//	    String[] classes = {"walking"};
+//	    String[] classes = {"dog"};
 		
 		String lossPath = sourceDir+"ETLoss_dict/";
-		String testResultFileName = "c1000.txt";
-		String detailFolder= "c1000clean";
+		String testResultFileName = "full_ferrari_all_scales.txt";
+		String detailFolder= "full_ferrari_all_scales.txt";
 		
 
 		//ensure dimension of features
@@ -47,16 +54,16 @@ public class LSSVMMulticlassTestET {
 		int cpmax = 500;
 		int cpmin = 10;
 		
-	    double[] lambdaCV = {1e-3};
+	    double[] lambdaCV = {1e-4};
 //	    double[] lambdaCV = {1e-4};
 	    double[] epsilonCV = {1e-2};
 
 //	    double[] tradeoffCV = {0,0.5};
-	    double[] tradeoffCV = {0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0};
+	    double[] tradeoffCV = {0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1};
 	    String[] classes = {args[0]};
 	    int[] scaleCV = {Integer.valueOf(args[1])};
 	    
-//	    String[] classes = {"walking"};
+
 //	    int[] scaleCV = {50};
 	    
 	    //int[] splitCV = {1,2,3,4,5};

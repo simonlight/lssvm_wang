@@ -64,12 +64,14 @@ public class LSSVMMulticlassFastBagMILET extends LSSVMMulticlassFastET<BagMIL,In
 			String featurePath[] = x.getFileFeature(h).split("/");
 			String ETLossFileName = featurePath[featurePath.length - 1];
 			double gaze_ratio = lossMap.get(cls+"_"+ETLossFileName);
+
 			return gaze_ratio;
 		}
 		else if (gazeType.equals("stefan")){
 			String featurePath[] = x.getFileFeature(h).split("/");
 			String ETLossFileName = featurePath[featurePath.length - 1];
 			double gaze_ratio = lossMap.get(ETLossFileName);
+
 			return gaze_ratio;
 		}
 		else {
@@ -84,7 +86,7 @@ public class LSSVMMulticlassFastBagMILET extends LSSVMMulticlassFastET<BagMIL,In
 		if(yi == 1 && yp == 1) {
 			
 			double gaze_ratio = getGazeRatio(x, h, gazeType);
-			//			System.out.println(tradeoff*(1-gaze_ratio));
+			
 			return (double)(0+tradeoff*(1-gaze_ratio));
 		}
 		else {
