@@ -45,17 +45,33 @@ public class LSSVMMulticlassFastBagMILET extends LSSVMMulticlassFastET<BagMIL,In
 		return (int)(Math.pow((1+(100-scale)/10),2));
 	}
 	
-	public Integer getGazeInitRegion(BagMIL x, int scale){
-		Integer maxH=-1;
+	public Integer getGazeInitRegion(STrainingSample<LatentRepresentation<BagMIL, Integer>, Integer>  ts, int scale){
+		Integer maxH = -1;
+		Integer minH = -1;
 		double maxGazeRatio = -1;
+		double minGazeRatio = Integer.MAX_VALUE;
 		for (Integer h=0;h<convertScale(scale);h++){
-			double gazeRatio = getGazeRatio(x, h, gazeType);
+			double gazeRatio = getGazeRatio(ts.input.x, h, gazeType);
 			if (gazeRatio>=maxGazeRatio){
 				maxH=h;
 				maxGazeRatio = gazeRatio;
 			}
 		}
-		return maxH;
+		for (Integer h=0;h<convertScale(scale);h++){
+			double gazeRatio = getGazeRatio(ts.input.x, h, gazeType);
+			if (gazeRatio<=minGazeRatio){
+				minH=h;
+				minGazeRatio = gazeRatio;
+			}
+		}
+		if (ts.output==1){
+//			System.out.println(ts.input.x);
+			return maxH;
+		}
+		else{
+//			System.out.println(ts.input.x);
+			return minH;
+		}
 	}
 	
 	protected double getGazeRatio(BagMIL x, Integer h, String gazeType){
@@ -83,14 +99,13 @@ public class LSSVMMulticlassFastBagMILET extends LSSVMMulticlassFastET<BagMIL,In
 	protected double delta(Integer yi, Integer yp, BagMIL x, Integer h)  {
 //		System.out.println(ETLossFileName);
 //		System.out.println(1-gaze_ratio);
+		double gaze_ratio = getGazeRatio(x, h, gazeType);
 		if(yi == 1 ) {
-			
-			double gaze_ratio = getGazeRatio(x, h, gazeType);
-			
-			return (double)(0+tradeoff*(1-gaze_ratio));
+			return (double)((yi^yp)+tradeoff*(1-gaze_ratio));
 		}
 		else {
-			return (double)((yi^yp));
+			
+			return (double)((yi^yp)+tradeoff*gaze_ratio);
 		}		
 	}
 

@@ -23,9 +23,9 @@ public class LSSVMMulticlassTestET {
 	
 	public static void main(String[] args) {
 		//big	stefan
-		String sourceDir = "/home/wangxin/Data/gaze_voc_actions_stefan/";
-		String simDir = "/home/wangxin/results/ferrari_gaze/std_et/";
-		String gazeType = "stefan";
+//		String sourceDir = "/home/wangxin/Data/gaze_voc_actions_stefan/";
+//		String simDir = "/home/wangxin/results/ferrari_gaze/std_et/";
+//		String gazeType = "stefan";
 		//local stefan
 //			String sourceDir = "/local/wangxin/Data/gaze_voc_actions_stefan/";
 //		String simDir = "/local/wangxin/results/stefan_gaze/std_et/";
@@ -36,9 +36,9 @@ public class LSSVMMulticlassTestET {
 //		String simDir = "/home/wangxin/results/ferrari_gaze/std_et/";
 //		String gazeType = "ferrari";
 		// local ferrari
-//		String sourceDir = "/local/wangxin/Data/ferrari_gaze/";
-//		String simDir = "/local/wangxin/results/ferrari_gaze/std_et/";
-//		String gazeType = "ferrari";
+		String sourceDir = "/local/wangxin/Data/ferrari_gaze/";
+		String simDir = "/local/wangxin/results/ferrari_gaze/std_et/";
+		String gazeType = "ferrari";
 
 //	    String[] classes = {"walking"};
 //	    String[] classes = {"horse"};
@@ -55,12 +55,12 @@ public class LSSVMMulticlassTestET {
 		String detailFolder= "full_all_scales/";
 		
 
-	    double[] lambdaCV = {1e-4};
+	    double[] lambdaCV = {1e-5};
 //	    double[] lambdaCV = {1e-4};
 	    double[] epsilonCV = {1e-2};
 
 //	    double[] tradeoffCV = {0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1};
-	    double[] tradeoffCV = {0,0.5,1};
+	    double[] tradeoffCV = {0};
 		
 
 		
@@ -163,7 +163,7 @@ public class LSSVMMulticlassTestET {
 							
 							//Initialize the region by fixations
 							for(STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer> ts : exampleTrain){
-    							ts.input.h = lsvm.getGazeInitRegion(ts.input.x, scale);
+    							ts.input.h = lsvm.getGazeInitRegion(ts, scale);
     						}    
 							
 							String suffix = "_" + lsvm.toString();

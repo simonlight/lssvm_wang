@@ -119,6 +119,7 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 			
 			for(STrainingSample<LatentRepresentation<X,H>,Integer> ts : l){
 				ts.input.h = prediction(ts.input.x,ts.output);
+//				System.out.println("best region predict: "+ts.input.h+" "+ts.input.x);
 
 			}
 		}
