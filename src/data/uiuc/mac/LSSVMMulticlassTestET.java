@@ -43,7 +43,11 @@ public class LSSVMMulticlassTestET {
 //	    String[] classes = {"walking"};
 //	    String[] classes = {"horse"};
 //	    int[] scaleCV = {50};
-	    double[] tradeoffCV = {0,0.5};
+
+	    String[] classes = {args[0]};
+	    int[] scaleCV = {Integer.valueOf(args[1])};
+
+//	    double[] tradeoffCV = {0,1};
 	    String testBool="";
 	    
 		String lossPath = sourceDir+"ETLoss_dict/";
@@ -56,8 +60,7 @@ public class LSSVMMulticlassTestET {
 	    double[] epsilonCV = {1e-2};
 
 //	    double[] tradeoffCV = {0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1};
-	    String[] classes = {args[0]};
-	    int[] scaleCV = {Integer.valueOf(args[1])};
+	    double[] tradeoffCV = {0,0.5,1};
 		
 
 		

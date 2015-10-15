@@ -215,9 +215,9 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 			Object[] or = lossAugmentedInference(ts);//max yp, max hp
 			Integer yp = (Integer)or[0];//
 			H hp = (H)or[1];
-			System.out.println(ts.input.x);
-			System.out.print("LAI\t yp:"+yp+"\thp:"+hp);
-			System.out.println();
+//			System.out.println(ts.input.x);
+//			System.out.print("LAI\t yp:"+yp+"\thp:"+hp);
+//			System.out.println();
 
 			ct += delta(ts.output, yp, ts.input.x, hp);
 			double[] psi1 = psi(ts.input.x, hp); 
