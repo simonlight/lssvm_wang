@@ -22,19 +22,20 @@ public class LSSVMMulticlassTestET {
 	
 	
 	public static void main(String[] args) {
-		
-//		String sourceDir = "/home/wangxin/Data/gaze_voc_actions_stefan/";
-//		String simDir = "/home/wangxin/results/ferrari_gaze/std_et/";
-//		String gazeType = "stefan";
+		//big	stefan
+		String sourceDir = "/home/wangxin/Data/gaze_voc_actions_stefan/";
+		String simDir = "/home/wangxin/results/ferrari_gaze/std_et/";
+		String gazeType = "stefan";
+		//local stefan
 //			String sourceDir = "/local/wangxin/Data/gaze_voc_actions_stefan/";
 //		String simDir = "/local/wangxin/results/stefan_gaze/std_et/";
 //		String gazeType = "stefan";
 
-		// big
-		String sourceDir = "/home/wangxin/Data/ferrari_gaze/";
-		String simDir = "/home/wangxin/results/ferrari_gaze/std_et/";
-		String gazeType = "ferrari";
-		// local
+		// big ferrari
+//		String sourceDir = "/home/wangxin/Data/ferrari_gaze/";
+//		String simDir = "/home/wangxin/results/ferrari_gaze/std_et/";
+//		String gazeType = "ferrari";
+		// local ferrari
 //		String sourceDir = "/local/wangxin/Data/ferrari_gaze/";
 //		String simDir = "/local/wangxin/results/ferrari_gaze/std_et/";
 //		String gazeType = "ferrari";
