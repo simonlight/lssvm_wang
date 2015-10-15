@@ -31,32 +31,32 @@ public class LSSVMMulticlassTestET {
 //		String gazeType = "stefan";
 
 		// big
-//		String sourceDir = "/home/wangxin/Data/ferrari_gaze/";
-//		String simDir = "/home/wangxin/results/ferrari_gaze/std_et/";
-//		String gazeType = "ferrari";
-		// local
-		String sourceDir = "/local/wangxin/Data/ferrari_gaze/";
-		String simDir = "/local/wangxin/results/ferrari_gaze/std_et/";
+		String sourceDir = "/home/wangxin/Data/ferrari_gaze/";
+		String simDir = "/home/wangxin/results/ferrari_gaze/std_et/";
 		String gazeType = "ferrari";
+		// local
+//		String sourceDir = "/local/wangxin/Data/ferrari_gaze/";
+//		String simDir = "/local/wangxin/results/ferrari_gaze/std_et/";
+//		String gazeType = "ferrari";
 
 //	    String[] classes = {"walking"};
-	    String[] classes = {"horse"};
-	    int[] scaleCV = {50};
+//	    String[] classes = {"horse"};
+//	    int[] scaleCV = {50};
 	    double[] tradeoffCV = {0,0.5};
-
+	    String testBool="";
 	    
 		String lossPath = sourceDir+"ETLoss_dict/";
 		String testResultFileName = "full_all_scales.txt";
 		String detailFolder= "full_all_scales/";
-		String testBool="test";
+		
 
 	    double[] lambdaCV = {1e-4};
 //	    double[] lambdaCV = {1e-4};
 	    double[] epsilonCV = {1e-2};
 
 //	    double[] tradeoffCV = {0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1};
-//	    String[] classes = {args[0]};
-//	    int[] scaleCV = {Integer.valueOf(args[1])};
+	    String[] classes = {args[0]};
+	    int[] scaleCV = {Integer.valueOf(args[1])};
 		
 
 		
@@ -65,7 +65,7 @@ public class LSSVMMulticlassTestET {
 		
 		int optim = 1;
 		int epochsLatentMax = 50;
-		int epochsLatentMin = 1;
+		int epochsLatentMin = 5;
 		int cpmax = 500;
 		int cpmin = 10;
 		
