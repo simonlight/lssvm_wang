@@ -31,39 +31,44 @@ public class LSSVMMulticlassTestET {
 //		String gazeType = "stefan";
 
 		// big
-		String sourceDir = "/home/wangxin/Data/ferrari_gaze/";
-		String simDir = "/home/wangxin/results/ferrari_gaze/std_et/";
-		String gazeType = "ferrari";
-		// local
-//		String sourceDir = "/local/wangxin/Data/ferrari_gaze/";
-//		String simDir = "/local/wangxin/results/ferrari_gaze/std_et/";
+//		String sourceDir = "/home/wangxin/Data/ferrari_gaze/";
+//		String simDir = "/home/wangxin/results/ferrari_gaze/std_et/";
 //		String gazeType = "ferrari";
+		// local
+		String sourceDir = "/local/wangxin/Data/ferrari_gaze/";
+		String simDir = "/local/wangxin/results/ferrari_gaze/std_et/";
+		String gazeType = "ferrari";
 
 //	    String[] classes = {"walking"};
-//	    String[] classes = {"dog"};
-		
+	    String[] classes = {"horse"};
+	    int[] scaleCV = {50};
+	    double[] tradeoffCV = {0,0.5};
+
+	    
 		String lossPath = sourceDir+"ETLoss_dict/";
-		String testResultFileName = "full_ferrari_all_scales.txt";
-		String detailFolder= "full_ferrari_all_scales/";
+		String testResultFileName = "full_all_scales.txt";
+		String detailFolder= "full_all_scales/";
+		String testBool="test";
+
+	    double[] lambdaCV = {1e-4};
+//	    double[] lambdaCV = {1e-4};
+	    double[] epsilonCV = {1e-2};
+
+//	    double[] tradeoffCV = {0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1};
+//	    String[] classes = {args[0]};
+//	    int[] scaleCV = {Integer.valueOf(args[1])};
 		
 
+		
 		//ensure dimension of features
 		int numWords = 2048;
 		
 		int optim = 1;
 		int epochsLatentMax = 50;
-		int epochsLatentMin = 5;
+		int epochsLatentMin = 1;
 		int cpmax = 500;
 		int cpmin = 10;
 		
-	    double[] lambdaCV = {1e-4};
-//	    double[] lambdaCV = {1e-4};
-	    double[] epsilonCV = {1e-2};
-
-//	    double[] tradeoffCV = {0,0.5};
-	    double[] tradeoffCV = {0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1};
-	    String[] classes = {args[0]};
-	    int[] scaleCV = {Integer.valueOf(args[1])};
 	    
 
 //	    int[] scaleCV = {50};
@@ -118,8 +123,8 @@ public class LSSVMMulticlassTestET {
 //				if(compute) {
 				if(true) {
 					
-					List<TrainingSample<BagMIL>> listTrain = BagReader.readBagMIL(inputDir + "/"+className+"_train_scale_"+scale+"_matconvnet_m_2048_layer_20.txt", numWords);
-					List<TrainingSample<BagMIL>> listTest = BagReader.readBagMIL(inputDir + "/"+className+"_val_scale_"+scale+"_matconvnet_m_2048_layer_20.txt", numWords); 
+					List<TrainingSample<BagMIL>> listTrain = BagReader.readBagMIL(inputDir + "/"+className+"_train_scale_"+scale+"_matconvnet_m_2048_layer_20.txt"+testBool, numWords);
+					List<TrainingSample<BagMIL>> listTest = BagReader.readBagMIL(inputDir + "/"+className+"_val_scale_"+scale+"_matconvnet_m_2048_layer_20.txt"+testBool, numWords); 
 		        	
 					
 					for(double epsilon : epsilonCV) {

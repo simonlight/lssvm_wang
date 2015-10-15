@@ -108,7 +108,7 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 		int el=0;
 		double decrement = 0;
 		double precObj = 0;
-		while(el<epochsLatentMin || (el<=epochsLatentMax && decrement < 0)) {//if objecttif functions does not decrease, stop!
+		while(el<epochsLatentMin || (el<=epochsLatentMax && decrement < 0)) {//if objectif functions does not decrease, stop!
 			System.out.println("epoch latent " + el);
 			trainCCCPCP1Slack(l);
 			double obj = primalObj(l);
@@ -145,6 +145,7 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 		while(t<cpmin || (t<=cpmax && VectorOp.dot(w, gt) < ct - xi - epsilon)) {//why this stop condition
 			//Not clear for this part
 			System.out.print(".");
+			System.out.println("cutting plane stop crterion: "+(VectorOp.dot(w, gt) -( ct - xi - epsilon)));
 			if(t == cpmax) {
 				System.out.print(" # max iter ");
 			}
@@ -208,11 +209,16 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 		double[][] gt = new double[w.length][w[0].length];
 		double ct = 0;
 		double n = l.size();
+		System.out.println("cutting plane");
 		for(int i=0; i<l.size(); i++){
 			STrainingSample<LatentRepresentation<X,H>,Integer> ts = l.get(i);			
 			Object[] or = lossAugmentedInference(ts);//max yp, max hp
 			Integer yp = (Integer)or[0];//
 			H hp = (H)or[1];
+			System.out.println(ts.input.x);
+			System.out.print("LAI\t yp:"+yp+"\thp:"+hp);
+			System.out.println();
+
 			ct += delta(ts.output, yp, ts.input.x, hp);
 			double[] psi1 = psi(ts.input.x, hp); 
 			double[] psi2 = psi(ts.input.x, ts.input.h);//ts.input.h , the max h of the second term

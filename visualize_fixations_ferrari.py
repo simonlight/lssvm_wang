@@ -31,9 +31,9 @@ def color_map(color):
 for root,dirs,files in os.walk(fixation_path):
     for file in files:
         cls, year, id= file.split('_')
-        cls = 'dog'
+        cls = 'cow'
         year='2010'
-        id='005628.ggg'
+        id='000498.ggg'
         id=id[:-4]
 #         file = "2012_003108.json"
 #         filename_root = file[:-5]#.json
