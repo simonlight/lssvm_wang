@@ -49,18 +49,20 @@ public class LSSVMMulticlassFastBagMILET extends LSSVMMulticlassFastET<BagMIL,In
 		//Only positive image will be initialized by gaze most area
 		//Negative image is initialized by 0
 		if (mode.equals("+0")){
+			
 			if (ts.output == 1){
-			Integer maxH = -1;
-			double maxGazeRatio = -1;
-			for (Integer h=0;h<convertScale(scale);h++){
-				double gazeRatio = getGazeRatio(ts.input.x, h, gazeType);
-				if (gazeRatio>=maxGazeRatio){
-					maxH=h;
-					maxGazeRatio = gazeRatio;
+				Integer maxH = -1;
+				double maxGazeRatio = -1;
+				for (Integer h=0;h<convertScale(scale);h++){
+					double gazeRatio = getGazeRatio(ts.input.x, h, gazeType);
+					if (gazeRatio>=maxGazeRatio){
+						maxH=h;
+						maxGazeRatio = gazeRatio;
+					}
 				}
+				return maxH;
 			}
-			return maxH;
-			}
+			
 			else{
 				return 0;
 			}
@@ -68,34 +70,33 @@ public class LSSVMMulticlassFastBagMILET extends LSSVMMulticlassFastET<BagMIL,In
 		else if(mode.equals("+-")){
 			//Positive image is initialized by gaze most area
 			//Negative image is initialized by gaze least area 
-			Integer maxH = -1;
-			Integer minH = -1;
-			double maxGazeRatio = -1;
-			double minGazeRatio = Integer.MAX_VALUE;
-			for (Integer h=0;h<convertScale(scale);h++){
-				double gazeRatio = getGazeRatio(ts.input.x, h, gazeType);
-				if (gazeRatio>=maxGazeRatio){
-					maxH=h;
-					maxGazeRatio = gazeRatio;
-				}
-			}
-			for (Integer h=0;h<convertScale(scale);h++){
-				double gazeRatio = getGazeRatio(ts.input.x, h, gazeType);
-				if (gazeRatio<=minGazeRatio){
-					minH=h;
-					minGazeRatio = gazeRatio;
-				}
-			}
+			
 			if (ts.output==1){
-//				System.out.println(ts.input.x);
+				Integer maxH = -1;
+				double maxGazeRatio = -1;
+				for (Integer h=0;h<convertScale(scale);h++){
+					double gazeRatio = getGazeRatio(ts.input.x, h, gazeType);
+					if (gazeRatio>=maxGazeRatio){
+						maxH=h;
+						maxGazeRatio = gazeRatio;
+					}
+				}
 				return maxH;
 			}
 			else{
-//				System.out.println(ts.input.x);
+				Integer minH = -1;
+				double minGazeRatio = Integer.MAX_VALUE;
+				for (Integer h=0;h<convertScale(scale);h++){
+					double gazeRatio = getGazeRatio(ts.input.x, h, gazeType);
+					if (gazeRatio<=minGazeRatio){
+						minH=h;
+						minGazeRatio = gazeRatio;
+					}
+				}
 				return minH;
 			}
-
 		}
+		
 		else{
 			//Default case: all initialized by 0
 			return 0;

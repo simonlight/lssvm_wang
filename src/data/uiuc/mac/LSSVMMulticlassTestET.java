@@ -23,18 +23,18 @@ public class LSSVMMulticlassTestET {
 	
 	public static void main(String[] args) {
 		//big	stefan
-		String sourceDir = "/home/wangxin/Data/gaze_voc_actions_stefan/";
-		String simDir = "/home/wangxin/results/ferrari_gaze/std_et/";
-		String gazeType = "stefan";
+//		String sourceDir = "/home/wangxin/Data/gaze_voc_actions_stefan/";
+//		String simDir = "/home/wangxin/results/ferrari_gaze/std_et/";
+//		String gazeType = "stefan";
 		//local stefan
 //			String sourceDir = "/local/wangxin/Data/gaze_voc_actions_stefan/";
 //		String simDir = "/local/wangxin/results/stefan_gaze/std_et/";
 //		String gazeType = "stefan";
 
 		// big ferrari
-//		String sourceDir = "/home/wangxin/Data/ferrari_gaze/";
-//		String simDir = "/home/wangxin/results/ferrari_gaze/std_et/";
-//		String gazeType = "ferrari";
+		String sourceDir = "/home/wangxin/Data/ferrari_gaze/";
+		String simDir = "/home/wangxin/results/ferrari_gaze/std_et/";
+		String gazeType = "ferrari";
 		// local ferrari
 //		String sourceDir = "/local/wangxin/Data/ferrari_gaze/";
 //		String simDir = "/local/wangxin/results/ferrari_gaze/std_et/";
@@ -47,7 +47,6 @@ public class LSSVMMulticlassTestET {
 	    String[] classes = {args[0]};
 	    int[] scaleCV = {Integer.valueOf(args[1])};
 
-//	    double[] tradeoffCV = {0,1};
 	    String testBool="";
 	    
 		String lossPath = sourceDir+"ETLoss_dict/";
