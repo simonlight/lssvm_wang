@@ -43,7 +43,7 @@ public class LSSVMMulticlassTestET {
 //	    String[] classes = {"walking"};
 //	    String[] classes = {"horse"};
 //	    int[] scaleCV = {50};
-		String initializedType = "+0";
+		String initializedType = "default";
 	    String[] classes = {args[0]};
 	    int[] scaleCV = {Integer.valueOf(args[1])};
 
@@ -58,7 +58,8 @@ public class LSSVMMulticlassTestET {
 	    double[] epsilonCV = {1e-4};
 
 //	    double[] tradeoffCV = {0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1};
-	    double[] tradeoffCV = {0,0.5,1};
+//	    double[] tradeoffCV = {0,0.5,1};
+	    double[] tradeoffCV = {0};
 		
 
 		
