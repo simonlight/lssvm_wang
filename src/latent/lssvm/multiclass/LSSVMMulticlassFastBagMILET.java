@@ -45,33 +45,61 @@ public class LSSVMMulticlassFastBagMILET extends LSSVMMulticlassFastET<BagMIL,In
 		return (int)(Math.pow((1+(100-scale)/10),2));
 	}
 	
-	public Integer getGazeInitRegion(STrainingSample<LatentRepresentation<BagMIL, Integer>, Integer>  ts, int scale){
-		Integer maxH = -1;
-		Integer minH = -1;
-		double maxGazeRatio = -1;
-		double minGazeRatio = Integer.MAX_VALUE;
-		for (Integer h=0;h<convertScale(scale);h++){
-			double gazeRatio = getGazeRatio(ts.input.x, h, gazeType);
-			if (gazeRatio>=maxGazeRatio){
-				maxH=h;
-				maxGazeRatio = gazeRatio;
+	public Integer getGazeInitRegion(STrainingSample<LatentRepresentation<BagMIL, Integer>, Integer>  ts, int scale, String mode){
+		//Only positive image will be initialized by gaze most area
+		//Negative image is initialized by 0
+		if (mode.equals("+0")){
+			if (ts.output == 1){
+			Integer maxH = -1;
+			double maxGazeRatio = -1;
+			for (Integer h=0;h<convertScale(scale);h++){
+				double gazeRatio = getGazeRatio(ts.input.x, h, gazeType);
+				if (gazeRatio>=maxGazeRatio){
+					maxH=h;
+					maxGazeRatio = gazeRatio;
+				}
 			}
-		}
-		for (Integer h=0;h<convertScale(scale);h++){
-			double gazeRatio = getGazeRatio(ts.input.x, h, gazeType);
-			if (gazeRatio<=minGazeRatio){
-				minH=h;
-				minGazeRatio = gazeRatio;
-			}
-		}
-		if (ts.output==1){
-//			System.out.println(ts.input.x);
 			return maxH;
+			}
+			else{
+				return 0;
+			}
+		}
+		else if(mode.equals("+-")){
+			//Positive image is initialized by gaze most area
+			//Negative image is initialized by gaze least area 
+			Integer maxH = -1;
+			Integer minH = -1;
+			double maxGazeRatio = -1;
+			double minGazeRatio = Integer.MAX_VALUE;
+			for (Integer h=0;h<convertScale(scale);h++){
+				double gazeRatio = getGazeRatio(ts.input.x, h, gazeType);
+				if (gazeRatio>=maxGazeRatio){
+					maxH=h;
+					maxGazeRatio = gazeRatio;
+				}
+			}
+			for (Integer h=0;h<convertScale(scale);h++){
+				double gazeRatio = getGazeRatio(ts.input.x, h, gazeType);
+				if (gazeRatio<=minGazeRatio){
+					minH=h;
+					minGazeRatio = gazeRatio;
+				}
+			}
+			if (ts.output==1){
+//				System.out.println(ts.input.x);
+				return maxH;
+			}
+			else{
+//				System.out.println(ts.input.x);
+				return minH;
+			}
+
 		}
 		else{
-//			System.out.println(ts.input.x);
-			return minH;
-		}
+			//Default case: all initialized by 0
+			return 0;
+		} 
 	}
 	
 	protected double getGazeRatio(BagMIL x, Integer h, String gazeType){

@@ -43,7 +43,7 @@ public class LSSVMMulticlassTestET {
 //	    String[] classes = {"walking"};
 //	    String[] classes = {"horse"};
 //	    int[] scaleCV = {50};
-
+		String initializedType = "+0";
 	    String[] classes = {args[0]};
 	    int[] scaleCV = {Integer.valueOf(args[1])};
 
@@ -56,7 +56,6 @@ public class LSSVMMulticlassTestET {
 		
 
 	    double[] lambdaCV = {1e-5};
-//	    double[] lambdaCV = {1e-4};
 	    double[] epsilonCV = {1e-4};
 
 //	    double[] tradeoffCV = {0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1};
@@ -163,7 +162,7 @@ public class LSSVMMulticlassTestET {
 							
 							//Initialize the region by fixations
 							for(STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer> ts : exampleTrain){
-    							ts.input.h = lsvm.getGazeInitRegion(ts, scale);
+    							ts.input.h = lsvm.getGazeInitRegion(ts, scale, initializedType);
     						}    
 							
 							String suffix = "_" + lsvm.toString();
@@ -237,7 +236,7 @@ public class LSSVMMulticlassTestET {
 									// TODO Auto-generated catch block
 									e.printStackTrace();
 								}
-								System.err.println("test "+ String.valueOf(tradeoff)+" "+cls + " scale= " + scale + " ap= " + ap + " lambda= " + lambda + " epsilon= " + epsilon);
+								System.err.println(className + " test "+ String.valueOf(tradeoff)+" "+cls + " scale= " + scale + " ap= " + ap + " lambda= " + lambda + " epsilon= " + epsilon);
 								System.out.println("\n");
 							}
 		    			}

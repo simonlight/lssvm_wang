@@ -146,7 +146,7 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 		while(t<cpmin || (t<=cpmax && VectorOp.dot(w, gt) < ct - xi - epsilon)) {//why this stop condition
 			//Not clear for this part
 			System.out.print(".");
-			System.out.println("cutting plane stop crterion: "+(VectorOp.dot(w, gt) -( ct - xi - epsilon)));
+//			System.out.println("cutting plane stop crterion: "+(VectorOp.dot(w, gt) -( ct - xi - epsilon)));
 			if(t == cpmax) {
 				System.out.print(" # max iter ");
 			}
@@ -210,7 +210,7 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 		double[][] gt = new double[w.length][w[0].length];
 		double ct = 0;
 		double n = l.size();
-		System.out.println("cutting plane");
+//		System.out.println("cutting plane");
 		for(int i=0; i<l.size(); i++){
 			STrainingSample<LatentRepresentation<X,H>,Integer> ts = l.get(i);			
 			Object[] or = lossAugmentedInference(ts);//max yp, max hp
@@ -219,9 +219,9 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 			double valmax = (Double)or[2];
 			double maxdelta = (Double)or[3];
 			double maxvalue = (Double)or[4];
-			System.out.println(ts.input.x);
-			System.out.print("LAI\t yp:"+yp+"\thp:"+hp+"\tvalmax:"+valmax+"\tmaxdelta:"+maxdelta+"\tmaxvalue"+maxvalue);
-			System.out.println();
+//			System.out.println(ts.input.x);
+//			System.out.print("LAI\t yp:"+yp+"\thp:"+hp+"\tvalmax:"+valmax+"\tmaxdelta:"+maxdelta+"\tmaxvalue"+maxvalue);
+//			System.out.println();
 
 			ct += delta(ts.output, yp, ts.input.x, hp);
 			double[] psi1 = psi(ts.input.x, hp); 
