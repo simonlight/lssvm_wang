@@ -130,7 +130,8 @@ public class LSSVMMulticlassFastBagMILET extends LSSVMMulticlassFastET<BagMIL,In
 //		System.out.println(1-gaze_ratio);
 		double gaze_ratio = getGazeRatio(x, h, gazeType);
 		if(yi == 1&& yp==1) {
-			return (double)((yi^yp) + tradeoff*(1-gaze_ratio));
+//			return (double)((yi^yp) + tradeoff*(1-gaze_ratio));
+			return (double)((yi^yp));
 		}
 //		else if (yi==-1 && yp==-1){			
 //			return (double)((yi^yp) + tradeoff*gaze_ratio);
