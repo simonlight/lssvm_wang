@@ -48,7 +48,7 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 	
 	protected abstract List<H> enumerateH(X x);
 	protected abstract double[] psi(X x, H h);
-	protected abstract double delta(Integer yi, Integer yp, X x, H h);
+	protected abstract double delta(Integer yi, Integer yp, X x, H h, H hstar);
 	/**
 	 * initialise la dimension de w (variable dim) et les variables latentes si nécessaire 
 	 * @param l
@@ -223,7 +223,7 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 //			System.out.print("LAI\t yp:"+yp+"\thp:"+hp+"\tvalmax:"+valmax+"\tmaxdelta:"+maxdelta+"\tmaxvalue"+maxvalue);
 //			System.out.println();
 
-			ct += delta(ts.output, yp, ts.input.x, hp);
+			ct += delta(ts.output, yp, ts.input.x, hp, ts.input.h);
 			double[] psi1 = psi(ts.input.x, hp); 
 			double[] psi2 = psi(ts.input.x, ts.input.h);//ts.input.h , the max h of the second term
 			for(int d=0; d<w[ts.output].length; d++) {
@@ -256,7 +256,7 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 			Object[] or = lossAugmentedInference(ts);
 			Integer yp = (Integer)or[0];
 			H hp = (H)or[1];
-			loss += delta(ts.output,yp, ts.input.x, hp);
+			loss += delta(ts.output,yp, ts.input.x, hp,ts.input.h);
 			loss += valueOf(ts.input.x,yp,hp,w)-valueOf(ts.input.x,ts.output,prediction(ts.input.x,ts.output),w);
 		}
 		loss /= l.size();
@@ -304,13 +304,13 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 		double maxvalue = 0;
 		for(int y : listClass) {
 			for(H h : enumerateH(ts.input.x)) {
-				double val = delta(ts.output, y, ts.input.x, h) + valueOf(ts.input.x,y,h,w);
+				double val = delta(ts.output, y, ts.input.x, h, ts.input.h) + valueOf(ts.input.x,y,h,w);
 				if(val>valmax){
 					valmax = val;
 					ypredict = y;
 					hpredict = h;
 					
-					maxdelta = delta(ts.output, y, ts.input.x, h);
+					maxdelta = delta(ts.output, y, ts.input.x, h, ts.input.h);
 					maxvalue = valueOf(ts.input.x,y,h,w);
 				}
 			}

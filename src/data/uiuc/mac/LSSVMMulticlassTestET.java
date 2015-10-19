@@ -24,7 +24,7 @@ public class LSSVMMulticlassTestET {
 	public static void main(String[] args) {
 		//big	stefan
 		String sourceDir = "/home/wangxin/Data/gaze_voc_actions_stefan/";
-		String simDir = "/home/wangxin/results/ferrari_gaze/std_et/";
+		String simDir = "/home/wangxin/results/stefan_gaze/std_et/";
 		String gazeType = "stefan";
 		//local stefan
 //			String sourceDir = "/local/wangxin/Data/gaze_voc_actions_stefan/";

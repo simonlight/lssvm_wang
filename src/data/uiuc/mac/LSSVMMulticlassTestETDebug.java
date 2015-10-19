@@ -57,9 +57,9 @@ public class LSSVMMulticlassTestETDebug {
 		String detailFolder= "full_all_scales/";
 		
 
-	    double[] lambdaCV = {1e-5};
+	    double[] lambdaCV = {1};
 //	    double[] lambdaCV = {1e-4};
-	    double[] epsilonCV = {1e-2};
+	    double[] epsilonCV = {1e-3};
 
 //	    double[] tradeoffCV = {0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1};
 	    double[] tradeoffCV = {0};
@@ -170,7 +170,9 @@ public class LSSVMMulticlassTestETDebug {
 			    			//if(compute || fileClassifier == null) {
 			    			if(true){
 			    				lsvm.train(exampleTrain);
+			    				System.out.println("***********test training list***********");
 			    				double ap_train = lsvm.testAP(exampleTrain);
+			    				System.out.println("***********test training list end***********");
 			    				
 			    				System.err.println("train " + String.valueOf(tradeoff)+" "+cls + " scale= " + scale + " ap= " + ap_train + " lambda= " + lambda + " epsilon= " + epsilon);
 								
@@ -222,9 +224,10 @@ public class LSSVMMulticlassTestETDebug {
 //									// TODO Auto-generated catch block
 //									e.printStackTrace();
 //								}
-			    				
+			    				System.out.println("***********test test list***********");
 			    				double ap = lsvm.testAPRegion(exampleTest, epsilon, lambda,scale, simDir, className, tradeoff,detailFolder);
-								File resFile=new File(simDir+testResultFileName);
+			    				System.out.println("***********test test list end***********");
+			    				File resFile=new File(simDir+testResultFileName);
 								try {
 									BufferedWriter out = new BufferedWriter(new FileWriter(resFile, true));
 									//out.write(className+" "+scale+" "+acc+" "+ap+"\n");
