@@ -40,7 +40,7 @@ public class LSSVMMulticlassTestETDebug {
 		String simDir = "/local/wangxin/results/ferrari_gaze/std_et/";
 		String gazeType = "ferrari";
 		
-		String initializedType = "default";
+		String initializedType = "+0";
 
 //	    String[] classes = {"walking"};
 	    String[] classes = {"horse"};
@@ -57,12 +57,12 @@ public class LSSVMMulticlassTestETDebug {
 		String detailFolder= "full_all_scales/";
 		
 
-	    double[] lambdaCV = {1};
+	    double[] lambdaCV = {1e-5};
 //	    double[] lambdaCV = {1e-4};
 	    double[] epsilonCV = {1e-3};
 
 //	    double[] tradeoffCV = {0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1};
-	    double[] tradeoffCV = {0};
+	    double[] tradeoffCV = {0.5};
 		
 
 		//ensure dimension of features
@@ -70,7 +70,7 @@ public class LSSVMMulticlassTestETDebug {
 		
 		int optim = 1;
 		int epochsLatentMax = 50;
-		int epochsLatentMin = 2;
+		int epochsLatentMin = 5;
 		int cpmax = 500;
 		int cpmin = 5;
 
@@ -163,6 +163,9 @@ public class LSSVMMulticlassTestETDebug {
 							//Initialize the region by fixations
 							for(STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer> ts : exampleTrain){
     							ts.input.h = lsvm.getGazeInitRegion(ts, scale, initializedType);
+    							System.out.println(lsvm.getGazeInitRegion(ts, scale, initializedType));
+    							System.out.println(ts.input.x.getName());
+    							System.out.println("latent region:"+ts.input.h);
     						}    
 							
 							String suffix = "_" + lsvm.toString();
