@@ -33,7 +33,7 @@ for root,dirs,files in os.walk(fixation_path):
         cls, year, id= file.split('_')
         cls = 'horse'
         year='2009'
-        id='005000.ggg'
+        id='003768.ggg'
         id=id[:-4]
 #         file = "2012_003108.json"
 #         filename_root = file[:-5]#.json
