@@ -138,5 +138,5 @@ def calculate_gaze_ratio(train_list, gaze_path, annotations = VOC2012_TRAIN_ANNO
                     check+=ratio
     
 if __name__ == "__main__":
-    #valide_fixations(VOC2012_ACTION_TRAIN_LIST, VOC2012_ACTION_EYE_PATH, VOC2012_ACTION_VALIDE_SUBJS, VOC2012_ACTION_EYE_CONTEXT_JSON_PATH)
-    calculate_gaze_ratio(VOC2012_ACTION_TRAIN_LIST, gaze_path)
+    valide_fixations(VOC2012_ACTION_TRAIN_LIST, VOC2012_ACTION_EYE_PATH, VOC2012_ACTION_VALIDE_SUBJS, VOC2012_ACTION_EYE_CONTEXT_JSON_PATH)
+#     calculate_gaze_ratio(VOC2012_ACTION_TRAIN_LIST, gaze_path)

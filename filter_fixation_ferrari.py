@@ -1,5 +1,5 @@
 
-from setting import *
+from path_config import *
 from PIL import Image
 from xml.dom import minidom
 import collections

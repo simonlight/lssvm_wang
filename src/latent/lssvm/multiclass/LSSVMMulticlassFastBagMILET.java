@@ -124,16 +124,16 @@ public class LSSVMMulticlassFastBagMILET extends LSSVMMulticlassFastET<BagMIL,In
 			return -1000.0;
 		}
 	}
-	
-	protected double delta(Integer yi, Integer yp, BagMIL x, Integer h, Integer hstar)  {
+//	protected double delta(Integer yi, Integer yp, BagMIL x, Integer h, Integer hstar)  {	
+	protected double delta(Integer yi, Integer yp, BagMIL x, Integer h)  {
 //		System.out.println(ETLossFileName);
 //		System.out.println(1-gaze_ratio);
 		double gaze_ratio = getGazeRatio(x, h, gazeType);
-		double hstar_gaze_ratio = getGazeRatio(x, hstar, gazeType);
+//		double hstar_gaze_ratio = getGazeRatio(x, hstar, gazeType);
 		if(yi == 1 && yp ==1 ) {
-//			return (double)((yi^yp) + tradeoff*(1-gaze_ratio));
+			return (double)((yi^yp) + tradeoff*(1-gaze_ratio));
 //			return (double)((yi^yp)+ tradeoff*(1-gaze_ratio) - tradeoff*(1-hstar_gaze_ratio));
-			return (double)((yi^yp)+ tradeoff*(gaze_ratio-hstar_gaze_ratio));
+//			return (double)((yi^yp)+ tradeoff*(gaze_ratio-hstar_gaze_ratio));
 		}
 //		else if (yi==-1 && yp==-1){			
 //			return (double)((yi^yp) + tradeoff*gaze_ratio);
