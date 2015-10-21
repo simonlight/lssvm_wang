@@ -54,7 +54,7 @@ public class LSSVMMulticlassTestET {
 		String detailFolder= "debug_mori/";
 		
 
-	    double[] lambdaCV = {1e-6};
+	    double[] lambdaCV = {1e-6,1e-5};
 	    double[] epsilonCV = {1e-2};
 
 //	    double[] tradeoffCV = {0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1};

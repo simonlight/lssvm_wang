@@ -151,11 +151,11 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 		while(t<cpmin || (t<=cpmax && VectorOp.dot(w, gt) < ct - xi - epsilon)) {//why this stop condition
 			//Not clear for this part
 			System.out.print(".");
-			System.out.println("w.gt:"+VectorOp.dot(w, gt));
-			System.out.println("ct - xi - epsilon:"+(ct - xi - epsilon));
-			System.out.println("ct:"+(ct));
-			System.out.println("xi:"+(xi));
-			System.out.println("epsilon:"+(epsilon));
+//			System.out.println("w.gt:"+VectorOp.dot(w, gt));
+//			System.out.println("ct - xi - epsilon:"+(ct - xi - epsilon));
+//			System.out.println("ct:"+(ct));
+//			System.out.println("xi:"+(xi));
+//			System.out.println("epsilon:"+(epsilon));
 			
 //			System.out.println("cutting plane stop crterion: "+(VectorOp.dot(w, gt) -( ct - xi - epsilon)));
 			if(t == cpmax) {
