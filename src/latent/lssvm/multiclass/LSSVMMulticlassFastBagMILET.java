@@ -124,23 +124,37 @@ public class LSSVMMulticlassFastBagMILET extends LSSVMMulticlassFastET<BagMIL,In
 			return -1000.0;
 		}
 	}
-//	protected double delta(Integer yi, Integer yp, BagMIL x, Integer h, Integer hstar)  {	
-	protected double delta(Integer yi, Integer yp, BagMIL x, Integer h)  {
+	protected double delta(Integer yi, Integer yp, BagMIL x, Integer h, Integer hstar, boolean hnorm)  {
 //		System.out.println(ETLossFileName);
 //		System.out.println(1-gaze_ratio);
 		double gaze_ratio = getGazeRatio(x, h, gazeType);
-//		double hstar_gaze_ratio = getGazeRatio(x, hstar, gazeType);
-		if(yi == 1 && yp ==1 ) {
-			return (double)((yi^yp) + tradeoff*(1-gaze_ratio));
-//			return (double)((yi^yp)+ tradeoff*(1-gaze_ratio) - tradeoff*(1-hstar_gaze_ratio));
-//			return (double)((yi^yp)+ tradeoff*(gaze_ratio-hstar_gaze_ratio));
+		
+		if (hnorm){
+			double hstar_gaze_ratio = getGazeRatio(x, hstar, gazeType);
+			if(yi == 1 && yp ==1 ) {
+//				return (double)((yi^yp) + tradeoff*(1-gaze_ratio));
+				return (double)((yi^yp)+ tradeoff*(gaze_ratio-hstar_gaze_ratio));
+			}
+	//		else if (yi==-1 && yp==-1){			
+	//			return (double)((yi^yp) + tradeoff*gaze_ratio);
+	////			return (double)((yi^yp));
+	//		}
+			else{
+				return (double)((yi^yp));
+			}
 		}
-//		else if (yi==-1 && yp==-1){			
-//			return (double)((yi^yp) + tradeoff*gaze_ratio);
-////			return (double)((yi^yp));
-//		}
 		else{
-			return (double)((yi^yp));
+			if(yi == 1 && yp ==1 ) {
+				return (double)((yi^yp) + tradeoff*(1-gaze_ratio));
+			}
+	//		else if (yi==-1 && yp==-1){			
+	//			return (double)((yi^yp) + tradeoff*gaze_ratio);
+	////			return (double)((yi^yp));
+	//		}
+			else{
+				return (double)((yi^yp));
+			}
+			
 		}
 	}
 
@@ -153,9 +167,9 @@ public class LSSVMMulticlassFastBagMILET extends LSSVMMulticlassFastET<BagMIL,In
         	Integer yp = prediction(l.get(i).input);
         	Integer hp = prediction(l.get(i).input.x, yp);
         	double score = valueOf(l.get(i).input.x,yp,hp,w);
-        	System.out.println(l.get(i).input.x.getName());
-        	System.out.print("region predicted: "+hp);
-        	System.out.println(" label predicted: "+yp);
+//        	System.out.println(l.get(i).input.x.getName());
+//        	System.out.print("region predicted: "+hp);
+//        	System.out.println(" label predicted: "+yp);
         	eval.add(new Evaluation<Integer>((l.get(i).output == 0 ? -1 : 1), (yp == 0 ? -1 : 1)*score));
         }
         double ap = AveragePrecision.getAP(eval);
@@ -175,9 +189,9 @@ public class LSSVMMulticlassFastBagMILET extends LSSVMMulticlassFastET<BagMIL,In
 	        	// calcul score(x,y,h,w) = argmax_{y,h} <w, \psi(x,y,h)>
 				Integer yp = prediction(l.get(i).input);
 	        	Integer hp = prediction(l.get(i).input.x, yp);
-	        	System.out.println(l.get(i).input.x.getName());
-	        	System.out.print("region predicted: "+hp);
-	        	System.out.println(" label predicted: "+yp);
+//	        	System.out.println(l.get(i).input.x.getName());
+//	        	System.out.print("region predicted: "+hp);
+//	        	System.out.println(" label predicted: "+yp);
 	        	Integer yi = l.get(i).output;
 				out.write(Integer.valueOf(yp) +","+Integer.valueOf(yi) +","+ Integer.valueOf(hp)+","+l.get(i).input.x.getName()+"\n");
 				out.flush();

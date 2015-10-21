@@ -45,7 +45,7 @@ public class LSSVMMulticlassTestETDebug {
 //	    String[] classes = {"walking"};
 	    String[] classes = {"horse"};
 	    int[] scaleCV = {50};
-
+	    boolean hnorm = false;
 //	    String[] classes = {args[0]};
 //	    int[] scaleCV = {Integer.valueOf(args[1])};
 
@@ -57,12 +57,12 @@ public class LSSVMMulticlassTestETDebug {
 		String detailFolder= "full_all_scales/";
 		
 
-	    double[] lambdaCV = {1e-5};
+	    double[] lambdaCV = {1e-6};
 //	    double[] lambdaCV = {1e-4};
-	    double[] epsilonCV = {1e-3};
+	    double[] epsilonCV = {1e-2};
 
 //	    double[] tradeoffCV = {0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1};
-	    double[] tradeoffCV = {0};
+	    double[] tradeoffCV = {0.5};
 		
 
 		//ensure dimension of features
@@ -70,9 +70,9 @@ public class LSSVMMulticlassTestETDebug {
 		
 		int optim = 1;
 		int epochsLatentMax = 50;
-		int epochsLatentMin = 5;
+		int epochsLatentMin = 2;
 		int cpmax = 500;
-		int cpmin = 5;
+		int cpmin = 2;
 
 //	    int[] scaleCV = {50};
 	    
@@ -159,6 +159,7 @@ public class LSSVMMulticlassTestETDebug {
 							lsvm.setGazeType(gazeType);
 	    		    		lsvm.setLossDict(lossPath+"ETLOSS+_"+scale+".loss");
 							lsvm.setTradeOff(tradeoff);
+							lsvm.setHnorm(hnorm);
 							
 							//Initialize the region by fixations
 							for(STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer> ts : exampleTrain){

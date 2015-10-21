@@ -46,7 +46,7 @@ public class LSSVMMulticlassTestET {
 		String initializedType = "+0";
 	    String[] classes = {args[0]};
 	    int[] scaleCV = {Integer.valueOf(args[1])};
-
+	    boolean hnorm = false;
 	    String testBool="";
 	    
 		String lossPath = sourceDir+"ETLoss_dict/";
@@ -54,8 +54,8 @@ public class LSSVMMulticlassTestET {
 		String detailFolder= "debug_mori/";
 		
 
-	    double[] lambdaCV = {1e-5};
-	    double[] epsilonCV = {1e-3};
+	    double[] lambdaCV = {1e-6};
+	    double[] epsilonCV = {1e-2};
 
 //	    double[] tradeoffCV = {0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1};
 //	    double[] tradeoffCV = {0,0.01,0.02,0.03,0.04,0.05,0.06,0.07,0.08,0.09,0.1};
@@ -161,7 +161,7 @@ public class LSSVMMulticlassTestET {
 							lsvm.setGazeType(gazeType);
 	    		    		lsvm.setLossDict(lossPath+"ETLOSS+_"+scale+".loss");
 							lsvm.setTradeOff(tradeoff);
-							
+							lsvm.setHnorm(hnorm);
 							//Initialize the region by fixations
 							for(STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer> ts : exampleTrain){
     							ts.input.h = lsvm.getGazeInitRegion(ts, scale, initializedType);

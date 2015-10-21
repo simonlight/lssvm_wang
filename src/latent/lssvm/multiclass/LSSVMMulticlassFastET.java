@@ -33,6 +33,7 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 	protected double epsilon;
 	protected double tradeoff;
 	protected String gazeType;
+	protected boolean hnorm;
 	
 	protected HashMap<String , Double> lossMap = new HashMap<String , Double>(); 
 
@@ -48,8 +49,8 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 	
 	protected abstract List<H> enumerateH(X x);
 	protected abstract double[] psi(X x, H h);
-//	protected abstract double delta(Integer yi, Integer yp, X x, H h, H hstar);
-	protected abstract double delta(Integer yi, Integer yp, X x, H h);
+	protected abstract double delta(Integer yi, Integer yp, X x, H h, H hstar, boolean hnorm);
+//	protected abstract double delta(Integer yi, Integer yp, X x, H h);
 	/**
 	 * initialise la dimension de w (variable dim) et les variables latentes si nécessaire 
 	 * @param l
@@ -118,8 +119,11 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 			precObj = obj;
 			el++;
 			
+			
+			double hstarCost = 0;
 			for(STrainingSample<LatentRepresentation<X,H>,Integer> ts : l){
 				ts.input.h = prediction(ts.input.x,ts.output);
+
 //				System.out.println("best region predict: "+ts.input.h+" "+ts.input.x);
 
 			}
@@ -147,6 +151,12 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 		while(t<cpmin || (t<=cpmax && VectorOp.dot(w, gt) < ct - xi - epsilon)) {//why this stop condition
 			//Not clear for this part
 			System.out.print(".");
+			System.out.println("w.gt:"+VectorOp.dot(w, gt));
+			System.out.println("ct - xi - epsilon:"+(ct - xi - epsilon));
+			System.out.println("ct:"+(ct));
+			System.out.println("xi:"+(xi));
+			System.out.println("epsilon:"+(epsilon));
+			
 //			System.out.println("cutting plane stop crterion: "+(VectorOp.dot(w, gt) -( ct - xi - epsilon)));
 			if(t == cpmax) {
 				System.out.print(" # max iter ");
@@ -224,8 +234,7 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 //			System.out.print("LAI\t yp:"+yp+"\thp:"+hp+"\tvalmax:"+valmax+"\tmaxdelta:"+maxdelta+"\tmaxvalue"+maxvalue);
 //			System.out.println();
 
-//			ct += delta(ts.output, yp, ts.input.x, hp, ts.input.h);
-			ct += delta(ts.output, yp, ts.input.x, hp);
+			ct += delta(ts.output, yp, ts.input.x, hp, ts.input.h, hnorm);
 			double[] psi1 = psi(ts.input.x, hp); 
 			double[] psi2 = psi(ts.input.x, ts.input.h);//ts.input.h , the max h of the second term
 			for(int d=0; d<w[ts.output].length; d++) {
@@ -258,8 +267,7 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 			Object[] or = lossAugmentedInference(ts);
 			Integer yp = (Integer)or[0];
 			H hp = (H)or[1];
-//			loss += delta(ts.output,yp, ts.input.x, hp,ts.input.h);
-			loss += delta(ts.output,yp, ts.input.x, hp);
+			loss += delta(ts.output, yp, ts.input.x, hp, ts.input.h, hnorm);
 
 			loss += valueOf(ts.input.x,yp,hp,w)-valueOf(ts.input.x,ts.output,prediction(ts.input.x,ts.output),w);
 		}
@@ -308,15 +316,13 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 		double maxvalue = 0;
 		for(int y : listClass) {
 			for(H h : enumerateH(ts.input.x)) {
-//				double val = delta(ts.output, y, ts.input.x, h, ts.input.h) + valueOf(ts.input.x,y,h,w);
-				double val = delta(ts.output, y, ts.input.x, h) + valueOf(ts.input.x,y,h,w);
+				double val = delta(ts.output, y, ts.input.x, h, ts.input.h, hnorm) + valueOf(ts.input.x,y,h,w);
 				if(val>valmax){
 					valmax = val;
 					ypredict = y;
 					hpredict = h;
 
-//					maxdelta = delta(ts.output, y, ts.input.x, h, ts.input.h);
-					maxdelta = delta(ts.output, y, ts.input.x, h);
+					maxdelta = delta(ts.output, y, ts.input.x, h, ts.input.h, hnorm);
 					maxvalue = valueOf(ts.input.x,y,h,w);
 				}
 			}
@@ -456,6 +462,12 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 	}
 	public String getGazeType() {
 		return gazeType;
+	}
+	public void setHnorm(boolean hnorm) {
+		this.hnorm = hnorm;
+	}
+	public boolean getHnorm() {
+		return hnorm;
 	}
 	public void setGazeType(String gazeType) {
 		this.gazeType = gazeType;
