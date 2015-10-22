@@ -120,7 +120,6 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 			el++;
 			
 			
-			double hstarCost = 0;
 			for(STrainingSample<LatentRepresentation<X,H>,Integer> ts : l){
 				ts.input.h = prediction(ts.input.x,ts.output);
 
@@ -148,8 +147,8 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 		double[][] gram = null;
 		double xi=0;
 		
-//		while(t<cpmin || (t<=cpmax && VectorOp.dot(w, gt) < ct - xi - epsilon)) {//why this stop condition
-		while(t<cpmin || (t<=cpmax && VectorOp.dot(w, gt) <= - ct + xi + epsilon)) {//why this stop condition
+		while(t<cpmin || (t<=cpmax && VectorOp.dot(w, gt) < ct - xi - epsilon)) {//continue condition
+//		while(t<cpmin || (t<=cpmax && VectorOp.dot(w, gt) <= - ct + xi + epsilon)) {//why this stop condition
 
 			//Not clear for this part
 			System.out.print(".");
@@ -232,9 +231,9 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 			double valmax = (Double)or[2];
 			double maxdelta = (Double)or[3];
 			double maxvalue = (Double)or[4];
-			System.out.println(ts.input.x);
-			System.out.print("LAI\t yp:"+yp+"\thp:"+hp+"\tvalmax:"+valmax+"\tmaxdelta:"+maxdelta+"\tmaxvalue"+maxvalue);
-			System.out.println();
+//			System.out.println(ts.input.x);
+//			System.out.print("LAI\t yp:"+yp+"\thp:"+hp+"\tvalmax:"+valmax+"\tmaxdelta:"+maxdelta+"\tmaxvalue"+maxvalue);
+//			System.out.println();
 
 			ct += delta(ts.output, yp, ts.input.x, hp, ts.input.h, hnorm);
 			double[] psi1 = psi(ts.input.x, hp); 
