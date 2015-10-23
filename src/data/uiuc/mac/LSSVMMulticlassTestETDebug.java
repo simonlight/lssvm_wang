@@ -57,7 +57,7 @@ public class LSSVMMulticlassTestETDebug {
 		String detailFolder= "full_all_scales/";
 		
 
-	    double[] lambdaCV = {1e-10};
+	    double[] lambdaCV = {1e-6};
 //	    double[] lambdaCV = {1e-4};
 	    double[] epsilonCV = {1e-3};
 
@@ -70,9 +70,9 @@ public class LSSVMMulticlassTestETDebug {
 		
 		int optim = 1;
 		int epochsLatentMax = 50;
-		int epochsLatentMin = 50;
+		int epochsLatentMin = 2;
 		int cpmax = 500;
-		int cpmin = 50;
+		int cpmin = 2;
 
 //	    int[] scaleCV = {50};
 	    

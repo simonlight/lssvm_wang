@@ -1,5 +1,6 @@
 package solver;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class MosekSolver {
@@ -40,12 +41,14 @@ public class MosekSolver {
 				// input column i of A
 				int[] asub = {0};
 				double[] aval = {1.};
-				task.putacol(i,asub,aval);
+				task.putacol(i,
+							 asub,
+							 aval);
 			}
 			
 			// bounds on constraints 
 			for(int i=0; i<numcon; i++) {	
-				task.putbound(mosek.Env.accmode.con, i, mosek.Env.boundkey.ra, 0., c);
+				task.putbound(mosek.Env.accmode.con, i, mosek.Env.boundkey.ra, 0.0, c);
 			}
 		
 			//The lower triangular part of the Q matrix in the objective is specified. 
@@ -69,7 +72,7 @@ public class MosekSolver {
 			// Solve the problem
 		    @SuppressWarnings("unused")
 			mosek.Env.rescode r = task.optimize(); 
-		    //System.out.println(" Mosek warning:" + r.toString());
+//		    System.out.println(" Mosek warning:" + r.toString());
 		    
 		    // Print a summary containing information about the solution for debugging purposes 
 		    task.solutionsummary(mosek.Env.streamtype.msg); 
@@ -82,7 +85,6 @@ public class MosekSolver {
 		    alphas = new double[numvar];
 		    task.getxx(mosek.Env.soltype.itr, alphas); 
 		    
-		    //System.out.println("MOSEK - alphas " + Arrays.toString(alphas));
 		}
 	    catch (mosek.Exception e) { 
 	      System.out.println ("An error/warning was encountered"); 
