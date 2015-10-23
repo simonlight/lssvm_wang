@@ -189,9 +189,9 @@ public class LSSVMMulticlassFastBagMILET extends LSSVMMulticlassFastET<BagMIL,In
 	        	// calcul score(x,y,h,w) = argmax_{y,h} <w, \psi(x,y,h)>
 				Integer yp = prediction(l.get(i).input);
 	        	Integer hp = prediction(l.get(i).input.x, yp);
-//	        	System.out.println(l.get(i).input.x.getName());
-//	        	System.out.print("region predicted: "+hp);
-//	        	System.out.println(" label predicted: "+yp);
+	        	System.out.println(l.get(i).input.x.getName());
+	        	System.out.print("region predicted: "+hp);
+	        	System.out.println(" label predicted: "+yp);
 	        	Integer yi = l.get(i).output;
 				out.write(Integer.valueOf(yp) +","+Integer.valueOf(yi) +","+ Integer.valueOf(hp)+","+l.get(i).input.x.getName()+"\n");
 				out.flush();

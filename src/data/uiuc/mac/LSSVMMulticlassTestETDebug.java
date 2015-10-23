@@ -57,9 +57,9 @@ public class LSSVMMulticlassTestETDebug {
 		String detailFolder= "full_all_scales/";
 		
 
-	    double[] lambdaCV = {1e-6};
+	    double[] lambdaCV = {1e-6, 1e-5};
 //	    double[] lambdaCV = {1e-4};
-	    double[] epsilonCV = {1e-3};
+	    double[] epsilonCV = {1e-3, 1e-2};
 
 //	    double[] tradeoffCV = {0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1};
 	    double[] tradeoffCV = {0};
@@ -167,7 +167,14 @@ public class LSSVMMulticlassTestETDebug {
     							System.out.println(lsvm.getGazeInitRegion(ts, scale, initializedType));
     							System.out.println(ts.input.x.getName());
     							System.out.println("latent region:"+ts.input.h);
-    						}    
+    						}
+//							System.out.println("****");
+//							for(STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer> ts : exampleTest){
+//    							ts.input.h = lsvm.getGazeInitRegion(ts, scale, initializedType);
+//    							System.out.println(lsvm.getGazeInitRegion(ts, scale, initializedType));
+//    							System.out.println(ts.input.x.getName());
+//    							System.out.println("latent region:"+ts.input.h);
+//    						}   
 							
 							String suffix = "_" + lsvm.toString();
 							File fileClassifier = testPresenceFile(classifierDir + "/" + className + "/", className + "_" + scale + suffix);

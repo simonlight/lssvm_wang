@@ -159,10 +159,10 @@ if __name__ == "__main__":
     gaze_path="/local/wangxin/Data/gaze_voc_actions_stefan/train_gazes/"
     scale = 6
     ############
-#     visualize_fixations(fixation_path)
-    IoU, ratio = correlation_IoU_gaze_ratio(fixation_path)
-#     IoU=[1,2]
-#     ratio=[3,4]
-    plt.scatter(IoU,ratio,c='r', s=1)
-    plt.show()
+    visualize_fixations(fixation_path)
+#     IoU, ratio = correlation_IoU_gaze_ratio(fixation_path)
+# #     IoU=[1,2]
+# #     ratio=[3,4]
+#     plt.scatter(IoU,ratio,c='r', s=1)
+#     plt.show()
     # IoU_gt_gaze_region(fixation_path)

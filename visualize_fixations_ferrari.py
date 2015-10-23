@@ -58,8 +58,9 @@ def visualize_fixations(fixation_path):
             cls, year, id= file.split('_')
             cls = 'horse'
             year='2009'
-            id='003768.ggg'
+            id='002037.ggg'
             id=id[:-4]
+            filename_root= '_'.join([year,id])
     #         file = "2012_003108.json"
     #         filename_root = file[:-5]#.json
             fixation = []
@@ -69,7 +70,7 @@ def visualize_fixations(fixation_path):
                 fixation.append([int(x),int(y)])
             f.close()
     
-            img = pascal_voc_2012_train_images+year+'_'+id+'.jpg'
+            img = VOC2012_TRAIN_IMAGES+year+'_'+id+'.jpg'
             print img
             img = cv2.imread(img,0)
             rows = img.shape[0]
@@ -83,6 +84,11 @@ def visualize_fixations(fixation_path):
                 start = (int(sx*0.1*cols), int(sy*0.1*rows))        
                 end =(int(sx*0.1*cols)+int((11-scale) * cols/10),int(sy*0.1*rows)+int((11-scale) * rows/10))
                 cv2.rectangle(out, start,end,(0,0,255)) 
+                
+                bbs = ground_truth_bb(VOC2012_TRAIN_ANNOTATIONS+filename_root, cls)
+                for xmin,ymin,xmax,ymax in bbs:
+                    cv2.rectangle(out, (xmin,ymin), (xmax,ymax),(0,255,255))
+                
                 cv2.imshow('Matched Features', out)
                 cv2.waitKey(0)
                 cv2.destroyAllWindows()
@@ -179,8 +185,9 @@ if __name__ == "__main__":
     ###CONFIG###
     scale = 6
     ############
-    IoU, ratio = correlation_IoU_gaze_ratio(VOC2012_OBJECT_EYE_PATH)
-#     IoU=[1,2]
-#     ratio=[3,4]
-    plt.scatter(IoU,ratio,c='r', s=1)
-    plt.show() 
+    visualize_fixations(VOC2012_OBJECT_EYE_PATH)
+#     IoU, ratio = correlation_IoU_gaze_ratio(VOC2012_OBJECT_EYE_PATH)
+# #     IoU=[1,2]
+# #     ratio=[3,4]
+#     plt.scatter(IoU,ratio,c='r', s=1)
+#     plt.show() 
