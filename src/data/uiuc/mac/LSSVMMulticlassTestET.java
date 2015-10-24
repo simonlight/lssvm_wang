@@ -43,7 +43,7 @@ public class LSSVMMulticlassTestET {
 //	    String[] classes = {"walking"};
 //	    String[] classes = {"horse"};
 //	    int[] scaleCV = {50};
-		String initializedType = ".";
+		String initializedType = "+0";
 	    String[] classes = {args[0]};
 	    int[] scaleCV = {Integer.valueOf(args[1])};
 	    boolean hnorm = false;
