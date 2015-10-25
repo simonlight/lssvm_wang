@@ -1,7 +1,7 @@
 #cls_arr=("dog" "cat" "motorbike" "boat" "aeroplane" "horse" "cow" "sofa" "diningtable" "bicycle")
 
-cls_arr=("jumping" "phoning" "playinginstrument" "reading" "ridingbike" "ridinghorse" "running" "takingphoto" "usingcomputer" "walking")
-
+#cls_arr=("jumping" "phoning" "playinginstrument" "reading" "ridingbike" "ridinghorse" "running" "takingphoto" "usingcomputer" "walking")
+cls_arr=("takingphoto" "usingcomputer" "walking")
 #scale_arr=("100" "90" "80" "70" "60" "50" "40" "30")
 #cls_arr=("jumping")
 #cls_arr=("horse")
