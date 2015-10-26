@@ -151,7 +151,14 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 		while(t<cpmin || (t<=cpmax && VectorOp.dot(w, gt) < ct - xi - epsilon)) {//continue condition
 			//Not clear for this part
 			System.out.print(".");
-
+//			System.out.println("w^2:"+VectorOp.dot(w, w));
+//			System.out.println("gt^2:"+VectorOp.dot(gt, gt));
+//			System.out.println("w.gt:"+VectorOp.dot(w, gt));
+//			System.out.println("ct - xi - epsilon:"+(ct - xi - epsilon));
+//			System.out.println("ct:"+(ct));
+//			System.out.println("xi:"+(xi));
+//			System.out.println("epsilon:"+(epsilon));
+//			System.out.println("tradeoff:"+tradeoff);
 			
 //			System.out.println("cutting plane stop crterion: "+(VectorOp.dot(w, gt) -( ct - xi - epsilon)));
 			if(t == cpmax) {
@@ -186,9 +193,9 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 			}
 			// Solve the QP
 			double[] alphas = MosekSolver.solveQP(gram, lc, c);
-		    System.out.println("MOSEK - alphas " + Arrays.toString(alphas));
+//		    System.out.println("MOSEK - alphas " + Arrays.toString(alphas));
 
-			//System.out.println("DualObj= " + (dot(alphas,lc.toArray(new Double[lc.size()])) - 0.5 * matrixProduct(alphas,gram)) + "\talphas " + Arrays.toString(alphas));
+//			System.out.println("DualObj= " + (VectorOp.dot(alphas,lc.toArray(new Double[lc.size()])) - 0.5 * matrixProduct(alphas,gram)) + "\talphas " + Arrays.toString(alphas));
 			xi = (VectorOp.dot(alphas,lc.toArray(new Double[lc.size()])) - matrixProduct(alphas,gram)) / c;
 			
 			// new w
@@ -208,14 +215,7 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 			
 			lg.add(gt);
 			lc.add(ct);
-			System.out.println("w^2:"+VectorOp.dot(w, w));
-			System.out.println("gt^2:"+VectorOp.dot(gt, gt));
-			System.out.println("w.gt:"+VectorOp.dot(w, gt));
-			System.out.println("ct - xi - epsilon:"+(ct - xi - epsilon));
-			System.out.println("ct:"+(ct));
-			System.out.println("xi:"+(xi));
-			System.out.println("epsilon:"+(epsilon));
-			System.out.println("tradeoff:"+tradeoff);
+
 		}
 		System.out.println(" Inner loop optimization finished.");
 	}

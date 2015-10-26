@@ -50,17 +50,17 @@ public class LSSVMMulticlassTestET {
 	    String testBool="";
 	    
 		String lossPath = sourceDir+"ETLoss_dict/";
-		String testResultFileName = "hstar_et_lssvm_cv_c_lambda.txt";
-		String detailFolder= "hstar_et_lssvm_cv_c_lambda/";
+		String testResultFileName = "std_lssvm_cv_c_lambda.txt";
+		String detailFolder= "std_lssvm_cv_c_lambda/";
 		
 
 	    double[] lambdaCV = {1e-6, 1e-5, 1e-4, 1e-3, 1e-2, 1e-1};
-	    double[] epsilonCV = {1e-1, 1e-2, 1e-3};
+	    double[] epsilonCV = {1e-3};
 
 //	    double[] tradeoffCV = {0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1};
 //	    double[] tradeoffCV = {0,0.01,0.02,0.03,0.04,0.05,0.06,0.07,0.08,0.09,0.1};
 
-	    double[] tradeoffCV = {0.5};
+	    double[] tradeoffCV = {0};
 //	    double[] tradeoffCV = {0};
 		
 
