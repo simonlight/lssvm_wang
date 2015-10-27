@@ -52,7 +52,7 @@ public class LSSVMMulticlassTestET {
 		String detailFolder= "std_lssvm_cv_c_lambda/";
 		
 
-	    double[] lambdaCV = {1e-5, 1e-4, 1e-3, 1e-2, 1e-1};
+	    double[] lambdaCV = {1e-6, 1e-5, 1e-4, 1e-3, 1e-2, 1e-1};
 	    double[] epsilonCV = {1e-2};
 
 //	    double[] tradeoffCV = {0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1};
