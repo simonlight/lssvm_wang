@@ -469,17 +469,21 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 	public String getGazeType() {
 		return gazeType;
 	}
+	public void setGazeType(String gazeType) {
+		this.gazeType = gazeType;
+	}
 	public void setHnorm(boolean hnorm) {
 		this.hnorm = hnorm;
 	}
 	public boolean getHnorm() {
 		return hnorm;
 	}
-	public void setGazeType(String gazeType) {
-		this.gazeType = gazeType;
-	}
+
 	public void setTradeOff(double tradeoff){
 		this.tradeoff = tradeoff;
+	}
+	public double getTradeOff(){
+		return tradeoff;
 	}
 	public void setLossDict(String lossPath){
 		

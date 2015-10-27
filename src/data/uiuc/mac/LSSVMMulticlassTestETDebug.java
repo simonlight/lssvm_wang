@@ -43,7 +43,7 @@ public class LSSVMMulticlassTestETDebug {
 		String initializedType = "+0";
 
 //	    String[] classes = {"walking"};
-	    String[] classes = {"horse"};
+	    String[] classes = { "horse"};
 	    int[] scaleCV = {50};
 	    boolean hnorm = false;
 //	    String[] classes = {args[0]};
@@ -57,7 +57,7 @@ public class LSSVMMulticlassTestETDebug {
 		String detailFolder= "full_all_scales/";
 		
 
-	    double[] lambdaCV = {1e-6};
+	    double[] lambdaCV = {1};
 //	    double[] lambdaCV = {1e-4};
 	    double[] epsilonCV = {1e-3};
 
@@ -143,6 +143,7 @@ public class LSSVMMulticlassTestETDebug {
 
     						List<STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>> exampleTest = new ArrayList<STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>>();
     						for(int i=0; i<listTest.size(); i++) {
+
     							exampleTest.add(new STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>(new LatentRepresentation<BagMIL, Integer>(listTest.get(i).sample,0), listTest.get(i).label));    			
     						}
     						
@@ -165,16 +166,20 @@ public class LSSVMMulticlassTestETDebug {
 							for(STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer> ts : exampleTrain){
     							ts.input.h = lsvm.getGazeInitRegion(ts, scale, initializedType);
 //    							System.out.println(lsvm.getGazeInitRegion(ts, scale, initializedType));
-//    							System.out.println(ts.input.x.getName());
+//    							System.out.println(ts.input.x.getFeatures().get(0)[0]);
+//    							System.out.println(ts.output);
 //    							System.out.println("latent region:"+ts.input.h);
     						}
 //							System.out.println("****");
-//							for(STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer> ts : exampleTest){
+							for(STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer> ts : exampleTest){
 //    							ts.input.h = lsvm.getGazeInitRegion(ts, scale, initializedType);
 //    							System.out.println(lsvm.getGazeInitRegion(ts, scale, initializedType));
 //    							System.out.println(ts.input.x.getName());
-//    							System.out.println("latent region:"+ts.input.h);
-//    						}   
+//    							System.out.println(ts.input.x.getFeatures().get(0)[0]);
+//    							System.out.println(ts.output);
+////    							
+//								System.out.println("latent region:"+ts.input.h);
+    						}   
 							
 							String suffix = "_" + lsvm.toString();
 							File fileClassifier = testPresenceFile(classifierDir + "/" + className + "/", className + "_" + scale + suffix);

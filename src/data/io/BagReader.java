@@ -51,12 +51,12 @@ public class BagReader {
 					System.out.print(".");
 					if(i>0 && i % 100 == 0) System.out.print(i);
 					ligne=br.readLine();
-					//System.out.println(ligne);
+//					System.out.println(ligne);
 					StringTokenizer st = new StringTokenizer(ligne);
 					String name = st.nextToken();
 					int label = Integer.parseInt(st.nextToken());
 					int nbInstances = Integer.parseInt(st.nextToken());
-					//System.out.println("name: " + name + "\tlabel: " + label + "\tnbInstances: " + nbInstances);
+//					System.out.println("name: " + name + "\tlabel: " + label + "\tnbInstances: " + nbInstances);
 					BagMIL bag = new BagMIL();
 					bag.setName(name);
 					
@@ -70,7 +70,7 @@ public class BagReader {
 						
 						if(feature.length != dim) {
 							System.out.println("ERROR features - dim= " + feature.length + " != " + dim);
-							System.out.println("file " + filefeature);
+//							System.out.println("file " + filefeature);
 							feature = null;
 							System.exit(0);
 						}
@@ -82,7 +82,7 @@ public class BagReader {
 				}
 				
 				br.close();
-				System.out.println("\nnb bags: " + list.size() + "\tnb instances: " + nbInstancesAll + "\tnb moyen instances: " + (nbInstancesAll/list.size()));
+//				System.out.println("\nnb bags: " + list.size() + "\tnb instances: " + nbInstancesAll + "\tnb moyen instances: " + (nbInstancesAll/list.size()));
 				
 				//L2 norm
 				for(TrainingSample<BagMIL> ts : list) {

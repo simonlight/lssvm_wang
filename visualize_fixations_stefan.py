@@ -21,7 +21,7 @@ def color_map(color):
 def visualize_fixations(fixation_path):
     for root,dirs,files in os.walk(fixation_path):
         for file in files:
-            file = "2012_000156.json"
+#             file = "2012_000156.json"
             filename_root = file[:-5]#.json
             fixation = json.load(open(gaze_path+file)).values()
             img = VOC2012_TRAIN_IMAGES+filename_root+'.jpg'
@@ -41,13 +41,20 @@ def visualize_fixations(fixation_path):
                 cv2.rectangle(out, start,end,(0,0,255)) 
                 
                 
-                xmax,xmin,ymax,ymin,cls = ground_truth_bb(VOC2012_TRAIN_ANNOTATIONS+filename_root)
+                xmin,ymin,xmax,ymax,cls = ground_truth_bb(VOC2012_TRAIN_ANNOTATIONS+filename_root)
                 cv2.rectangle(out, (xmin,ymin), (xmax,ymax),(0,255,255)) 
                 
                 
-                cv2.imshow('Matched Features', out)
-                cv2.waitKey(0)
-                cv2.destroyAllWindows()
+                cv2.imshow(cls+' '+filename_root, out)
+                k = cv2.waitKey(0)
+                #space to next image
+                if k == 1048608:
+                    cv2.destroyAllWindows()        
+                    break
+                else:
+                    continue
+            cv2.destroyAllWindows()
+                
 
 
 def slice_cnt(x,y,left, right, up, down):

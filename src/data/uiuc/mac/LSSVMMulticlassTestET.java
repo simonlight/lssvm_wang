@@ -23,18 +23,18 @@ public class LSSVMMulticlassTestET {
 	
 	public static void main(String[] args) {
 		//big	stefan
-		String sourceDir = "/home/wangxin/Data/gaze_voc_actions_stefan/";
-		String simDir = "/home/wangxin/results/stefan_gaze/std_et/";
-		String gazeType = "stefan";
+//		String sourceDir = "/home/wangxin/Data/gaze_voc_actions_stefan/";
+//		String simDir = "/home/wangxin/results/stefan_gaze/std_et/";
+//		String gazeType = "stefan";
 		//local stefan
 //			String sourceDir = "/local/wangxin/Data/gaze_voc_actions_stefan/";
 //		String simDir = "/local/wangxin/results/stefan_gaze/std_et/";
 //		String gazeType = "stefan";
 
 		// big ferrari
-//		String sourceDir = "/home/wangxin/Data/ferrari_gaze/";
-//		String simDir = "/home/wangxin/results/ferrari_gaze/std_et/";
-//		String gazeType = "ferrari";
+		String sourceDir = "/home/wangxin/Data/ferrari_gaze/";
+		String simDir = "/home/wangxin/results/ferrari_gaze/std_et/";
+		String gazeType = "ferrari";
 		// local ferrari
 //		String sourceDir = "/local/wangxin/Data/ferrari_gaze/";
 //		String simDir = "/local/wangxin/results/ferrari_gaze/std_et/";
@@ -44,7 +44,7 @@ public class LSSVMMulticlassTestET {
 //	    String[] classes = {"horse"};
 //	    int[] scaleCV = {50};
 		String initializedType = "+0";
-		boolean hnorm = true;
+		boolean hnorm = false;
 		
 		
 		String lossPath = sourceDir+"ETLoss_dict/";
@@ -53,12 +53,12 @@ public class LSSVMMulticlassTestET {
 		
 
 	    double[] lambdaCV = {1e-5, 1e-4, 1e-3, 1e-2, 1e-1};
-	    double[] epsilonCV = {1e-3};
+	    double[] epsilonCV = {1e-2};
 
 //	    double[] tradeoffCV = {0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1};
 //	    double[] tradeoffCV = {0,0.01,0.02,0.03,0.04,0.05,0.06,0.07,0.08,0.09,0.1};
 
-	    double[] tradeoffCV = {0.5};
+	    double[] tradeoffCV = {0};
 //	    double[] tradeoffCV = {0};
 		
 	    String[] classes = {args[0]};
@@ -73,7 +73,7 @@ public class LSSVMMulticlassTestET {
 		int epochsLatentMax = 50;
 		int epochsLatentMin = 5;
 		int cpmax = 5000;
-		int cpmin = 10;
+		int cpmin = 2;
 		
 	    
 
