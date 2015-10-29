@@ -87,7 +87,7 @@ public class LSSVMMulticlassTestET {
 	    System.out.println("scale " + Arrays.toString(scaleCV));
 	    System.out.println("split " + Arrays.toString(splitCV) + "\n");
 		System.out.println("hnorm " + Boolean.toString(hnorm));
-		
+		System.out.println("tradeoff " + Arrays.toString(tradeoffCV));
 	    boolean compute = false;
 	    String features = "pure";
 	    
