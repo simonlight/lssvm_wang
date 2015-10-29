@@ -23,18 +23,18 @@ public class LSSVMMulticlassTestET {
 	
 	public static void main(String[] args) {
 		//big	stefan
-		String sourceDir = "/home/wangxin/Data/gaze_voc_actions_stefan/";
-		String simDir = "/home/wangxin/results/stefan_gaze/std_et/";
-		String gazeType = "stefan";
+//		String sourceDir = "/home/wangxin/Data/gaze_voc_actions_stefan/";
+//		String simDir = "/home/wangxin/results/stefan_gaze/std_et/";
+//		String gazeType = "stefan";
 		//local stefan
 //			String sourceDir = "/local/wangxin/Data/gaze_voc_actions_stefan/";
 //		String simDir = "/local/wangxin/results/stefan_gaze/std_et/";
 //		String gazeType = "stefan";
 
 		// big ferrari
-//		String sourceDir = "/home/wangxin/Data/ferrari_gaze/";
-//		String simDir = "/home/wangxin/results/ferrari_gaze/std_et/";
-//		String gazeType = "ferrari";
+		String sourceDir = "/home/wangxin/Data/ferrari_gaze/";
+		String simDir = "/home/wangxin/results/ferrari_gaze/std_et/";
+		String gazeType = "ferrari";
 		// local ferrari
 //		String sourceDir = "/local/wangxin/Data/ferrari_gaze/";
 //		String simDir = "/local/wangxin/results/ferrari_gaze/std_et/";
@@ -48,8 +48,8 @@ public class LSSVMMulticlassTestET {
 		
 		
 		String lossPath = sourceDir+"ETLoss_dict/";
-		String testResultFileName = "C1e-4_e1e-2_stefan.txt";
-		String detailFolder= "C1e-4_e1e-2_stefan/";
+		String testResultFileName = "C1e-4_e1e-2_ferrari.txt";
+		String detailFolder= "C1e-4_e1e-2_ferrari/";
 		
 
 	    double[] lambdaCV = {1e-4};
@@ -85,10 +85,11 @@ public class LSSVMMulticlassTestET {
 	    System.out.println("lambda " + Arrays.toString(lambdaCV));
 	    System.out.println("epsilon " + Arrays.toString(epsilonCV));
 	    System.out.println("scale " + Arrays.toString(scaleCV));
-	    System.out.println("split " + Arrays.toString(splitCV) + "\n");
+	    System.out.println("split " + Arrays.toString(splitCV));
 		System.out.println("hnorm " + Boolean.toString(hnorm));
 		System.out.println("tradeoff " + Arrays.toString(tradeoffCV));
-	    boolean compute = false;
+	    System.out.println("initialized Type "+initializedType);
+		boolean compute = false;
 	    String features = "pure";
 	    
 	    for(String className: classes){
