@@ -148,9 +148,12 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 		double[][] gram = null;
 		double xi=0;
 		
+		
 		while(t<cpmin || (t<=cpmax && VectorOp.dot(w, gt) < ct - xi - epsilon)) {//continue condition
 			//Not clear for this part
 			System.out.print(".");
+			
+			
 //			System.out.println("w^2:"+VectorOp.dot(w, w));
 //			System.out.println("gt^2:"+VectorOp.dot(gt, gt));
 //			System.out.println("w.gt:"+VectorOp.dot(w, gt));
@@ -194,12 +197,18 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 			// Solve the QP
 			double[] alphas = MosekSolver.solveQP(gram, lc, c);
 //		    System.out.println("MOSEK - alphas " + Arrays.toString(alphas));
-
+			System.out.println(alphas.length);
 //			System.out.println("DualObj= " + (VectorOp.dot(alphas,lc.toArray(new Double[lc.size()])) - 0.5 * matrixProduct(alphas,gram)) + "\talphas " + Arrays.toString(alphas));
 			xi = (VectorOp.dot(alphas,lc.toArray(new Double[lc.size()])) - matrixProduct(alphas,gram)) / c;
-			
+//			System.out.println(xi);
 			// new w
-			w = new double[listClass.size()][dim];
+			for(Integer y : listClass) {
+				for(int d=0; d<dim; d++) {
+					w[y][d] = 0.0;
+				}
+			}
+			
+			System.out.println("inner:"+VectorOp.dot(w, w));
 			for(int i=0; i<alphas.length; i++) {
 				for(int k=0; k<w.length; k++) {
 					for(int d=0; d<dim; d++) {
@@ -208,7 +217,9 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 				}
 			}
 			t++;
-
+			
+			
+			
 			or = cuttingPlane(l);
 			gt = (double[][]) or[0];
 			ct = (Double) or[1];
@@ -236,9 +247,9 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 			double valmax = (Double)or[2];
 			double maxdelta = (Double)or[3];
 			double maxvalue = (Double)or[4];
-//			System.out.println(ts.input.x);
-//			System.out.print("LAI\t yp:"+yp+"\thp:"+hp+"\tvalmax:"+valmax+"\tmaxdelta:"+maxdelta+"\tmaxvalue"+maxvalue);
-//			System.out.println();
+			System.out.println(ts.input.x);
+			System.out.print("LAI\t yp:"+yp+"\thp:"+hp+"\tvalmax:"+valmax+"\tmaxdelta:"+maxdelta+"\tmaxvalue"+maxvalue);
+			System.out.println();
 
 			ct += delta(ts.output, yp, ts.input.x, hp, ts.input.h, hnorm);
 			double[] psi1 = psi(ts.input.x, hp); 
@@ -273,9 +284,12 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 			Object[] or = lossAugmentedInference(ts);
 			Integer yp = (Integer)or[0];
 			H hp = (H)or[1];
-			loss += delta(ts.output, yp, ts.input.x, hp, ts.input.h, hnorm);
+//			protected abstract double delta(Integer yi, Integer yp, X x, H h, H hstar, boolean hnorm);
 
-			loss += valueOf(ts.input.x,yp,hp,w)-valueOf(ts.input.x,ts.output,prediction(ts.input.x,ts.output),w);
+			loss += delta(ts.output, yp, ts.input.x, hp, ts.input.h, hnorm) + valueOf(ts.input.x,yp,hp,w)-valueOf(ts.input.x,ts.output,prediction(ts.input.x,ts.output),w);
+			
+			
+
 		}
 		loss /= l.size();
 		return loss;	
@@ -298,21 +312,7 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 //		return delta;
 //	}
 	
-	public Integer prediction(LatentRepresentation<X, H> lr) {
-		int ypredict = -1;
-		double valmax = -Double.MAX_VALUE;
-		for(int y : listClass) {
-			for(H h : enumerateH(lr.x)) {
-				
-				double val = valueOf(lr.x,y,h,w);
-				if(val>valmax){
-					valmax = val;
-					ypredict = y;
-				}
-			}
-		}
-		return ypredict;
-	}
+
 
 	protected Object[] lossAugmentedInference(STrainingSample<LatentRepresentation<X, H>, Integer> ts) {
 		int ypredict = -1;
@@ -344,9 +344,27 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 		return res;
 	}
 
+	public Integer prediction(LatentRepresentation<X, H> lr) {
+		int ypredict = -1;
+		double valmax = -Double.MAX_VALUE;
+		for(int y : listClass) {
+			for(H h : enumerateH(lr.x)) {
+				
+				double val = valueOf(lr.x,y,h,w);
+				if(val>valmax){
+					valmax = val;
+					ypredict = y;
+				}
+			}
+		}
+		return ypredict;
+	}
+	
 	protected H prediction(X x, Integer y) {
 		H hpredict = null;
 		double valmax = -Double.MAX_VALUE;
+		System.out.println("ttt");
+		System.out.println(valmax);
 		for(H h : enumerateH(x)) {
 			double val = valueOf(x,y,h,w);
 			if(val>valmax){

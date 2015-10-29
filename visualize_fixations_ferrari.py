@@ -1,6 +1,3 @@
-
-
-
 def color_map(color):
     """Change color name to RGB list. Note that the value is not correct"""
     if color == 'b':
@@ -57,8 +54,8 @@ def visualize_fixations(fixation_path):
         for file in files:
             cls, year, id= file.split('_')
             cls = 'horse'
-            year='2009'
-            id='002037.ggg'
+            year='2010'
+            id='000413.ggg'
             id=id[:-4]
             filename_root= '_'.join([year,id])
     #         file = "2012_003108.json"
@@ -71,16 +68,16 @@ def visualize_fixations(fixation_path):
             f.close()
     
             img = VOC2012_TRAIN_IMAGES+year+'_'+id+'.jpg'
-            print img
             img = cv2.imread(img,0)
             rows = img.shape[0]
             cols = img.shape[1]
-            out = np.zeros((rows,cols,3), dtype='uint8')
-            out= np.dstack([img, img, img])
-            for x,y in fixation:
-                cv2.circle(out, (x,y),3,[255,255,0],1)
+            
             
             for sy,sx in itertools.product(range(scale),repeat=2):
+                out = np.zeros((rows,cols,3), dtype='uint8')
+                out= np.dstack([img, img, img])
+                for x,y in fixation:
+                    cv2.circle(out, (x,y),3,[255,255,0],1)
                 start = (int(sx*0.1*cols), int(sy*0.1*rows))        
                 end =(int(sx*0.1*cols)+int((11-scale) * cols/10),int(sy*0.1*rows)+int((11-scale) * rows/10))
                 cv2.rectangle(out, start,end,(0,0,255)) 
@@ -89,10 +86,23 @@ def visualize_fixations(fixation_path):
                 for xmin,ymin,xmax,ymax in bbs:
                     cv2.rectangle(out, (xmin,ymin), (xmax,ymax),(0,255,255))
                 
-                cv2.imshow('Matched Features', out)
-                cv2.waitKey(0)
-                cv2.destroyAllWindows()
+                gaze_ratio_file = open(VOC2012_OBJECT_ETLOSS_ACTION+cls+'/'+str(scale*scale)+'/'+cls+'_'+filename_root+'_'+str(sy)+'_'+str(sx)+'.txt')
+                gaze_ratio=gaze_ratio_file.readline().strip()
+                gaze_ratio_file.close()
                 
+                cv2.putText(out, str(gaze_ratio[:4])+','+str(sy*6+sx),\
+                            (int(0.5*(start[0]+end[0])),int(0.5*(start[1]+end[1]))),\
+                            cv2.FONT_HERSHEY_SIMPLEX,0.5,(255,0,255),2
+                            )
+                cv2.imshow(cls+' '+filename_root, out)
+                
+                k = cv2.waitKey(0)
+                #space to next image
+                cv2.destroyAllWindows()
+                if k == 1048608:
+                    break
+                else:
+                    continue
 
 def IoU_gt_gaze_region(fixations):
     object_names=["dog", "cat", "motorbike", "boat", "aeroplane", "horse" ,"cow", "sofa", "diningtable", "bicycle"]

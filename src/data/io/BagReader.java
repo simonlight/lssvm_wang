@@ -44,7 +44,7 @@ public class BagReader {
 				System.out.println(ligne);
 				int nbBag = Integer.parseInt(ligne);
 //				//test!!!!!!!!!!!!!
-//				nbBag=3;
+//				nbBag=11;
 //				//
 				for(int i=0; i<nbBag; i++) {
 					
@@ -55,6 +55,8 @@ public class BagReader {
 					StringTokenizer st = new StringTokenizer(ligne);
 					String name = st.nextToken();
 					int label = Integer.parseInt(st.nextToken());
+					System.out.println(label);
+
 					int nbInstances = Integer.parseInt(st.nextToken());
 //					System.out.println("name: " + name + "\tlabel: " + label + "\tnbInstances: " + nbInstances);
 					BagMIL bag = new BagMIL();
@@ -128,7 +130,7 @@ public class BagReader {
 					int label = Integer.parseInt(st.nextToken());
 					BagMIL bag = new BagMIL();
 					bag.setName(name);
-					list.add(new TrainingSample<BagMIL>(bag,label));
+					list.add(new TrainingSample<BagMIL>(bag, label));
 				}
 				br.close();
 				System.out.println("\nnb bags: " + list.size());

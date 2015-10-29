@@ -21,42 +21,47 @@ def color_map(color):
 def visualize_fixations(fixation_path):
     for root,dirs,files in os.walk(fixation_path):
         for file in files:
-#             file = "2012_000156.json"
-            filename_root = file[:-5]#.json
-            fixation = json.load(open(gaze_path+file)).values()
-            img = VOC2012_TRAIN_IMAGES+filename_root+'.jpg'
-            img = cv2.imread(img,0)
-            rows = img.shape[0]
-            cols = img.shape[1]
-            out = np.zeros((rows,cols,3), dtype='uint8')
-            out= np.dstack([img, img, img])
-            colors = ['b','g','r','c','m','y','k']
-            for cnt, subj in enumerate(fixation):
-                for fix in subj:
-                    cv2.circle(out, (fix[0],fix[1]), 1, color_map(colors[cnt]), 1)
+            file = "2012_000156.json"
+            
             
             for sy,sx in itertools.product(range(scale),repeat=2):
+                filename_root = file[:-5]#.json
+                fixation = json.load(open(gaze_path+file)).values()
+                img = VOC2012_TRAIN_IMAGES+filename_root+'.jpg'
+                img = cv2.imread(img,0)
+                rows = img.shape[0]
+                cols = img.shape[1]
+                out = np.zeros((rows,cols,3), dtype='uint8')
+                out= np.dstack([img, img, img])
+                colors = ['b','g','r','c','m','y','k']
+                for cnt, subj in enumerate(fixation):
+                    for fix in subj:
+                        cv2.circle(out, (fix[0],fix[1]), 1, color_map(colors[cnt]), 1)
+
                 start = (int(sx*0.1*cols), int(sy*0.1*rows))        
                 end =(int(sx*0.1*cols)+int((11-scale) * cols/10),int(sy*0.1*rows)+int((11-scale) * rows/10))
                 cv2.rectangle(out, start,end,(0,0,255)) 
                 
-                
                 xmin,ymin,xmax,ymax,cls = ground_truth_bb(VOC2012_TRAIN_ANNOTATIONS+filename_root)
                 cv2.rectangle(out, (xmin,ymin), (xmax,ymax),(0,255,255)) 
                 
-                
+                gaze_ratio_file = open(VOC2012_ACTION_ETLOSS_ACTION+cls+'/'+str(scale*scale)+'/'+filename_root+'_'+str(sy)+'_'+str(sx)+'.txt')
+                gaze_ratio=gaze_ratio_file.readline().strip()
+                gaze_ratio_file.close()
+                cv2.putText(out, str(gaze_ratio[:4])+','+str(sy*6+sx),\
+                            (int(0.5*(start[0]+end[0])),int(0.5*(start[1]+end[1]))),\
+                            cv2.FONT_HERSHEY_SIMPLEX,0.5,(255,0,255),2
+                            )
                 cv2.imshow(cls+' '+filename_root, out)
+                
                 k = cv2.waitKey(0)
                 #space to next image
+                cv2.destroyAllWindows()
                 if k == 1048608:
-                    cv2.destroyAllWindows()        
                     break
                 else:
                     continue
-            cv2.destroyAllWindows()
                 
-
-
 def slice_cnt(x,y,left, right, up, down):
     if x>=left and x<right and y>=up and y<down:
         return 1.0

@@ -159,6 +159,11 @@ public class LSSVMMulticlassFastBagMILET extends LSSVMMulticlassFastET<BagMIL,In
 	}
 
 	
+
+	
+	
+	
+	
 	public double testAP(List<STrainingSample<LatentRepresentation<BagMIL, Integer>, Integer>> l) {
 		
 		List<Evaluation<Integer>> eval = new ArrayList<Evaluation<Integer>>();
@@ -167,9 +172,9 @@ public class LSSVMMulticlassFastBagMILET extends LSSVMMulticlassFastET<BagMIL,In
         	Integer yp = prediction(l.get(i).input);
         	Integer hp = prediction(l.get(i).input.x, yp);
         	double score = valueOf(l.get(i).input.x,yp,hp,w);
-//        	System.out.println(l.get(i).input.x.getName());
-//        	System.out.print("region predicted: "+hp);
-//        	System.out.println(" label predicted: "+yp);
+        	System.out.println(l.get(i).input.x.getName());
+        	System.out.print("region predicted: "+hp);
+        	System.out.println(" label predicted: "+yp);
         	eval.add(new Evaluation<Integer>((l.get(i).output == 0 ? -1 : 1), (yp == 0 ? -1 : 1)*score));
         }
         double ap = AveragePrecision.getAP(eval);

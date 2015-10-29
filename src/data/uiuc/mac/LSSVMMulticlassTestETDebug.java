@@ -40,7 +40,7 @@ public class LSSVMMulticlassTestETDebug {
 		String simDir = "/local/wangxin/results/ferrari_gaze/std_et/";
 		String gazeType = "ferrari";
 		
-		String initializedType = "+0";
+		String initializedType = ".";
 
 //	    String[] classes = {"walking"};
 	    String[] classes = { "horse"};
@@ -61,8 +61,8 @@ public class LSSVMMulticlassTestETDebug {
 //	    double[] lambdaCV = {1e-4};
 	    double[] epsilonCV = {1e-2};
 
-//	    double[] tradeoffCV = {0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1};
-	    double[] tradeoffCV = {0};
+	    double[] tradeoffCV = {0.5};
+//	    double[] tradeoffCV = {0.5};
 		
 
 		//ensure dimension of features
@@ -71,8 +71,8 @@ public class LSSVMMulticlassTestETDebug {
 		int optim = 1;
 		int epochsLatentMax = 50;
 		int epochsLatentMin = 2;
-		int cpmax = 500;
-		int cpmin = 2;
+		int cpmax = 50000;
+		int cpmin = 5;
 
 //	    int[] scaleCV = {50};
 	    
@@ -126,9 +126,10 @@ public class LSSVMMulticlassTestETDebug {
 //				if(compute) {
 				if(true) {
 					
-					List<TrainingSample<BagMIL>> listTrain = BagReader.readBagMIL(inputDir + "/"+className+"_train_scale_"+scale+"_matconvnet_m_2048_layer_20.txt"+testBool, numWords);
-					List<TrainingSample<BagMIL>> listTest = BagReader.readBagMIL(inputDir + "/"+className+"_val_scale_"+scale+"_matconvnet_m_2048_layer_20.txt"+testBool, numWords); 
-		        	
+//					List<TrainingSample<BagMIL>> listTrain = BagReader.readBagMIL(inputDir + "/"+className+"_train_scale_"+scale+"_matconvnet_m_2048_layer_20.txt"+testBool, numWords);
+//					List<TrainingSample<BagMIL>> listTest = BagReader.readBagMIL(inputDir + "/"+className+"_val_scale_"+scale+"_matconvnet_m_2048_layer_20.txt"+testBool, numWords); 
+					List<TrainingSample<BagMIL>> listTrain = BagReader.readBagMIL("/net/urbandancesquad/wangxin/test_thibaut/example_files/horse_train_scale_50_matconvnet_m_2048_layer_20.txttest",numWords);
+					List<TrainingSample<BagMIL>> listTest = BagReader.readBagMIL("/net/urbandancesquad/wangxin/test_thibaut/example_files/horse_val_scale_50_matconvnet_m_2048_layer_20.txttest",numWords);
 					
 					for(double epsilon : epsilonCV) {
 	    		    	for(double lambda : lambdaCV) {
@@ -137,7 +138,8 @@ public class LSSVMMulticlassTestETDebug {
 	    		    		List<STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>> exampleTrain = new ArrayList<STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>>();	
 
     		    			for(int i=0; i<listTrain.size(); i++) {
-    							exampleTrain.add(new STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>(new LatentRepresentation<BagMIL, Integer>(listTrain.get(i).sample,0), listTrain.get(i).label));
+
+    		    				exampleTrain.add(new STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>(new LatentRepresentation<BagMIL, Integer>(listTrain.get(i).sample,0), listTrain.get(i).label));
     							
     		    			}
 
