@@ -26,12 +26,16 @@ public class LSSVMMulticlassTestET {
 //		String sourceDir = "/home/wangxin/Data/gaze_voc_actions_stefan/";
 //		String simDir = "/home/wangxin/results/stefan_gaze/std_et/";
 //		String gazeType = "stefan";
+		//local full stefan
+//		String sourceDir = "/local/wangxin/Data/gaze_voc_actions_stefan/";
+//		String simDir = "/local/wangxin/results/stefan_gaze/std_et/";
+//		String gazeType = "stefan";
 		//local stefan
 //			String sourceDir = "/local/wangxin/Data/gaze_voc_actions_stefan/";
 //		String simDir = "/local/wangxin/results/stefan_gaze/std_et/";
 //		String gazeType = "stefan";
 
-		// big ferrari
+//		// big ferrari
 		String sourceDir = "/home/wangxin/Data/ferrari_gaze/";
 		String simDir = "/home/wangxin/results/ferrari_gaze/std_et/";
 		String gazeType = "ferrari";
@@ -43,9 +47,9 @@ public class LSSVMMulticlassTestET {
 //	    String[] classes = {"walking"};
 //	    String[] classes = {"horse"};
 //	    int[] scaleCV = {50};
-		String initializedType = ".";
+		String initializedType = ".";//+0,+-,or other things
 		boolean hnorm = false;
-		
+		String dataSource= ".";//local or other things
 		
 		String lossPath = sourceDir+"ETLoss_dict/";
 		String testResultFileName = "C1e-4_e1e-2_ferrari.txt";
@@ -63,6 +67,9 @@ public class LSSVMMulticlassTestET {
 		
 	    String[] classes = {args[0]};
 	    int[] scaleCV = {Integer.valueOf(args[1])};
+	    
+//	    String[] classes = {"jumping", "phoning", "playinginstrument", "reading", "ridingbike", "ridinghorse" ,"running", "takingphoto", "usingcomputer", "walking"};
+//	    int[] scaleCV = {50};
 	    String testBool="";
 	    
 		
@@ -130,9 +137,10 @@ public class LSSVMMulticlassTestET {
 				
 //				if(compute) {
 				if(true) {
-					
-					List<TrainingSample<BagMIL>> listTrain = BagReader.readBagMIL(inputDir + "/"+className+"_train_scale_"+scale+"_matconvnet_m_2048_layer_20.txt"+testBool, numWords);
-					List<TrainingSample<BagMIL>> listTest = BagReader.readBagMIL(inputDir + "/"+className+"_val_scale_"+scale+"_matconvnet_m_2048_layer_20.txt"+testBool, numWords); 
+					String listTrainPath = inputDir + "/"+className+"_train_scale_"+scale+"_matconvnet_m_2048_layer_20.txt"+testBool;
+					String listTestPath = inputDir + "/"+className+"_val_scale_"+scale+"_matconvnet_m_2048_layer_20.txt"+testBool;
+					List<TrainingSample<BagMIL>> listTrain = BagReader.readBagMIL(listTrainPath, numWords, dataSource);
+					List<TrainingSample<BagMIL>> listTest = BagReader.readBagMIL(listTestPath, numWords, dataSource); 
 		        	
 					
 					for(double epsilon : epsilonCV) {
@@ -176,7 +184,7 @@ public class LSSVMMulticlassTestET {
 			    			//if(compute || fileClassifier == null) {
 			    			if(true){
 			    				lsvm.train(exampleTrain);
-			    				double ap_train = lsvm.testAP(exampleTrain);
+			    				double ap_train = lsvm.testAPRegion(exampleTrain,epsilon, lambda,scale, simDir, className, tradeoff,detailFolder,"train");
 			    				
 			    				System.err.println("train " + String.valueOf(tradeoff)+" "+cls + " scale= " + scale + " ap= " + ap_train + " lambda= " + lambda + " epsilon= " + epsilon);
 								
@@ -229,7 +237,7 @@ public class LSSVMMulticlassTestET {
 //									e.printStackTrace();
 //								}
 			    				
-			    				double ap = lsvm.testAPRegion(exampleTest, epsilon, lambda,scale, simDir, className, tradeoff,detailFolder);
+			    				double ap = lsvm.testAPRegion(exampleTest, epsilon, lambda,scale, simDir, className, tradeoff,detailFolder,"test");
 								File resFile=new File(simDir+testResultFileName);
 								try {
 									BufferedWriter out = new BufferedWriter(new FileWriter(resFile, true));

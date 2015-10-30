@@ -28,10 +28,10 @@ def etImages(root):
 #vm: validated images. Some images in ferrari's data are not in the original exp_type
 #exp_type: experiment type: 'fuul' 'reduit' 'ground'
 def generate(refpath, cls, file_typ, scale, vm):
-    example_list_dir = "/local/wangxin/Data/gaze_voc_actions_stefan/example_files/"+str(scale)+"/"
+    example_list_dir = "/local/wangxin/Data/gaze_voc_actions_stefan/example_files_full/"+str(scale)+"/"
     if not os.path.exists(example_list_dir):
         os.makedirs(example_list_dir)
-    f = open('_'.join([example_list_dir+cls, file_typ, 'scale', str(scale), 'matconvnet_m_2048_layer_20.txt']),'w')
+#     f = open('_'.join([example_list_dir+cls, file_typ, 'scale', str(scale), 'matconvnet_m_2048_layer_20.txt']),'w')
     print '_'.join([example_list_dir+cls, file_typ, 'scale', str(scale), 'matconvnet_m_2048_layer_20.txt'])
 #     if file_typ == "train":
 #         f.write("3103\n")
@@ -61,7 +61,7 @@ def generate(refpath, cls, file_typ, scale, vm):
             cnt+=1
         else:
             pass
-    f.write(str(cnt)+'\n')
+#     f.write(str(cnt)+'\n')
     for im in vm:
         original_name='_'.join([im.split('_')[0],im.split('_')[1]])
         if original_name in ref_files.keys():
@@ -72,22 +72,25 @@ def generate(refpath, cls, file_typ, scale, vm):
             content += ' ' + str(int(11 - 0.1 * scale) ** 2)
             for suf in suffix:
                 content += ' ' + '/home/wangxin/Data/gaze_voc_actions_stefan/'+'m2048_trainval_features/'+str(scale)+'/'+original_name.split('.')[0] +suf+'.txt'
-            f.write(content+'\n')    
+#             f.write(content+'\n')    
         else:
             pass
-#test/train files root
-file_root = "/local/wangxin/Data/VOCdevkit_trainset/VOC2012/ImageSets/Action/"
 
-#classes = ['cat', 'dog', 'bicycle', 'motorbike', 'boat', 'aeroplane', 'horse', 'cow', 'sofa', 'diningtable']
-classes = ['jumping', 'phoning', 'playinginstrument', 'reading', 'ridingbike', 'ridinghorse', 'running', 'takingphoto', 'usingcomputer', 'walking']
-validated_images = etImages("/local/wangxin/Data/gaze_voc_actions_stefan/action_train_images/")
-print len(validated_images)
-for i in range(100,29, -10):
-    print i
-    for cls in classes:
-        training_file = file_root + cls + '_train.txt'
-        val_file = file_root + cls + '_val.txt'
-#         trainval_file = file_root + cls + '_trainval.txt'
-        generate(training_file, cls, "train", i, validated_images)
-        generate(val_file, cls, "val", i, validated_images)
-#         generate(trainval_file, cls, "trainval", i, validated_images,'full')
+if __name__ =="__main__":
+    from path_config import *
+    #test/train files root
+    #file_root = "/local/wangxin/Data/VOCdevkit_trainset/VOC2012/ImageSets/Action/"
+    
+    #classes = ['cat', 'dog', 'bicycle', 'motorbike', 'boat', 'aeroplane', 'horse', 'cow', 'sofa', 'diningtable']
+#     categories = ['jumping', 'phoning', 'playinginstrument', 'reading', 'ridingbike', 'ridinghorse', 'running', 'takingphoto', 'usingcomputer', 'walking']
+    validated_images = etImages("/local/wangxin/Data/gaze_voc_actions_stefan/action_train_images/")
+    print len(validated_images)
+    for i in range(100,29, -10):
+        print i
+        for cls in classes:
+            training_file = file_root + cls + '_train.txt'
+            val_file = file_root + cls + '_val.txt'
+    #         trainval_file = file_root + cls + '_trainval.txt'
+            generate(training_file, cls, "train", i, validated_images)
+            generate(val_file, cls, "val", i, validated_images)
+    #         generate(trainval_file, cls, "trainval", i, validated_images,'full')

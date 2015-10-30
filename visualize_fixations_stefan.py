@@ -21,7 +21,7 @@ def color_map(color):
 def visualize_fixations(fixation_path):
     for root,dirs,files in os.walk(fixation_path):
         for file in files:
-            file = "2012_000156.json"
+            file = "2011_006217.json"
             
             
             for sy,sx in itertools.product(range(scale),repeat=2):
@@ -155,6 +155,74 @@ def correlation_IoU_gaze_ratio(fixation_path):
                 ratio_list.append(ratio)
         return IoU_list, ratio_list
 
+def metric_file_analyse(metric_folder, typ):
+    categories=["jumping", "phoning", "playinginstrument", "reading", "ridingbike", "ridinghorse", "running", "takingphoto", "usingcomputer", "walking"]
+    scale_cv=[50]
+    tradeoff_cv = [0.0,0.5]
+    epsilon_cv = [0.01]
+    lambda_cv = ['1.0E-4']
+    for scale in scale_cv:        
+        for epsilon in epsilon_cv:
+            for lambd in lambda_cv: 
+                for category in categories:  
+                    for tradeoff in tradeoff_cv:
+#                         best_cv = get_best_cv(cls, scale)
+                        if typ=='':
+                            my_typ = typ
+                        else:
+                            my_typ = typ+'_'
+
+                        f= open(VOC2012_ACTION_METRIC_ROOT+metric_folder+"metric_"+my_typ+str(tradeoff)+'_'+str(scale)+"_"+str(epsilon)+"_"+str(lambd)+"_"+category+".txt")
+                        totalIoU = 0.0
+                        cnt=0
+                        tp = 0
+                        tn =0
+                        fp=0
+                        fn=0
+                        positive=0
+                        negative=0
+                        fixation_ratio=0
+                #         object = False
+                        for line in f:
+                            yp, yi, hp, image_path = line.strip().split(',')
+                            if yi=='1':
+                                positive+=1
+                            elif yi=='0':
+                                negative+=1
+                            
+                            if yi=='1' and yp=='1':
+                                tp+=1
+                                cnt+=1
+                                filename_root,_ = image_path.split("/")[-1].split('.')
+                                xmin,ymin,xmax,ymax, _ = ground_truth_bb(VOC2012_TRAIN_ANNOTATIONS+filename_root)
+                                grid_1, grid_2 = metric_calculate.h2GridCoor(hp, scale)
+                                
+                                ratio_file = VOC2012_ACTION_ETLOSS_ACTION+category+'/'+str(metric_calculate.convert_scale(scale))+'/'+filename_root+'_'+str(grid_1)+'_'+str(grid_2)+'.txt'
+                                ratio_f = open(ratio_file)
+                                ratio = float(ratio_f.readline().strip())
+                                ratio_f.close()
+                                
+                                fixation_ratio+=ratio
+#                                 print hp,fixation_ratio,hp,filename_root
+                                im = Image.open(VOC2012_TRAIN_IMAGES+filename_root+'.jpg')
+                                width, height = im.size
+                                #0, 0, 250, 187.5
+                                hxmin, hymin, hxmax, hymax = metric_calculate.h2Coor(width, height, hp, scale)
+                                IoU = metric_calculate.getIoU(hxmin, hymin, hxmax, hymax, xmin, ymin, xmax, ymax)
+                                totalIoU += IoU
+#                                 print filename_root,hp
+                            elif yi=='0' and yp=='0':
+                                tn+=1
+                            elif yi=='0' and yp=='1':
+                                fp+=1
+                            elif yi=='1' and yp=='0':
+                                fn+=1
+                            
+                                
+                        print "content:%s, category:%s, tradeoff:%.1f, scale:%d, epsilon:%f, lambda:%s, averageIoU:%f, TP:%f, TN:%f, FP:%f, FN:%f, acc:%f, fixation ratio:%f\n"%\
+                              (metric_folder, category, tradeoff, scale, epsilon, lambd, totalIoU/cnt, tp, tn, fp, fn, tp+tn, fixation_ratio/cnt)
+    
+
 if __name__ == "__main__":
     from matplotlib import pyplot as plt
     from path_config import *
@@ -171,6 +239,7 @@ if __name__ == "__main__":
     gaze_path="/local/wangxin/Data/gaze_voc_actions_stefan/train_gazes/"
     scale = 6
     ############
+    metric_file_analyse(metric_folder = "C1e-4_e1e-2_stefan_train/", typ="train")
     visualize_fixations(fixation_path)
 #     IoU, ratio = correlation_IoU_gaze_ratio(fixation_path)
 # #     IoU=[1,2]

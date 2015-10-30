@@ -1,10 +1,10 @@
-# Verify if every file in the file list is in the file folder
+# Verify if every file in the file list is in the file folder: OF COURSE?
 import os.path
-pascal_voc_2012_action_train_listpath = "/local/wangxin/data/VOCdevkit_trainset/VOC2012/ImageSets/Action/"
-pascal_voc_2012_train_images = "/local/wangxin/data/VOCdevkit_trainset/VOC2012/JPEGImages/"
+pascal_voc_2012_action_train_listpath = "/local/wangxin/Data/VOCdevkit_trainset/VOC2012/ImageSets/Action/"
+pascal_voc_2012_train_images = "/local/wangxin/Data/VOCdevkit_trainset/VOC2012/JPEGImages/"
 
-pascal_voc_2012_action_test_listpath = "/local/wangxin/data/VOCdevkit_testset/VOC2012/ImageSets/Action/"
-pascal_voc_2012_test_images = "/local/wangxin/data/VOCdevkit_testset/VOC2012/JPEGImages/"
+pascal_voc_2012_action_test_listpath = "/local/wangxin/Data/VOCdevkit_testset/VOC2012/ImageSets/Action/"
+pascal_voc_2012_test_images = "/local/wangxin/Data/VOCdevkit_testset/VOC2012/JPEGImages/"
 
 train_list_files = ["train.txt", "val.txt", "trainval.txt"]
 test_list_files = ["test.txt"]

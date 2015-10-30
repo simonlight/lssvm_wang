@@ -17,17 +17,17 @@ import fr.lip6.jkernelmachines.type.TrainingSample;
 
 public class BagReader {
 	
-	public static List<TrainingSample<BagMIL>> readBagMIL(String file, int dim) {
-		List<TrainingSample<BagMIL>> list = readBagMIL(new File(file), dim, true, null);
+	public static List<TrainingSample<BagMIL>> readBagMIL(String file, int dim, String dataSource) {
+		List<TrainingSample<BagMIL>> list = readBagMIL(new File(file), dim, true, null, dataSource);
 		return list;
 	}
 	
-	public static List<TrainingSample<BagMIL>> readBagMIL(String file, int dim, boolean bias, PrincipalComponentAnalysis pca) {
-		List<TrainingSample<BagMIL>> list = readBagMIL(new File(file), dim, bias, pca);
+	public static List<TrainingSample<BagMIL>> readBagMIL(String file, int dim, boolean bias, PrincipalComponentAnalysis pca, String dataSource) {
+		List<TrainingSample<BagMIL>> list = readBagMIL(new File(file), dim, bias, pca, dataSource);
 		return list;
 	}
 	
-	public static List<TrainingSample<BagMIL>> readBagMIL(File file, int dim, boolean bias, PrincipalComponentAnalysis pca) {
+	public static List<TrainingSample<BagMIL>> readBagMIL(File file, int dim, boolean bias, PrincipalComponentAnalysis pca, String dataSource) {
 		List<TrainingSample<BagMIL>> list = null;
 		if(file.exists()) {
 			try {
@@ -53,6 +53,9 @@ public class BagReader {
 //					System.out.println(ligne);
 					StringTokenizer st = new StringTokenizer(ligne);
 					String name = st.nextToken();
+					if (dataSource == "local"){
+						name =name.replace("home", "local");
+					}
 					int label = Integer.parseInt(st.nextToken());
 //					System.out.println(label);
 
@@ -64,7 +67,9 @@ public class BagReader {
 					for(int j=0; j<nbInstances; j++) {
 						
 						String filefeature = st.nextToken();
-						
+						if (dataSource == "local"){
+							filefeature =filefeature.replace("home", "local");
+						}
 						bag.addFileFeature(filefeature);
 						
 						double[] feature = readFeature(new File(filefeature));

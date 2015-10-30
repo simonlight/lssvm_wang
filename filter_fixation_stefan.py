@@ -129,12 +129,12 @@ def calculate_gaze_ratio(train_list, gaze_path, annotations = VOC2012_TRAIN_ANNO
                     if not os.path.exists(folder):
                         os.makedirs(folder)
                     if scale == 1:
-                        etloss_filename = folder + im[:-4]+'.txt'
+                        etratio_filename = folder + im[:-4]+'.txt'
                     else:
-                        etloss_filename = folder + im[:-4]+'_'+str(i_x)+'_'+str(i_y)+'.txt'
-                    loss_file = open(etloss_filename,'w')
-                    loss_file.write(str(ratio))
-                    loss_file.close()
+                        etratio_filename = folder + im[:-4]+'_'+str(i_x)+'_'+str(i_y)+'.txt'
+                    ratio_file = open(etratio_filename,'w')
+                    ratio_file.write(str(ratio))
+                    ratio_file.close()
                     check+=ratio
     
 if __name__ == "__main__":
