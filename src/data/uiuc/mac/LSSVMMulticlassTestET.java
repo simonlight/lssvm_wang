@@ -39,6 +39,10 @@ public class LSSVMMulticlassTestET {
 		String sourceDir = "/home/wangxin/Data/ferrari_gaze/";
 		String simDir = "/home/wangxin/results/ferrari_gaze/std_et/";
 		String gazeType = "ferrari";
+//		// local full ferrari
+//		String sourceDir = "/local/wangxin/Data/ferrari_gaze/";
+//		String simDir = "/local/wangxin/results/ferrari_gaze/std_et/";
+//		String gazeType = "ferrari";
 		// local ferrari
 //		String sourceDir = "/local/wangxin/Data/ferrari_gaze/";
 //		String simDir = "/local/wangxin/results/ferrari_gaze/std_et/";
@@ -49,27 +53,28 @@ public class LSSVMMulticlassTestET {
 //	    int[] scaleCV = {50};
 		String initializedType = ".";//+0,+-,or other things
 		boolean hnorm = false;
-		String dataSource= ".";//local or other things
+		String dataSource= "";//local or other things
 		
 		String lossPath = sourceDir+"ETLoss_dict/";
-		String testResultFileName = "C1e-4_e1e-2_ferrari.txt";
-		String detailFolder= "C1e-4_e1e-2_ferrari/";
+		String testResultFileName = "C1e-4_e1e-2_cv_gamma_ferrari.txt";
+		String detailFolder= "C1e-4_e1e-2_cv_gamma_ferrari/";
 		
 
 	    double[] lambdaCV = {1e-4};
 	    double[] epsilonCV = {1e-2};
 
-//	    double[] tradeoffCV = {0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1};
+	    double[] tradeoffCV = {0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1};
 //	    double[] tradeoffCV = {0,0.01,0.02,0.03,0.04,0.05,0.06,0.07,0.08,0.09,0.1};
 
-	    double[] tradeoffCV = {0,0.5};
+//	    double[] tradeoffCV = {0,0.5};
 //	    double[] tradeoffCV = {0};
 		
-	    String[] classes = {args[0]};
-	    int[] scaleCV = {Integer.valueOf(args[1])};
+//	    String[] classes = {args[0]};
+//	    int[] scaleCV = {Integer.valueOf(args[1])};
+	    String[] classes = {"dog", "cat", "motorbike", "boat" ,"aeroplane" ,"horse" ,"cow" ,"sofa", "diningtable" ,"bicycle"};
 	    
 //	    String[] classes = {"jumping", "phoning", "playinginstrument", "reading", "ridingbike", "ridinghorse" ,"running", "takingphoto", "usingcomputer", "walking"};
-//	    int[] scaleCV = {50};
+	    int[] scaleCV = {50};
 	    String testBool="";
 	    
 		
@@ -174,6 +179,7 @@ public class LSSVMMulticlassTestET {
 	    		    		lsvm.setLossDict(lossPath+"ETLOSS+_"+scale+".loss");
 							lsvm.setTradeOff(tradeoff);
 							lsvm.setHnorm(hnorm);
+							lsvm.setCurrentClass(className);
 							//Initialize the region by fixations
 							for(STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer> ts : exampleTrain){
     							ts.input.h = lsvm.getGazeInitRegion(ts, scale, initializedType);

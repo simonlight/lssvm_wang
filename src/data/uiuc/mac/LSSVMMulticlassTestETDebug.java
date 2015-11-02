@@ -53,8 +53,8 @@ public class LSSVMMulticlassTestETDebug {
 	    String testBool="test";
 	    
 		String lossPath = sourceDir+"ETLoss_dict/";
-		String testResultFileName = "full_all_scales.txt";
-		String detailFolder= "full_all_scales/";
+		String testResultFileName = "debug_w.txt";
+		String detailFolder= "debug_w/";
 		
 
 	    double[] lambdaCV = {1};

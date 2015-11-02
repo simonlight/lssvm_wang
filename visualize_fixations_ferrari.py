@@ -53,9 +53,9 @@ def visualize_fixations(fixation_path):
     for root,dirs,files in os.walk(fixation_path):
         for file in files:
             cls, year, id= file.split('_')
-            cls = 'horse'
-            year='2010'
-            id='000413.ggg'
+            cls = 'sofa'
+            year='2008'
+            id='005882.ggg'
             id=id[:-4]
             filename_root= '_'.join([year,id])
     #         file = "2012_003108.json"
@@ -180,6 +180,79 @@ def correlation_IoU_gaze_ratio(fixation_path):
                 ratio_list.append(ratio)
         return IoU_list, ratio_list
 
+def metric_file_analyse(metric_folder, typ):
+#     categories=["jumping", "phoning", "playinginstrument", "reading", "ridingbike", "ridinghorse", "running", "takingphoto", "usingcomputer", "walking"]
+    scale_cv=[50]
+    tradeoff_cv = [0.0,0.5]
+    epsilon_cv = [0.01]
+    lambda_cv = ['1.0E-4']
+    for scale in scale_cv:        
+        for epsilon in epsilon_cv:
+            for lambd in lambda_cv: 
+                for category in VOC2012_OBJECT_CATEGORIES:  
+                    for tradeoff in tradeoff_cv:
+#                         best_cv = get_best_cv(cls, scale)
+                        if typ=='':
+                            my_typ = typ
+                        else:
+                            my_typ = typ+'_'
+
+                        f= open(VOC2012_OBJECT_METRIC_ROOT+metric_folder+"metric_"+my_typ+str(tradeoff)+'_'+str(scale)+"_"+str(epsilon)+"_"+str(lambd)+"_"+category+".txt")
+                        totalIoU = 0.0
+                        cnt=0
+                        tp = 0
+                        tn =0
+                        fp=0
+                        fn=0
+                        positive=0
+                        negative=0
+                        fixation_ratio=0
+                #         object = False
+                        for line in f:
+                            yp, yi, hp, filename_root = line.strip().split(',')
+                            if yi=='1':
+                                positive+=1
+                            elif yi=='0':
+                                negative+=1
+                            
+                            if yi=='1' and yp=='1':
+                                tp+=1
+                                cnt+=1
+#                                 print filename_root
+                                gaze_file_root = '_'.join([category, filename_root,])
+                                xml_filename_root = filename_root
+                                bbs = ground_truth_bb(VOC2012_TRAIN_ANNOTATIONS+xml_filename_root, category)
+                                grid_1, grid_2 = metric_calculate.h2GridCoor(hp, scale)
+                                
+                                ratio_file = VOC2012_OBJECT_ETLOSS_ACTION+category+'/'+str(metric_calculate.convert_scale(scale))+'/'+gaze_file_root+'_'+str(grid_1)+'_'+str(grid_2)+'.txt'
+                                try:
+                                    ratio_f = open(ratio_file)
+                                    ratio = float(ratio_f.readline().strip())
+                                    ratio_f.close()
+                                    fixation_ratio+=ratio
+                                except IOError:
+                                    print filename_root
+
+
+#                                 print hp,fixation_ratio,hp,filename_root
+                                im = Image.open(VOC2012_TRAIN_IMAGES+xml_filename_root+'.jpg')
+                                width, height = im.size
+                                #0, 0, 250, 187.5
+                                hxmin, hymin, hxmax, hymax = metric_calculate.h2Coor(width, height, hp, scale)
+                                IoU = metric_calculate.getTopIoU(hxmin, hymin, hxmax, hymax, bbs)
+                                totalIoU += IoU
+#                                 print filename_root,hp
+                            elif yi=='0' and yp=='0':
+                                tn+=1
+                            elif yi=='0' and yp=='1':
+                                fp+=1
+                            elif yi=='1' and yp=='0':
+                                fn+=1
+                            
+                                
+                        print "content:%s, category:%s, tradeoff:%.1f, scale:%d, epsilon:%f, lambda:%s, averageIoU:%f, TP:%f, TN:%f, FP:%f, FN:%f, acc:%f, fixation ratio:%f\n"%\
+                              (metric_folder, category, tradeoff, scale, epsilon, lambd, totalIoU/cnt, tp, tn, fp, fn, tp+tn,fixation_ratio/cnt)
+
 if __name__ == "__main__":
     import json
     import cv2
@@ -195,7 +268,8 @@ if __name__ == "__main__":
     ###CONFIG###
     scale = 6
     ############
-    visualize_fixations(VOC2012_OBJECT_EYE_PATH)
+    metric_file_analyse(metric_folder = "C1e-4_e1e-2_ferrari_local_new_example_list/", typ="train")
+#     visualize_fixations(VOC2012_OBJECT_EYE_PATH)
 #     IoU, ratio = correlation_IoU_gaze_ratio(VOC2012_OBJECT_EYE_PATH)
 # #     IoU=[1,2]
 # #     ratio=[3,4]

@@ -50,7 +50,6 @@ public class BagReader {
 					System.out.print(".");
 					if(i>0 && i % 100 == 0) System.out.print(i);
 					ligne=br.readLine();
-//					System.out.println(ligne);
 					StringTokenizer st = new StringTokenizer(ligne);
 					String name = st.nextToken();
 					if (dataSource == "local"){

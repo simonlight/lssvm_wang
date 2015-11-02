@@ -43,7 +43,7 @@ def getIoU(hxmin, hymin, hxmax, hymax, xmin, ymin, xmax, ymax):
 def getTopIoU(hxmin, hymin, hxmax, hymax, bbs):  
     topIoU=0
     for xmax,xmin,ymax,ymin in bbs:
-        IoU = getIoGU(hxmin, hymin, hxmax, hymax, xmax,xmin,ymax,ymin)
+        IoU = getIoU(hxmin, hymin, hxmax, hymax, xmax,xmin,ymax,ymin)
         if IoU>topIoU:
             topIoU = IoU
     return topIoU

@@ -105,10 +105,11 @@ public class LSSVMMulticlassFastBagMILET extends LSSVMMulticlassFastET<BagMIL,In
 	
 	protected double getGazeRatio(BagMIL x, Integer h, String gazeType){
 		if (gazeType.equals("ferrari")){
-			String cls = x.getName().split("_")[0];
+			//
+			
 			String featurePath[] = x.getFileFeature(h).split("/");
 			String ETLossFileName = featurePath[featurePath.length - 1];
-			double gaze_ratio = lossMap.get(cls+"_"+ETLossFileName);
+			double gaze_ratio = lossMap.get(className+"_"+ETLossFileName);
 
 			return gaze_ratio;
 		}
@@ -125,13 +126,10 @@ public class LSSVMMulticlassFastBagMILET extends LSSVMMulticlassFastET<BagMIL,In
 		}
 	}
 	protected double delta(Integer yi, Integer yp, BagMIL x, Integer h, Integer hstar, boolean hnorm)  {
-//		System.out.println(ETLossFileName);
-//		System.out.println(1-gaze_ratio);
-		double gaze_ratio = getGazeRatio(x, h, gazeType);
-		
 		if (hnorm){
 			double hstar_gaze_ratio = getGazeRatio(x, hstar, gazeType);
 			if(yi == 1 && yp ==1 ) {
+				double gaze_ratio = getGazeRatio(x, h, gazeType);
 //				return (double)((yi^yp) + tradeoff*(1-gaze_ratio));
 				return (double)((yi^yp)+ tradeoff*(gaze_ratio-hstar_gaze_ratio));
 			}
@@ -143,14 +141,17 @@ public class LSSVMMulticlassFastBagMILET extends LSSVMMulticlassFastET<BagMIL,In
 				return (double)((yi^yp));
 			}
 		}
+		
 		else{
 			if(yi == 1 && yp ==1 ) {
+				double gaze_ratio = getGazeRatio(x, h, gazeType);
 				return (double)((yi^yp) + tradeoff*(1-gaze_ratio));
 			}
-	//		else if (yi==-1 && yp==-1){			
-	//			return (double)((yi^yp) + tradeoff*gaze_ratio);
-	////			return (double)((yi^yp));
-	//		}
+			else if (yi==-1 && yp==-1){			
+				double gaze_ratio = getGazeRatio(x, h, gazeType);
+				return (double)((yi^yp) + tradeoff*gaze_ratio);
+	//			return (double)((yi^yp));
+			}
 			else{
 				return (double)((yi^yp));
 			}

@@ -35,6 +35,7 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 	protected double tradeoff;
 	protected String gazeType;
 	protected boolean hnorm;
+	protected String className;
 	
 	protected HashMap<String , Double> lossMap = new HashMap<String , Double>(); 
 
@@ -502,6 +503,15 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 	public double getTradeOff(){
 		return tradeoff;
 	}
+	
+	public void setCurrentClass(String className){
+		this.className = className;
+	}
+	public String getCurrentClass(){
+		return className;
+	}
+	
+	
 	public void setLossDict(String lossPath){
 		
 		try {
