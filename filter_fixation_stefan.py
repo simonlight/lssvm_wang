@@ -1,17 +1,4 @@
-action_names=["jumping", "phoning", "playinginstrument", "reading", "ridingbike", "ridinghorse", "running", "takingphoto", "usingcomputer", "walking"]
 
-scales = [1,4,9,16,25,36,49,64]
-#scales = [36]
-slice = 10.0
-
-from setting import *
-from PIL import Image
-from xml.dom import minidom
-import collections
-import os
-import json
-import math
-import numpy as np
 
 
 def valide_subjects(train_list, eye_tracking_path,subjs = VOC2012_ACTION_ACTION_SUBJS):
@@ -26,6 +13,9 @@ def valide_subjects(train_list, eye_tracking_path,subjs = VOC2012_ACTION_ACTION_
             if subj in subjs and filename[:-4] in train_images:
                 sub_fixationcnt[subj]+=1
     print subj_fixationcnt   
+
+def fix_in_image(x_stimulus, y_stimulus,image_res_x, image_res_y):
+    return int(x_stimulus)>0 and int(y_stimulus)>0 and int(x_stimulus)<=image_res_x and int(y_stimulus) <=image_res_y
 
 
 def mapping(image_res_x, image_res_y, x_screen, y_screen, screen_res_x=1280.0, screen_res_y=1024.0):
@@ -43,8 +33,9 @@ def valide_fixations(train_list, eye_tracking_path, valide_subjs, eye_tracking_j
     """Write gazes into .json"""
     tl = open(train_list)
     train_images = [line.strip() for line in tl]
-    tl.close()   
-    os.mkdir(eye_tracking_json_path)
+    tl.close()
+    if not os.path.exists(eye_tracking_json_path):
+        os.mkdir(eye_tracking_json_path)
                     
     for root, dirs, files in os.walk(eye_tracking_path):
         for file in files:
@@ -61,7 +52,7 @@ def valide_fixations(train_list, eye_tracking_path, valide_subjs, eye_tracking_j
                 else: 
                     old_fixations = collections.defaultdict(lambda:[])
                 
-                image_path = (pascal_voc_2012_train_images + file[4:])[:-4] 
+                image_path = (VOC2012_TRAIN_IMAGES + file[4:])[:-4] 
                 image_res_x, image_res_y= Image.open(image_path).size           
                 
                 et = open(eye_tracking_path+file,'r')
@@ -72,7 +63,8 @@ def valide_fixations(train_list, eye_tracking_path, valide_subjs, eye_tracking_j
                     time, pupil_diameter, pupil_area, x_screen, y_screen, event = line.strip().split('\t')
                     if event == 'F':
                         x_stimulus, y_stimulus = mapping(image_res_x, image_res_y, int(float(x_screen)), int(float(y_screen)))
-                        new_fixations[str(subj).strip()].append([int(x_stimulus),int(y_stimulus)])
+                        if fix_in_image(x_stimulus, y_stimulus,image_res_x, image_res_y):
+                            new_fixations[str(subj).strip()].append([int(x_stimulus),int(y_stimulus)])
                 et.close()
                 new_fixations.update(old_fixations) 
                 
@@ -81,7 +73,7 @@ def valide_fixations(train_list, eye_tracking_path, valide_subjs, eye_tracking_j
                 gaze_json.close()
                 
 def slice_cnt(x,y,left, right, up, down):
-    if x>=left and x<right and y>=up and y<down:
+    if x>left and x<=right and y>up and y<=down:
         return 1.0
     else:
         return 0.0
@@ -91,7 +83,8 @@ def calculate_gaze_ratio(train_list, gaze_path, annotations = VOC2012_TRAIN_ANNO
     train_images = [line.strip() for line in tl]
     tl.close()
     for c,im in enumerate(train_images):
-        print c
+        if c%100==0:
+            print c
         fixation_file = open(gaze_path+im[:-4]+'.json')
                 
         fixations = json.load(fixation_file)
@@ -106,7 +99,7 @@ def calculate_gaze_ratio(train_list, gaze_path, annotations = VOC2012_TRAIN_ANNO
                 action_category = action[1]
                 continue
        
-        image_res_x, image_res_y= Image.open(pascal_voc_2012_train_images+im).size
+        image_res_x, image_res_y= Image.open(VOC2012_TRAIN_IMAGES+im).size
         
 
         integrate_image = np.zeros((10,10))
@@ -125,7 +118,12 @@ def calculate_gaze_ratio(train_list, gaze_path, annotations = VOC2012_TRAIN_ANNO
             for i_x in range(block_num):
                 for i_y in range(block_num):
                     ratio = np.sum(integrate_image[i_x:11-block_num+i_x, i_y:11-block_num+i_y])/total_fixations
-                    folder = +str(scale)+'/'
+                    if scale==1 and ratio!=1:
+                        print im
+                        print integrate_image
+                        print "ratio%f"%ratio
+                        
+                    folder = VOC2012_ACTION_ETLOSS_ACTION+str(scale)+'/'
                     if not os.path.exists(folder):
                         os.makedirs(folder)
                     if scale == 1:
@@ -138,5 +136,20 @@ def calculate_gaze_ratio(train_list, gaze_path, annotations = VOC2012_TRAIN_ANNO
                     check+=ratio
     
 if __name__ == "__main__":
-    valide_fixations(VOC2012_ACTION_TRAIN_LIST, VOC2012_ACTION_EYE_PATH, VOC2012_ACTION_VALIDE_SUBJS, VOC2012_ACTION_EYE_CONTEXT_JSON_PATH)
-#     calculate_gaze_ratio(VOC2012_ACTION_TRAIN_LIST, gaze_path)
+    action_names=["jumping", "phoning", "playinginstrument", "reading", "ridingbike", "ridinghorse", "running", "takingphoto", "usingcomputer", "walking"]
+    
+    scales = [1,4,9,16,25,36,49,64]
+    # scales=[1]
+    #scales = [36]
+    slice = 10.0
+    
+    from path_config import *
+    from PIL import Image
+    from xml.dom import minidom
+    import collections
+    import os
+    import json
+    import math
+    import numpy as np
+    #     valide_fixations(VOC2012_ACTION_TRAIN_LIST, VOC2012_ACTION_EYE_PATH, VOC2012_ACTION_VALIDE_SUBJS, VOC2012_ACTION_EYE_ACTION_JSON_PATH)
+    calculate_gaze_ratio(VOC2012_ACTION_TRAIN_LIST, VOC2012_ACTION_EYE_ACTION_JSON_PATH)

@@ -10,7 +10,6 @@ import numpy as np
 
 object_names=["dog", "cat", "motorbike", "boat", "aeroplane", "horse" ,"cow", "sofa", "diningtable", "bicycle"]
 scales = [1,4,9,16,25,36,49,64]
-#scales = [36]
 slice = 10.0
 #Extracting the fixations from the code of Ferrari eccv2014
 
@@ -24,7 +23,7 @@ def read_fixations(fixation_file, cls, eye_path):
     return fixations
 
 def slice_cnt(x,y,left, right, up, down):
-    if x>=left and x<right and y>=up and y<down:
+    if x>left and x<=right and y>up and y<=down:
         return 1.0
     else:
         return 0.0
@@ -48,14 +47,14 @@ def calculate_gaze_ratio(eye_path=VOC2012_OBJECT_EYE_PATH, annotations = VOC2012
                     down = (d1_inc+1) * image_res_y/10.0
                     for point_x, point_y in fixations:
                          integrate_image[d1_inc][d2_inc]+=slice_cnt(point_x, point_y, left, right, up, down)
-            
             for scale in scales:
                 block_num = int(math.sqrt(scale))
                 check=0
                 for i_x in range(block_num):
                     for i_y in range(block_num):
                         ratio = np.sum(integrate_image[i_x:11-block_num+i_x, i_y:11-block_num+i_y])/len(fixations)
-                        folder = VOC2012_ACTION_ETLOSS_ACTION+cls+'/'+str(scale)+'/'
+
+                        folder = VOC2012_OBJECT_ETLOSS_ACTION+cls+'/'+str(scale)+'/'
                         if not os.path.exists(folder):
                             os.makedirs(folder)
                         if scale == 1:

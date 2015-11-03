@@ -25,7 +25,7 @@ def read_fixations(fixation_file, cls, eye_path):
     return fixations                
 
 def slice_cnt(x,y,left, right, up, down):
-    if x>=left and x<right and y>=up and y<down:
+    if x>left and x<=right and y>up and y<=down:
         return 1.0
     else:
         return 0.0
@@ -53,9 +53,9 @@ def visualize_fixations(fixation_path):
     for root,dirs,files in os.walk(fixation_path):
         for file in files:
             cls, year, id= file.split('_')
-            cls = 'sofa'
-            year='2008'
-            id='005882.ggg'
+            cls = 'aeroplane'
+            year='2011'
+            id='002222.ggg'
             id=id[:-4]
             filename_root= '_'.join([year,id])
     #         file = "2012_003108.json"
@@ -72,7 +72,6 @@ def visualize_fixations(fixation_path):
             rows = img.shape[0]
             cols = img.shape[1]
             
-            
             for sy,sx in itertools.product(range(scale),repeat=2):
                 out = np.zeros((rows,cols,3), dtype='uint8')
                 out= np.dstack([img, img, img])
@@ -86,7 +85,12 @@ def visualize_fixations(fixation_path):
                 for xmin,ymin,xmax,ymax in bbs:
                     cv2.rectangle(out, (xmin,ymin), (xmax,ymax),(0,255,255))
                 
-                gaze_ratio_file = open(VOC2012_OBJECT_ETLOSS_ACTION+cls+'/'+str(scale*scale)+'/'+cls+'_'+filename_root+'_'+str(sy)+'_'+str(sx)+'.txt')
+                if scale ==1:
+                    gaze_ratio_file = open(VOC2012_OBJECT_ETLOSS_ACTION+cls+'/'+str(scale*scale)+'/'+cls+'_'+filename_root+'.txt')
+                else:
+                    gaze_ratio_file = open(VOC2012_OBJECT_ETLOSS_ACTION+cls+'/'+str(scale*scale)+'/'+cls+'_'+filename_root+'_'+str(sy)+'_'+str(sx)+'.txt')
+                
+
                 gaze_ratio=gaze_ratio_file.readline().strip()
                 gaze_ratio_file.close()
                 
@@ -104,6 +108,7 @@ def visualize_fixations(fixation_path):
                 else:
                     continue
 
+                
 def IoU_gt_gaze_region(fixations):
     object_names=["dog", "cat", "motorbike", "boat", "aeroplane", "horse" ,"cow", "sofa", "diningtable", "bicycle"]
     no_gaze=0
@@ -190,6 +195,7 @@ def metric_file_analyse(metric_folder, typ):
         for epsilon in epsilon_cv:
             for lambd in lambda_cv: 
                 for category in VOC2012_OBJECT_CATEGORIES:  
+#                 for category in ["dog", "motorbike", "aeroplane"]:
                     for tradeoff in tradeoff_cv:
 #                         best_cv = get_best_cv(cls, scale)
                         if typ=='':
@@ -266,10 +272,10 @@ if __name__ == "__main__":
     import metric_calculate
     
     ###CONFIG###
-    scale = 6
+    scale = 1
     ############
-    metric_file_analyse(metric_folder = "C1e-4_e1e-2_ferrari_local_new_example_list/", typ="train")
-#     visualize_fixations(VOC2012_OBJECT_EYE_PATH)
+#     metric_file_analyse(metric_folder = "C1e-4_e1e-2_cv_gamma_ferrari/", typ="test")
+    visualize_fixations(VOC2012_OBJECT_EYE_PATH)
 #     IoU, ratio = correlation_IoU_gaze_ratio(VOC2012_OBJECT_EYE_PATH)
 # #     IoU=[1,2]
 # #     ratio=[3,4]

@@ -53,15 +53,17 @@ public class LSSVMMulticlassTestET {
 //	    int[] scaleCV = {50};
 		String initializedType = ".";//+0,+-,or other things
 		boolean hnorm = false;
-		String dataSource= "";//local or other things
+		String dataSource= "big";//local or other things
 		
-		String lossPath = sourceDir+"ETLoss_dict/";
-		String testResultFileName = "C1e-4_e1e-2_cv_gamma_ferrari.txt";
-		String detailFolder= "C1e-4_e1e-2_cv_gamma_ferrari/";
+		String taskName = "C1e-4_e1e-3_scale_100_cv_gamma_ferrari";
+		String testResultFileName = taskName+".txt";
+		String detailFolder= taskName+"/";
 		
+//		int[] scaleCV = {100,90,80,70,60,50,40,30};
+		int[] scaleCV = {Integer.valueOf(args[1])};
 
 	    double[] lambdaCV = {1e-4};
-	    double[] epsilonCV = {1e-2};
+	    double[] epsilonCV = {1e-3};
 
 	    double[] tradeoffCV = {0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1};
 //	    double[] tradeoffCV = {0,0.01,0.02,0.03,0.04,0.05,0.06,0.07,0.08,0.09,0.1};
@@ -69,25 +71,33 @@ public class LSSVMMulticlassTestET {
 //	    double[] tradeoffCV = {0,0.5};
 //	    double[] tradeoffCV = {0};
 		
-//	    String[] classes = {args[0]};
-//	    int[] scaleCV = {Integer.valueOf(args[1])};
-	    String[] classes = {"dog", "cat", "motorbike", "boat" ,"aeroplane" ,"horse" ,"cow" ,"sofa", "diningtable" ,"bicycle"};
+	    String[] classes = {args[0]};
 	    
+//	    String[] classes = {"dog", "cat", "motorbike", "boat" ,"aeroplane" ,"horse" ,"cow" ,"sofa", "diningtable" ,"bicycle"};
+//	    String[] classes = {"dog", "cat", "motorbike", "boat" ,"horse" ,"cow" ,"sofa", "diningtable" ,"bicycle"};
+//	    String[] classes = {"dog", "cat"};
+//	    String[] classes = {"motorbike", "boat"};
+//	    String[] classes = {"aeroplane" ,"horse"};
+//	    String[] classes = {"cow" ,"sofa"};
+//	    String[] classes = {"diningtable" ,"bicycle"};
+//	    String[] classes = {"aeroplane"};
+
 //	    String[] classes = {"jumping", "phoning", "playinginstrument", "reading", "ridingbike", "ridinghorse" ,"running", "takingphoto", "usingcomputer", "walking"};
-	    int[] scaleCV = {50};
-	    String testBool="";
 	    
-		
-		//ensure dimension of features
-		int numWords = 2048;
-		
+	    String testBool="";
 		int optim = 1;
 		int epochsLatentMax = 50;
 		int epochsLatentMin = 5;
 		int cpmax = 5000;
 		int cpmin = 2;
 		
-	    
+		//ensure dimension of features
+		int numWords = 2048;
+		
+
+		
+		String lossPath = sourceDir+"ETLoss_dict/";
+
 
 //	    int[] scaleCV = {50};
 	    
