@@ -53,14 +53,14 @@ public class LSSVMMulticlassTestET {
 //	    int[] scaleCV = {50};
 		String initializedType = ".";//+0,+-,or other things
 		boolean hnorm = false;
-		String dataSource= "local";//local or other things
+		String dataSource= "big";//local or other things
 		
 		String taskName = "C1e-4_e1e-3_scale_60_cv_gamma_stefan";
 		String testResultFileName = taskName+".txt";
 		String detailFolder= taskName+"/";
 		
-		int[] scaleCV = {60};
-//		int[] scaleCV = {Integer.valueOf(args[1])};
+//		int[] scaleCV = {60};
+		int[] scaleCV = {Integer.valueOf(args[1])};
 
 	    double[] lambdaCV = {1e-4};
 	    double[] epsilonCV = {1e-3};
@@ -71,7 +71,7 @@ public class LSSVMMulticlassTestET {
 //	    double[] tradeoffCV = {0,0.5};
 //	    double[] tradeoffCV = {0};
 		
-//	    String[] classes = {args[0]};
+	    String[] classes = {args[0]};
 	    
 //	    String[] classes = {"dog", "cat", "motorbike", "boat" ,"aeroplane" ,"horse" ,"cow" ,"sofa", "diningtable" ,"bicycle"};
 //	    String[] classes = {"bicycle", "diningtable", "sofa", "cow", "horse"};
@@ -85,7 +85,7 @@ public class LSSVMMulticlassTestET {
 //	    String[] classes = {"aeroplane"};
 
 //	    String[] classes = {"phoning", "playinginstrument", "reading", "ridingbike", "ridinghorse" ,"running", "takingphoto", "usingcomputer", "walking"};
-	    String[] classes = {"jumping", "phoning", "playinginstrument", "reading", "ridingbike", "ridinghorse" ,"running", "takingphoto", "usingcomputer", "walking"};
+//	    String[] classes = {"jumping", "phoning", "playinginstrument", "reading", "ridingbike", "ridinghorse" ,"running", "takingphoto", "usingcomputer", "walking"};
 	    
 	    String testBool="";
 		int optim = 1;
