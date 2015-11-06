@@ -27,18 +27,18 @@ public class LSSVMMulticlassTestET {
 //		String simDir = "/home/wangxin/results/stefan_gaze/std_et/";
 //		String gazeType = "stefan";
 		//local full stefan
-//		String sourceDir = "/local/wangxin/Data/gaze_voc_actions_stefan/";
-//		String simDir = "/local/wangxin/results/stefan_gaze/std_et/";
-//		String gazeType = "stefan";
+		String sourceDir = "/local/wangxin/Data/gaze_voc_actions_stefan/";
+		String simDir = "/local/wangxin/results/stefan_gaze/std_et/";
+		String gazeType = "stefan";
 		//local stefan
 //			String sourceDir = "/local/wangxin/Data/gaze_voc_actions_stefan/";
 //		String simDir = "/local/wangxin/results/stefan_gaze/std_et/";
 //		String gazeType = "stefan";
 
 //		// big ferrari
-		String sourceDir = "/home/wangxin/Data/ferrari_gaze/";
-		String simDir = "/home/wangxin/results/ferrari_gaze/std_et/";
-		String gazeType = "ferrari";
+//		String sourceDir = "/home/wangxin/Data/ferrari_gaze/";
+//		String simDir = "/home/wangxin/results/ferrari_gaze/std_et/";
+//		String gazeType = "ferrari";
 //		// local full ferrari
 //		String sourceDir = "/local/wangxin/Data/ferrari_gaze/";
 //		String simDir = "/local/wangxin/results/ferrari_gaze/std_et/";
@@ -53,27 +53,29 @@ public class LSSVMMulticlassTestET {
 //	    int[] scaleCV = {50};
 		String initializedType = ".";//+0,+-,or other things
 		boolean hnorm = false;
-		String dataSource= "big";//local or other things
+		String dataSource= "local";//local or other things
 		
-		String taskName = "C1e-4_e1e-3_scale_60_cv_gamma_ferrari";
+		String taskName = "C1e-4_e1e-3_scale_60_cv_gamma_stefan";
 		String testResultFileName = taskName+".txt";
 		String detailFolder= taskName+"/";
 		
-//		int[] scaleCV = {100,90,80,70,60,50,40,30};
-		int[] scaleCV = {Integer.valueOf(args[1])};
+		int[] scaleCV = {60};
+//		int[] scaleCV = {Integer.valueOf(args[1])};
 
 	    double[] lambdaCV = {1e-4};
 	    double[] epsilonCV = {1e-3};
 
-	    double[] tradeoffCV = {0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1};
+	    double[] tradeoffCV = {0.0, 0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1};
 //	    double[] tradeoffCV = {0,0.01,0.02,0.03,0.04,0.05,0.06,0.07,0.08,0.09,0.1};
 
 //	    double[] tradeoffCV = {0,0.5};
 //	    double[] tradeoffCV = {0};
 		
-	    String[] classes = {args[0]};
+//	    String[] classes = {args[0]};
 	    
 //	    String[] classes = {"dog", "cat", "motorbike", "boat" ,"aeroplane" ,"horse" ,"cow" ,"sofa", "diningtable" ,"bicycle"};
+//	    String[] classes = {"bicycle", "diningtable", "sofa", "cow", "horse"};
+//		String[] classes =  {"aeroplane" , "boat" , "motorbike", "cat" ,"dog"  };
 //	    String[] classes = {"dog", "cat", "motorbike", "boat" ,"horse" ,"cow" ,"sofa", "diningtable" ,"bicycle"};
 //	    String[] classes = {"dog", "cat"};
 //	    String[] classes = {"motorbike", "boat"};
@@ -82,7 +84,8 @@ public class LSSVMMulticlassTestET {
 //	    String[] classes = {"diningtable" ,"bicycle"};
 //	    String[] classes = {"aeroplane"};
 
-//	    String[] classes = {"jumping", "phoning", "playinginstrument", "reading", "ridingbike", "ridinghorse" ,"running", "takingphoto", "usingcomputer", "walking"};
+//	    String[] classes = {"phoning", "playinginstrument", "reading", "ridingbike", "ridinghorse" ,"running", "takingphoto", "usingcomputer", "walking"};
+	    String[] classes = {"jumping", "phoning", "playinginstrument", "reading", "ridingbike", "ridinghorse" ,"running", "takingphoto", "usingcomputer", "walking"};
 	    
 	    String testBool="";
 		int optim = 1;

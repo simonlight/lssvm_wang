@@ -1,7 +1,5 @@
 
-
-
-def valide_subjects(train_list, eye_tracking_path,subjs = VOC2012_ACTION_ACTION_SUBJS):
+def valide_subjects(train_list, eye_tracking_path):
     """The subjects obtain 100% correctness are valid, otherwise, they are abandoned"""
     f = open(train_list)
     train_images = [line.strip() for line in f]
@@ -10,7 +8,7 @@ def valide_subjects(train_list, eye_tracking_path,subjs = VOC2012_ACTION_ACTION_
         for file in files:
             subj, year, id = file.split('_')
             filename = '_'.join([year,id])
-            if subj in subjs and filename[:-4] in train_images:
+            if subj in VOC2012_ACTION_ACTION_SUBJS and filename[:-4] in train_images:
                 sub_fixationcnt[subj]+=1
     print subj_fixationcnt   
 
@@ -78,7 +76,7 @@ def slice_cnt(x,y,left, right, up, down):
     else:
         return 0.0
 
-def calculate_gaze_ratio(train_list, gaze_path, annotations = VOC2012_TRAIN_ANNOTATIONS):
+def calculate_gaze_ratio(train_list, gaze_path  ):
     tl = open(train_list)
     train_images = [line.strip() for line in tl]
     tl.close()
@@ -91,7 +89,7 @@ def calculate_gaze_ratio(train_list, gaze_path, annotations = VOC2012_TRAIN_ANNO
         fixation_file.close()
         total_fixations = sum([len(observers) for observers in fixations.values()])
         
-        xmldoc = minidom.parse(annotations + im.strip()[:-4]+'.xml')
+        xmldoc = minidom.parse(VOC2012_TRAIN_ANNOTATIONS + im.strip()[:-4]+'.xml')
                  
         itemlist = xmldoc.getElementsByTagName("actions")
         for action in enumerate(action_names):

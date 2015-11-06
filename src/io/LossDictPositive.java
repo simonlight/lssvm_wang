@@ -24,10 +24,7 @@ public class LossDictPositive {
 					FileReader fr = new FileReader(childNode.getAbsolutePath());
 					BufferedReader br=new BufferedReader(fr);
 					double ETLoss = Double.parseDouble(br.readLine());
-					if (ETLoss!=1){
-						System.out.println(childNode.getAbsolutePath());
-						System.out.println(ETLoss);
-					}
+
 					br.close();
 					fr.close();
 					map.put(childNode.getName(), ETLoss); 
@@ -89,7 +86,7 @@ public class LossDictPositive {
         	int scale=scale_list[scale_index];
         	System.out.println(scale);
         	for (String imClass:classList){
-	        	File inputFolder = new File("/local/wangxin/Data/gaze_voc_actions_stefan/ETLoss_ratio/"+imClass+"/"+String.valueOf(scale)+"/");
+	        	File inputFolder = new File("/local/wangxin/Data/gaze_voc_actions_stefan/ETLoss_ratio/"+String.valueOf(scale)+"/");
 //	        	File inputFolder = new File("/local/wangxin/Data/ferrari_gaze/ETLoss_ratio/"+imClass+"/"+String.valueOf(scale)+"/");
 	        	traverse(inputFolder);
         	}
