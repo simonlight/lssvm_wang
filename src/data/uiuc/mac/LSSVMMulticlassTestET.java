@@ -55,7 +55,7 @@ public class LSSVMMulticlassTestET {
 		boolean hnorm = false;
 		String dataSource= "big";//local or other things
 		
-		String taskName = "C1e-4_e1e-3_scale_50_cv_gamma_stefan";
+		String taskName = "C1e-4_e1e-3_scale_40_cv_gamma_stefan";
 		String testResultFileName = taskName+".txt";
 		String detailFolder= taskName+"/";
 		
