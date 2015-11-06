@@ -23,13 +23,13 @@ public class LSSVMMulticlassTestET {
 	
 	public static void main(String[] args) {
 		//big	stefan
-//		String sourceDir = "/home/wangxin/Data/gaze_voc_actions_stefan/";
-//		String simDir = "/home/wangxin/results/stefan_gaze/std_et/";
-//		String gazeType = "stefan";
-		//local full stefan
-		String sourceDir = "/local/wangxin/Data/gaze_voc_actions_stefan/";
-		String simDir = "/local/wangxin/results/stefan_gaze/std_et/";
+		String sourceDir = "/home/wangxin/Data/gaze_voc_actions_stefan/";
+		String simDir = "/home/wangxin/results/stefan_gaze/std_et/";
 		String gazeType = "stefan";
+		//local full stefan
+//		String sourceDir = "/local/wangxin/Data/gaze_voc_actions_stefan/";
+//		String simDir = "/local/wangxin/results/stefan_gaze/std_et/";
+//		String gazeType = "stefan";
 		//local stefan
 //			String sourceDir = "/local/wangxin/Data/gaze_voc_actions_stefan/";
 //		String simDir = "/local/wangxin/results/stefan_gaze/std_et/";
@@ -55,11 +55,11 @@ public class LSSVMMulticlassTestET {
 		boolean hnorm = false;
 		String dataSource= "big";//local or other things
 		
-		String taskName = "C1e-4_e1e-3_scale_40_cv_gamma_stefan";
+		String taskName = "C1e-4_e1e-3_scale_50_cv_gamma_stefan";
 		String testResultFileName = taskName+".txt";
 		String detailFolder= taskName+"/";
 		
-//		int[] scaleCV = {60};
+//		int[] scaleCV = {50};
 		int[] scaleCV = {Integer.valueOf(args[1])};
 
 	    double[] lambdaCV = {1e-4};
@@ -84,7 +84,6 @@ public class LSSVMMulticlassTestET {
 //	    String[] classes = {"diningtable" ,"bicycle"};
 //	    String[] classes = {"aeroplane"};
 
-//	    String[] classes = {"phoning", "playinginstrument", "reading", "ridingbike", "ridinghorse" ,"running", "takingphoto", "usingcomputer", "walking"};
 //	    String[] classes = {"jumping", "phoning", "playinginstrument", "reading", "ridingbike", "ridinghorse" ,"running", "takingphoto", "usingcomputer", "walking"};
 	    
 	    String testBool="";
