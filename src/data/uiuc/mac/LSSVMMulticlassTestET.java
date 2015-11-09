@@ -23,9 +23,9 @@ public class LSSVMMulticlassTestET {
 	
 	public static void main(String[] args) {
 		//big	stefan
-		String sourceDir = "/home/wangxin/Data/gaze_voc_actions_stefan/";
-		String simDir = "/home/wangxin/results/stefan_gaze/std_et/";
-		String gazeType = "stefan";
+//		String sourceDir = "/home/wangxin/Data/gaze_voc_actions_stefan/";
+//		String simDir = "/home/wangxin/results/stefan_gaze/std_et/";
+//		String gazeType = "stefan";
 		//local full stefan
 //		String sourceDir = "/local/wangxin/Data/gaze_voc_actions_stefan/";
 //		String simDir = "/local/wangxin/results/stefan_gaze/std_et/";
@@ -36,9 +36,9 @@ public class LSSVMMulticlassTestET {
 //		String gazeType = "stefan";
 
 //		// big ferrari
-//		String sourceDir = "/home/wangxin/Data/ferrari_gaze/";
-//		String simDir = "/home/wangxin/results/ferrari_gaze/std_et/";
-//		String gazeType = "ferrari";
+		String sourceDir = "/home/wangxin/Data/ferrari_gaze/";
+		String simDir = "/home/wangxin/results/ferrari_gaze/std_et/";
+		String gazeType = "ferrari";
 //		// local full ferrari
 //		String sourceDir = "/local/wangxin/Data/ferrari_gaze/";
 //		String simDir = "/local/wangxin/results/ferrari_gaze/std_et/";
@@ -55,7 +55,7 @@ public class LSSVMMulticlassTestET {
 		boolean hnorm = false;
 		String dataSource= "big";//local or other things
 		
-		String taskName = "C1e-4_e1e-3_scale_30_cv_gamma_stefan";
+		String taskName = "C1e-4_e1e-3_scale_30_cv_gamma_ferrari";
 		String testResultFileName = taskName+".txt";
 		String detailFolder= taskName+"/";
 		
