@@ -53,23 +53,23 @@ public class LSSVMMulticlassTestET {
 		boolean hnorm = false;
 		String dataSource= "local";//local or other things
 		
-		String taskName = "C1e-4_e1e-3_scale_50_cv_gamma_epochsLatentMax_5000_ferrari";
+		String taskName = "C1e-4_e1e-3_scale_70_cv_gamma_epochsLatentMax_5000_ferrari";
 		String testResultFileName = taskName+".txt";
 		String detailFolder= taskName+"/";
 		
-		int[] scaleCV = {50};
-//		int[] scaleCV = {Integer.valueOf(args[1])};
+//		int[] scaleCV = {50};
+		String[] classes = {args[0]};
+		int[] scaleCV = {Integer.valueOf(args[1])};
 
 	    double[] lambdaCV = {1e-4};
 	    double[] epsilonCV = {1e-3};
 
-	    double[] tradeoffCV = {0.0, 0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1};
+//	    double[] tradeoffCV = {0.0, 0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1};
 //	    double[] tradeoffCV = {0,0.01,0.02,0.03,0.04,0.05,0.06,0.07,0.08,0.09,0.1};
 
 //	    double[] tradeoffCV = {0,0.5};
-//	    double[] tradeoffCV = {0};
+	    double[] tradeoffCV = {0.3};
 		
-//	    String[] classes = {args[0]};
 	    
 //	    String[] classes = {"dog", "cat", "motorbike", "boat" ,"aeroplane" ,"horse" ,"cow" ,"sofa", "diningtable" ,"bicycle"};
 //	    String[] classes = {"bicycle", "diningtable", "sofa", "cow", "horse"};
@@ -77,14 +77,14 @@ public class LSSVMMulticlassTestET {
 //	    String[] classes = {"dog", "cat", "motorbike", "boat" ,"horse" ,"cow" ,"sofa", "diningtable" ,"bicycle"};
 //	    String[] classes = {"dog","motorbike", "boat"};
 //	    String[] classes = {"cat", "aeroplane" ,"horse"};
-	    String[] classes = {"cow" ,"sofa","diningtable" ,"bicycle"};
+//	    String[] classes = {"cow" ,"sofa","diningtable" ,"bicycle"};
 
 //	    String[] classes = {"jumping", "phoning", "playinginstrument", "reading", "ridingbike", "ridinghorse" ,"running", "takingphoto", "usingcomputer", "walking"};
 	    
 	    String testBool="";
 		int optim = 1;
 		int epochsLatentMax = 5000;
-		int epochsLatentMin = 5;
+		int epochsLatentMin = 2;
 		int cpmax = 5000;
 		int cpmin = 2;
 		
