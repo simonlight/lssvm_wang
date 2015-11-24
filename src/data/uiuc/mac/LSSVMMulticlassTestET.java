@@ -2,8 +2,13 @@ package data.uiuc.mac;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -64,11 +69,11 @@ public class LSSVMMulticlassTestET {
 	    double[] lambdaCV = {1e-4};
 	    double[] epsilonCV = {1e-3};
 
-//	    double[] tradeoffCV = {0.0, 0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1};
+	    double[] tradeoffCV = {0.0, 0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1};
 //	    double[] tradeoffCV = {0,0.01,0.02,0.03,0.04,0.05,0.06,0.07,0.08,0.09,0.1};
 
 //	    double[] tradeoffCV = {0,0.5};
-	    double[] tradeoffCV = {0.3};
+//	    double[] tradeoffCV = {0.3};
 		
 	    
 //	    String[] classes = {"dog", "cat", "motorbike", "boat" ,"aeroplane" ,"horse" ,"cow" ,"sofa", "diningtable" ,"bicycle"};
@@ -211,15 +216,15 @@ public class LSSVMMulticlassTestET {
 			    				
 			    				System.err.println("train " + String.valueOf(tradeoff)+" "+cls + " scale= " + scale + " ap= " + ap_train + " lambda= " + lambda + " epsilon= " + epsilon);
 								
-								//double acc = lsvm.test(exampleTrain);
+//								double acc = lsvm.test(exampleTrain);
 								//System.err.println("train - " + cls + "\tscale= " + scale + "\tacc= " + acc + "\tlambda= " + lambda + "\tepsilon= " + epsilon);
 								
 								//acc = lsvm.test(exampleTest);
 								
-								//fileClassifier = new File(classifierDir + "/" + className + "/" + className + "_" + scale + suffix + "_acc_" + acc + ".ser");
-								//fileClassifier.getAbsoluteFile().getParentFile().mkdirs();
-								//System.out.println("save classifier " + fileClassifier.getAbsolutePath());
-								// save classifier
+//								fileClassifier = new File(classifierDir + "/" + className + "/" + className + "_" + scale + suffix + "_acc_" + acc + ".ser");
+//								fileClassifier.getAbsoluteFile().getParentFile().mkdirs();
+//								System.out.println("save classifier " + fileClassifier.getAbsolutePath());
+//								// save classifier
 //								ObjectOutputStream oos = null;
 //								try {
 //									oos = new ObjectOutputStream(new FileOutputStream(fileClassifier.getAbsolutePath()));
@@ -241,7 +246,7 @@ public class LSSVMMulticlassTestET {
 //										e.printStackTrace();
 //									}
 //								}
-//								
+////								
 //								// load classifier
 //								ObjectInputStream ois;
 //								System.out.println("read classifier " + fileClassifier.getAbsolutePath());
