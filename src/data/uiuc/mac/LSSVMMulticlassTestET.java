@@ -87,7 +87,7 @@ public class LSSVMMulticlassTestET {
 		int cpmin = 2;
 		int numWords = 2048;
 		boolean saveClassifier = true;
-	    boolean loadClassifier = false;
+	    boolean loadClassifier = true;
 	    
 		System.out.println("experiment detail: "
 				+ "\nsourceDir:\t "+sourceDir
@@ -206,6 +206,7 @@ public class LSSVMMulticlassTestET {
 										e.printStackTrace();
 									}
 								}
+								System.out.println("wrote classifier successfully!");
 							}
 							
 							//metric file
