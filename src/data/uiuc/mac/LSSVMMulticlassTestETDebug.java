@@ -43,11 +43,11 @@ public class LSSVMMulticlassTestETDebug {
 		String initializedType = ".";
 
 //	    String[] classes = {"walking"};
-	    String[] classes = { "horse"};
-	    int[] scaleCV = {90};
+//	    String[] classes = { "horse"};
+//	    int[] scaleCV = {90};
 	    boolean hnorm = false;
-//	    String[] classes = {args[0]};
-//	    int[] scaleCV = {Integer.valueOf(args[1])};
+	    String[] classes = {args[0]};
+	    int[] scaleCV = {Integer.valueOf(args[1])};
 
 //	    double[] tradeoffCV = {0,1};
 	    String testBool="";
@@ -61,7 +61,7 @@ public class LSSVMMulticlassTestETDebug {
 //	    double[] lambdaCV = {1e-4};
 	    double[] epsilonCV = {1e-3};
 
-	    double[] tradeoffCV = {0.1};
+	    double[] tradeoffCV = {0.3};
 //	    double[] tradeoffCV = {0.5};
 		
 
