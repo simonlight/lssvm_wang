@@ -26,7 +26,7 @@ public class LSSVMMulticlassTestET {
 	
 	public static void main(String[] args) {
 		
-		String dataSource= "local";//local or other things
+		String dataSource= "big";//local or other things
 		String gazeType = "ferrari";
 
 		String sourceDir = new String();
@@ -58,7 +58,7 @@ public class LSSVMMulticlassTestET {
 		String initializedType = ".";//+0,+-,or other things
 		boolean hnorm = false;
 		
-		String taskName = "save_classifier_test/";
+		String taskName = "java_std_et/";
 		
 		String resultFolder = resDir+taskName;
 		
@@ -67,15 +67,16 @@ public class LSSVMMulticlassTestET {
 		String classifierFolder = resultFolder + "classifier/";
 		String scoreFolder = resultFolder + "score/";
 	
-//		String[] classes = {args[0]};
-//		int[] scaleCV = {Integer.valueOf(args[1])};
-		String[] classes = {"bicycle"};
-		int[] scaleCV = {90};
+		String[] classes = {args[0]};
+		int[] scaleCV = {Integer.valueOf(args[1])};
+//		String[] classes = {"bicycle"};
+//		int[] scaleCV = {90};
 		
 	    double[] lambdaCV = {1e-4};
 	    double[] epsilonCV = {1e-3};
 	
-	    double[] tradeoffCV = {0, 0.1,0.2, 0.3, 0.4, 0.5, 0.6,0.7,0.8,0.9,1.0};
+//	    double[] tradeoffCV = {0, 0.1,0.2, 0.3, 0.4, 0.5, 0.6,0.7,0.8,0.9,1.0};
+	    double[] tradeoffCV = {0.3};
 			    
 	//	    String[] classes = {"dog", "cat", "motorbike", "boat" ,"aeroplane" ,"horse" ,"cow" ,"sofa", "diningtable" ,"bicycle"};
 	    
@@ -86,7 +87,7 @@ public class LSSVMMulticlassTestET {
 		int cpmin = 2;
 		int numWords = 2048;
 		boolean saveClassifier = true;
-	    boolean loadClassifier = true;
+	    boolean loadClassifier = false;
 	    
 		System.out.println("experiment detail: "
 				+ "\nsourceDir:\t "+sourceDir
