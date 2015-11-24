@@ -30,6 +30,8 @@ public class LSSVMMulticlassFastBagMILET extends LSSVMMulticlassFastET<BagMIL,In
 	@Override
 	protected double[] psi(BagMIL x, Integer h) {
 		//return the list of image features
+//		String m=x.getName();
+//		double[] g = x.getFeature(h);
 		return x.getFeature(h);
 	}
 	
@@ -186,6 +188,7 @@ public class LSSVMMulticlassFastBagMILET extends LSSVMMulticlassFastET<BagMIL,In
 		File resFile=new File(simDir+detailFolder+"/metric_"+type+"_"+String.valueOf(tradeoff)+"_"+String.valueOf(scale)+"_"+Double.valueOf(epsilon)+"_"+Double.valueOf(lambda)+"_"+className+".txt");
 
 		resFile.getAbsoluteFile().getParentFile().mkdirs();
+
 		try {
 			BufferedWriter out = new BufferedWriter(new FileWriter(resFile));
 			for(int i=0; i<l.size(); i++) {
@@ -198,6 +201,7 @@ public class LSSVMMulticlassFastBagMILET extends LSSVMMulticlassFastET<BagMIL,In
 	        	Integer yi = l.get(i).output;
 				out.write(Integer.valueOf(yp) +","+Integer.valueOf(yi) +","+ Integer.valueOf(hp)+","+l.get(i).input.x.getName()+"\n");
 				out.flush();
+				
 	        	double score = valueOf(l.get(i).input.x,yp,hp,w);
 	        	eval.add(new Evaluation<Integer>((l.get(i).output == 0 ? -1 : 1), (yp == 0 ? -1 : 1)*score));
 	        }

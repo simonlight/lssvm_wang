@@ -2,10 +2,8 @@ package data.uiuc.mac;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -36,13 +34,13 @@ public class LSSVMMulticlassTestET {
 //		String gazeType = "stefan";
 
 //		// big ferrari
-		String sourceDir = "/home/wangxin/Data/ferrari_gaze/";
-		String simDir = "/home/wangxin/results/ferrari_gaze/std_et/";
-		String gazeType = "ferrari";
-//		// local full ferrari
-//		String sourceDir = "/local/wangxin/Data/ferrari_gaze/";
-//		String simDir = "/local/wangxin/results/ferrari_gaze/std_et/";
+//		String sourceDir = "/home/wangxin/Data/ferrari_gaze/";
+//		String simDir = "/home/wangxin/results/ferrari_gaze/std_et/";
 //		String gazeType = "ferrari";
+//		// local full ferrari
+		String sourceDir = "/local/wangxin/Data/ferrari_gaze/";
+		String simDir = "/local/wangxin/results/ferrari_gaze/std_et/";
+		String gazeType = "ferrari";
 		// local ferrari
 //		String sourceDir = "/local/wangxin/Data/ferrari_gaze/";
 //		String simDir = "/local/wangxin/results/ferrari_gaze/std_et/";
@@ -53,14 +51,14 @@ public class LSSVMMulticlassTestET {
 //	    int[] scaleCV = {50};
 		String initializedType = ".";//+0,+-,or other things
 		boolean hnorm = false;
-		String dataSource= "big";//local or other things
+		String dataSource= "local";//local or other things
 		
-		String taskName = "C1e-4_e1e-3_scale_30_cv_gamma_ferrari";
+		String taskName = "C1e-4_e1e-3_scale_50_cv_gamma_epochsLatentMax_5000_ferrari";
 		String testResultFileName = taskName+".txt";
 		String detailFolder= taskName+"/";
 		
-//		int[] scaleCV = {50};
-		int[] scaleCV = {Integer.valueOf(args[1])};
+		int[] scaleCV = {50};
+//		int[] scaleCV = {Integer.valueOf(args[1])};
 
 	    double[] lambdaCV = {1e-4};
 	    double[] epsilonCV = {1e-3};
@@ -71,24 +69,21 @@ public class LSSVMMulticlassTestET {
 //	    double[] tradeoffCV = {0,0.5};
 //	    double[] tradeoffCV = {0};
 		
-	    String[] classes = {args[0]};
+//	    String[] classes = {args[0]};
 	    
 //	    String[] classes = {"dog", "cat", "motorbike", "boat" ,"aeroplane" ,"horse" ,"cow" ,"sofa", "diningtable" ,"bicycle"};
 //	    String[] classes = {"bicycle", "diningtable", "sofa", "cow", "horse"};
 //		String[] classes =  {"aeroplane" , "boat" , "motorbike", "cat" ,"dog"  };
 //	    String[] classes = {"dog", "cat", "motorbike", "boat" ,"horse" ,"cow" ,"sofa", "diningtable" ,"bicycle"};
-//	    String[] classes = {"dog", "cat"};
-//	    String[] classes = {"motorbike", "boat"};
-//	    String[] classes = {"aeroplane" ,"horse"};
-//	    String[] classes = {"cow" ,"sofa"};
-//	    String[] classes = {"diningtable" ,"bicycle"};
-//	    String[] classes = {"aeroplane"};
+//	    String[] classes = {"dog","motorbike", "boat"};
+//	    String[] classes = {"cat", "aeroplane" ,"horse"};
+	    String[] classes = {"cow" ,"sofa","diningtable" ,"bicycle"};
 
 //	    String[] classes = {"jumping", "phoning", "playinginstrument", "reading", "ridingbike", "ridinghorse" ,"running", "takingphoto", "usingcomputer", "walking"};
 	    
 	    String testBool="";
 		int optim = 1;
-		int epochsLatentMax = 50;
+		int epochsLatentMax = 5000;
 		int epochsLatentMin = 5;
 		int cpmax = 5000;
 		int cpmin = 2;
@@ -202,6 +197,16 @@ public class LSSVMMulticlassTestET {
 			    			//if(compute || fileClassifier == null) {
 			    			if(true){
 			    				lsvm.train(exampleTrain);
+			    				for (int wcnt=0;wcnt<2049;wcnt++){
+			    				System.out.print(lsvm.getW()[0][wcnt]);
+			    				System.out.print("\t");
+			    				}
+			    				System.out.println("\n");
+			    				for (int wcnt=0;wcnt<2049;wcnt++){
+			    				System.out.print(lsvm.getW()[1][wcnt]);
+			    				System.out.print("\t");
+			    				
+			    				}
 			    				double ap_train = lsvm.testAPRegion(exampleTrain,epsilon, lambda,scale, simDir, className, tradeoff,detailFolder,"train");
 			    				
 			    				System.err.println("train " + String.valueOf(tradeoff)+" "+cls + " scale= " + scale + " ap= " + ap_train + " lambda= " + lambda + " epsilon= " + epsilon);

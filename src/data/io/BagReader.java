@@ -43,7 +43,7 @@ public class BagReader {
 				ligne=br.readLine();
 				int nbBag = Integer.parseInt(ligne);
 //				//test!!!!!!!!!!!!!
-//				nbBag=11;
+//				nbBag=20;
 //				//
 				for(int i=0; i<nbBag; i++) {
 					
@@ -60,8 +60,10 @@ public class BagReader {
 
 					int nbInstances = Integer.parseInt(st.nextToken());
 //					System.out.println("name: " + name + "\tlabel: " + label + "\tnbInstances: " + nbInstances);
+					
 					BagMIL bag = new BagMIL();
 					bag.setName(name);
+					bag.setLabel(label);
 					
 					for(int j=0; j<nbInstances; j++) {
 						
@@ -69,6 +71,7 @@ public class BagReader {
 						if (dataSource == "local"){
 							filefeature =filefeature.replace("home", "local");
 						}
+						filefeature =filefeature.replace("matconvnet_m_2048_features", "m_2048_trainval_features");
 						bag.addFileFeature(filefeature);
 						
 						double[] feature = readFeature(new File(filefeature));
@@ -79,8 +82,11 @@ public class BagReader {
 							feature = null;
 							System.exit(0);
 						}
+						
+
 						bag.addFeature(feature);
 					}
+					
 					
 					nbInstancesAll += bag.getFeatures().size();
 					list.add(new TrainingSample<BagMIL>(bag,label));
@@ -155,6 +161,45 @@ public class BagReader {
 			System.out.println("file " + file.getAbsolutePath() + " does not exist");
 		}
 		return list;
+	}
+	
+private static double[] readHashFeature(File file) {
+		
+		double[] feature = null;
+		if(file.exists()) {
+			List<Double> l = new ArrayList<Double>();
+			
+			try {
+				InputStream ips = new FileInputStream(file); 
+				InputStreamReader ipsr = new InputStreamReader(ips);
+				BufferedReader br = new BufferedReader(ipsr);
+				
+				String ligne;
+				while ((ligne=br.readLine()) != null){
+					l.add(Double.parseDouble(ligne));
+				}
+				
+				br.close();
+			}
+			catch (IOException e) {
+				System.out.println("Error parsing file " + file);
+			}
+			
+			feature = new double[l.size()];
+			for(int i=0; i<l.size(); i++) {
+				feature[i] = l.get(i);
+			}
+			
+			//System.out.println("PPMI - read feature: " + file.getAbsoluteFile() + "\tdim: " + feature.length);
+		}
+		else {
+			System.out.println("Features file " + file.getAbsolutePath() + " does not exist");
+			System.exit(0);
+		}
+		
+		
+		return feature;
+		
 	}
 	
 	private static double[] readFeature(File file) {

@@ -105,6 +105,8 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 		System.out.println("Fin optim latent - Time learning= "+ (endTime-startTime)/1000 + "s");
 		//System.out.println("Evaluation after training " + evaluation(l));
 		
+
+		
 		System.out.println("----------------------------------------------------------------------------------------");
 	}
 	
@@ -178,6 +180,7 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 					}
 				}
 				for(int i=0; i<lc.size(); i++) {
+					
 					gram[lc.size()-1][i] = VectorOp.dot(lg.get(lc.size()-1), lg.get(i));
 					gram[i][lc.size()-1] = gram[lc.size()-1][i];
 				}
@@ -187,6 +190,8 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 				gram = new double[lc.size()][lc.size()];
 				for(int i=0; i<gram.length; i++) {
 					for(int j=i; j<gram.length; j++) {
+
+						
 						gram[i][j] = VectorOp.dot(lg.get(j), lg.get(i));
 						gram[j][i] = gram[i][j];
 						if(i==j) {
@@ -200,7 +205,7 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 //		    System.out.println("MOSEK - alphas " + Arrays.toString(alphas));
 //			System.out.println(alphas.length);
 //			System.out.println("DualObj= " + (VectorOp.dot(alphas,lc.toArray(new Double[lc.size()])) - 0.5 * matrixProduct(alphas,gram)) + "\talphas " + Arrays.toString(alphas));
-			xi = (VectorOp.dot(alphas,lc.toArray(new Double[lc.size()])) - matrixProduct(alphas,gram)) / c;
+			xi = (VectorOp.dot(alphas, lc.toArray(new Double[lc.size()])) - matrixProduct(alphas,gram)) / c;
 //			System.out.println(xi);
 			// new w
 			for(Integer y : listClass) {
@@ -238,7 +243,7 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 		// c(t) cost
 		double[][] gt = new double[w.length][w[0].length];
 		double ct = 0;
-		double n = l.size();
+		double n = (double)l.size();
 //		System.out.println("cutting plane");
 		for(int i=0; i<l.size(); i++){
 			STrainingSample<LatentRepresentation<X,H>,Integer> ts = l.get(i);			
@@ -262,7 +267,6 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 		}
 		
 		ct /= n;
-		
 		for(int k=0; k<gt.length; k++) {
 			for(int d=0; d<gt[k].length; d++) {
 				gt[k][d] /= n;
@@ -285,7 +289,6 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 			Object[] or = lossAugmentedInference(ts);
 			Integer yp = (Integer)or[0];
 			H hp = (H)or[1];
-//			protected abstract double delta(Integer yi, Integer yp, X x, H h, H hstar, boolean hnorm);
 
 			loss += delta(ts.output, yp, ts.input.x, hp, ts.input.h, hnorm) + valueOf(ts.input.x,yp,hp,w)-valueOf(ts.input.x,ts.output,prediction(ts.input.x,ts.output),w);
 			
@@ -351,7 +354,9 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 		for(int y : listClass) {
 			for(H h : enumerateH(lr.x)) {
 				
+				
 				double val = valueOf(lr.x,y,h,w);
+				
 				if(val>valmax){
 					valmax = val;
 					ypredict = y;
@@ -378,6 +383,7 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 	
 	protected double valueOf(X x, Integer y, H h, double[][] w) {
 		// compute <w[y], Psi(x,h)>
+
 		return linear.valueOf(w[y], psi(x,h));
 	}
 	
