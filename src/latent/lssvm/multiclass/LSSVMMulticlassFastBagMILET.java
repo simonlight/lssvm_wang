@@ -182,26 +182,18 @@ public class LSSVMMulticlassFastBagMILET extends LSSVMMulticlassFastET<BagMIL,In
 	}
 	
 	
-	public double testAPRegion(List<STrainingSample<LatentRepresentation<BagMIL, Integer>, Integer>> l, double epsilon, double lambda,int scale, String simDir, String className, double tradeoff, String detailFolder, String type) {
+	public double testAPRegion(List<STrainingSample<LatentRepresentation<BagMIL, Integer>, Integer>> l, File resFile) {
 		
 		List<Evaluation<Integer>> eval = new ArrayList<Evaluation<Integer>>();
-		File resFile=new File(simDir+detailFolder+"/metric_"+type+"_"+String.valueOf(tradeoff)+"_"+String.valueOf(scale)+"_"+Double.valueOf(epsilon)+"_"+Double.valueOf(lambda)+"_"+className+".txt");
-
-		resFile.getAbsoluteFile().getParentFile().mkdirs();
-
+		
 		try {
 			BufferedWriter out = new BufferedWriter(new FileWriter(resFile));
 			for(int i=0; i<l.size(); i++) {
-	        	// calcul score(x,y,h,w) = argmax_{y,h} <w, \psi(x,y,h)>
 				Integer yp = prediction(l.get(i).input);
 	        	Integer hp = prediction(l.get(i).input.x, yp);
-//	        	System.out.println(l.get(i).input.x.getName());
-//	        	System.out.print("region predicted: "+hp);
-//	        	System.out.println(" label predicted: "+yp);
 	        	Integer yi = l.get(i).output;
 				out.write(Integer.valueOf(yp) +","+Integer.valueOf(yi) +","+ Integer.valueOf(hp)+","+l.get(i).input.x.getName()+"\n");
 				out.flush();
-				
 	        	double score = valueOf(l.get(i).input.x,yp,hp,w);
 	        	eval.add(new Evaluation<Integer>((l.get(i).output == 0 ? -1 : 1), (yp == 0 ? -1 : 1)*score));
 	        }

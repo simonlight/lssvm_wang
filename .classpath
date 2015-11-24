@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="/home/wangxin/local/jkernelmachines-master/jkernelmachines.jar" sourcepath="/home/wangxin/local/jkernelmachines-master/jkernelmachines-src.jar"/>
-	<classpathentry kind="lib" path="/home/wangxin/local/commons-cli-1.2/commons-cli-1.2.jar"/>
-	<classpathentry kind="lib" path="/home/wangxin/mosek/7/tools/platform/linux64x86/bin/mosek.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.8.0_25"/>
+	<classpathentry kind="lib" path="/home/xin/software/jkernelmachines-master/jkernelmachines.jar"/>
+	<classpathentry kind="lib" path="/home/xin/mosek/7/tools/platform/linux64x86/bin/mosek.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="src"/>
 </classpath>
