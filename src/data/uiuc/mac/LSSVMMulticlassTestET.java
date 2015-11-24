@@ -70,12 +70,12 @@ public class LSSVMMulticlassTestET {
 //		String[] classes = {args[0]};
 //		int[] scaleCV = {Integer.valueOf(args[1])};
 		String[] classes = {"horse"};
-		int[] scaleCV = {100};
+		int[] scaleCV = {90};
 		
 	    double[] lambdaCV = {1e-4};
 	    double[] epsilonCV = {1e-3};
 	
-	    double[] tradeoffCV = {0.3};
+	    double[] tradeoffCV = {0.1};
 			    
 	//	    String[] classes = {"dog", "cat", "motorbike", "boat" ,"aeroplane" ,"horse" ,"cow" ,"sofa", "diningtable" ,"bicycle"};
 	    
