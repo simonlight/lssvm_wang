@@ -51,7 +51,7 @@ public class LSSVMMulticlassTestET {
 //	    int[] scaleCV = {50};
 		String initializedType = ".";//+0,+-,or other things
 		boolean hnorm = false;
-		String dataSource= "local";//local or other things
+		String dataSource= "big";//local or other things
 		
 		String taskName = "C1e-4_e1e-3_scale_70_cv_gamma_epochsLatentMax_5000_ferrari";
 		String testResultFileName = taskName+".txt";
@@ -149,8 +149,8 @@ public class LSSVMMulticlassTestET {
 				
 //				if(compute) {
 				if(true) {
-					String listTrainPath = inputDir + "/"+className+"_train_scale_"+scale+"_m_2048_trainval_features.txt"+testBool;
-					String listTestPath = inputDir + "/"+className+"_val_scale_"+scale+"_m_2048_trainval_features.txt"+testBool;
+					String listTrainPath = inputDir + "/"+className+"_train_scale_"+scale+"_matconvnet_m_2048_layer_20.txt"+testBool;
+					String listTestPath = inputDir + "/"+className+"_val_scale_"+scale+"_matconvnet_m_2048_layer_20.txt"+testBool;
 					List<TrainingSample<BagMIL>> listTrain = BagReader.readBagMIL(listTrainPath, numWords, dataSource);
 					List<TrainingSample<BagMIL>> listTest = BagReader.readBagMIL(listTestPath, numWords, dataSource); 
 		        	
