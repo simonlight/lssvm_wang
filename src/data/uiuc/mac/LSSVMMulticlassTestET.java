@@ -135,11 +135,13 @@ public class LSSVMMulticlassTestET {
 							}
 							
 							LSSVMMulticlassFastBagMILET lsvm = new LSSVMMulticlassFastBagMILET();
+							
 							File fileClassifier = new File(classifierFolder + "/" + className + "/"+ 
 									className + "_" + scale + "_"+epsilon+"_"+lambda + 
 									"_"+tradeoff+"_"+cpmax+"_"+cpmin+"_"+epochsLatentMax+"_"+epochsLatentMin +
 									"_"+optim+"_"+numWords+".lssvm");
-							
+							fileClassifier.getAbsoluteFile().getParentFile().mkdirs();
+		    				
 							if (!loadClassifier){
 								System.out.println("training classifier " + fileClassifier.getAbsolutePath());
 		    		    		lsvm.setOptim(optim);
