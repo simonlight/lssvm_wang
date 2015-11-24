@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="/home/xin/software/jkernelmachines-master/jkernelmachines.jar"/>
+	<classpathentry kind="lib" path="/home/xin/software/jkernelmachines-master/jkernelmachines.jar" sourcepath="/home/xin/software/jkernelmachines-master/jkernelmachines-src.jar"/>
 	<classpathentry kind="lib" path="/home/xin/mosek/7/tools/platform/linux64x86/bin/mosek.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="src"/>
