@@ -76,7 +76,7 @@ public class LSSVMMulticlassTestET {
 	    double[] epsilonCV = {1e-3};
 	
 //	    double[] tradeoffCV = {0, 0.1,0.2, 0.3, 0.4, 0.5, 0.6,0.7,0.8,0.9,1.0};
-	    double[] tradeoffCV = {0.3};
+	    double[] tradeoffCV = {0.1};
 			    
 	//	    String[] classes = {"dog", "cat", "motorbike", "boat" ,"aeroplane" ,"horse" ,"cow" ,"sofa", "diningtable" ,"bicycle"};
 	    
@@ -208,11 +208,12 @@ public class LSSVMMulticlassTestET {
 								}
 							}
 							
-//							//metric file
-//							File trainMetricFile=new File(metricFolder+"/metric_train_"+tradeoff+"_"+scale+"_"+epsilon+"_"+lambda+"_"+className+".txt");
-//							trainMetricFile.getAbsoluteFile().getParentFile().mkdirs();
-//		    				double ap_train = lsvm.testAPRegion(exampleTrain, trainMetricFile);
-//		    				
+							//metric file
+							File trainMetricFile=new File(metricFolder+"/metric_train_"+tradeoff+"_"+scale+"_"+epsilon+"_"+lambda+"_"+className+".txt");
+							trainMetricFile.getAbsoluteFile().getParentFile().mkdirs();
+		    				double ap_train = lsvm.testAPRegion(exampleTrain, trainMetricFile);
+		    				System.out.println("ap train:"+ap_train);
+		    				//		    				
 //		    				File testMetricFile=new File(metricFolder+"/metric_test_"+tradeoff+"_"+scale+"_"+epsilon+"_"+lambda+"_"+className+".txt");
 //		    				testMetricFile.getAbsoluteFile().getParentFile().mkdirs();
 //		    				double ap_test = lsvm.testAPRegion(exampleTest, testMetricFile);
