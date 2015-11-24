@@ -141,8 +141,25 @@ public class LSSVMMulticlassTestET {
 									"_"+tradeoff+"_"+cpmax+"_"+cpmin+"_"+epochsLatentMax+"_"+epochsLatentMin +
 									"_"+optim+"_"+numWords+".lssvm");
 							fileClassifier.getAbsoluteFile().getParentFile().mkdirs();
-		    				
-							if (!loadClassifier){
+							if (loadClassifier && fileClassifier.exists()){
+								ObjectInputStream ois;
+								System.out.println("read classifier " + fileClassifier.getAbsolutePath());
+								try {
+									ois = new ObjectInputStream(new FileInputStream(fileClassifier.getAbsolutePath()));
+									lsvm = (LSSVMMulticlassFastBagMILET) ois.readObject();
+									lsvm.showParameters();
+								} catch (FileNotFoundException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								} catch (IOException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								} catch (ClassNotFoundException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+							}
+							else {
 								System.out.println("training classifier " + fileClassifier.getAbsolutePath());
 		    		    		lsvm.setOptim(optim);
 		    		    		lsvm.setEpochsLatentMax(epochsLatentMax);
@@ -165,33 +182,7 @@ public class LSSVMMulticlassTestET {
 								lsvm.train(exampleTrain);
 							}
 							
-							else if (loadClassifier && fileClassifier.exists()){
-								ObjectInputStream ois;
-								System.out.println("read classifier " + fileClassifier.getAbsolutePath());
-								try {
-									ois = new ObjectInputStream(new FileInputStream(fileClassifier.getAbsolutePath()));
-									lsvm = (LSSVMMulticlassFastBagMILET) ois.readObject();
-									lsvm.showParameters();
-								} catch (FileNotFoundException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								} catch (IOException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								} catch (ClassNotFoundException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
-							}
-							else{
-								try {
-									throw new Exception("No train and no load? Check your file classifier");
-								} catch (Exception e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
-							}
-							
+														
 		    				if (saveClassifier){
 			    				// save classifier
 								
