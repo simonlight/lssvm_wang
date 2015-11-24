@@ -71,7 +71,7 @@ public class BagReader {
 						if (dataSource == "local"){
 							filefeature =filefeature.replace("home", "local");
 						}
-						filefeature =filefeature.replace("matconvnet_m_2048_features", "m_2048_trainval_features");
+						filefeature =filefeature.replace("matconvnet_m_2048_features", "m_2048_train_feature");
 						bag.addFileFeature(filefeature);
 						
 						double[] feature = readFeature(new File(filefeature));
