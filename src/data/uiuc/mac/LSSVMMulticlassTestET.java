@@ -111,8 +111,6 @@ public class LSSVMMulticlassTestET {
 			    );
 	    
 		
-
-	    
 	    for(String className: classes){
 	    	for(int scale : scaleCV) {
 				String listTrainPath =  sourceDir+"example_files/"+scale+"/"+className+"_train_scale_"+scale+"_matconvnet_m_2048_layer_20.txt";
