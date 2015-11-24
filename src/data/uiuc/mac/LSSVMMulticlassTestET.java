@@ -85,8 +85,8 @@ public class LSSVMMulticlassTestET {
 		int cpmax = 5000;
 		int cpmin = 2;
 		int numWords = 2048;
-		boolean saveClassifier = false;
-	    boolean loadClassifier = false;
+		boolean saveClassifier = true;
+	    boolean loadClassifier = true;
 	    
 		System.out.println("experiment detail: "
 				+ "\nsourceDir:\t "+sourceDir
@@ -219,11 +219,11 @@ public class LSSVMMulticlassTestET {
 							}
 							
 							//metric file
-							File trainMetricFile=new File(metricFolder+"/metric_train"+tradeoff+"_"+scale+"_"+epsilon+"_"+lambda+"_"+className+".txt");
+							File trainMetricFile=new File(metricFolder+"/metric_train_"+tradeoff+"_"+scale+"_"+epsilon+"_"+lambda+"_"+className+".txt");
 							trainMetricFile.getAbsoluteFile().getParentFile().mkdirs();
 		    				double ap_train = lsvm.testAPRegion(exampleTrain, trainMetricFile);
 		    				
-		    				File testMetricFile=new File(metricFolder+"/metric_test"+tradeoff+"_"+scale+"_"+epsilon+"_"+lambda+"_"+className+".txt");
+		    				File testMetricFile=new File(metricFolder+"/metric_test_"+tradeoff+"_"+scale+"_"+epsilon+"_"+lambda+"_"+className+".txt");
 		    				testMetricFile.getAbsoluteFile().getParentFile().mkdirs();
 		    				double ap_test = lsvm.testAPRegion(exampleTest, testMetricFile);
 							
