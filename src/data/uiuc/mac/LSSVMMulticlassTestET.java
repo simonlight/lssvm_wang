@@ -189,31 +189,6 @@ public class LSSVMMulticlassTestET {
 									e.printStackTrace();
 								}
 							}
-							//metric file
-							File trainMetricFile=new File(metricFolder+"/metric_train"+tradeoff+"_"+scale+"_"+epsilon+"_"+lambda+"_"+className+".txt");
-							trainMetricFile.getAbsoluteFile().getParentFile().mkdirs();
-		    				double ap_train = lsvm.testAPRegion(exampleTrain, trainMetricFile);
-		    				
-		    				File testMetricFile=new File(metricFolder+"/metric_test"+tradeoff+"_"+scale+"_"+epsilon+"_"+lambda+"_"+className+".txt");
-		    				testMetricFile.getAbsoluteFile().getParentFile().mkdirs();
-		    				double ap_test = lsvm.testAPRegion(exampleTest, testMetricFile);
-							
-		    				//write ap 
-		    				try {
-								BufferedWriter out = new BufferedWriter(new FileWriter(resultFilePath, true));
-								out.write(className+" "+String.valueOf(tradeoff)+" "+scale+" "+lambda+" "+epsilon+" "+ap_test+" "+ap_train+"\n");
-								out.flush();
-								out.close();
-								
-							} catch (IOException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-	
-		    				System.err.println(className + " test "+ String.valueOf(tradeoff)+" "+className + " scale= " + scale + " ap= " + ap_test + " lambda= " + lambda + " epsilon= " + epsilon);
-							System.out.println("\n");
-							
-		    				System.err.format("train:%s category:%s scale:%s lambda:%s epsilon:%s %n ", ap_train, className, scale, lambda, epsilon); 
 							
 		    				if (saveClassifier){
 			    				// save classifier
@@ -240,6 +215,34 @@ public class LSSVMMulticlassTestET {
 									}
 								}
 							}
+							
+							//metric file
+							File trainMetricFile=new File(metricFolder+"/metric_train"+tradeoff+"_"+scale+"_"+epsilon+"_"+lambda+"_"+className+".txt");
+							trainMetricFile.getAbsoluteFile().getParentFile().mkdirs();
+		    				double ap_train = lsvm.testAPRegion(exampleTrain, trainMetricFile);
+		    				
+		    				File testMetricFile=new File(metricFolder+"/metric_test"+tradeoff+"_"+scale+"_"+epsilon+"_"+lambda+"_"+className+".txt");
+		    				testMetricFile.getAbsoluteFile().getParentFile().mkdirs();
+		    				double ap_test = lsvm.testAPRegion(exampleTest, testMetricFile);
+							
+		    				//write ap 
+		    				try {
+								BufferedWriter out = new BufferedWriter(new FileWriter(resultFilePath, true));
+								out.write(className+" "+String.valueOf(tradeoff)+" "+scale+" "+lambda+" "+epsilon+" "+ap_test+" "+ap_train+"\n");
+								out.flush();
+								out.close();
+								
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+	
+		    				System.err.println(className + " test "+ String.valueOf(tradeoff)+" "+className + " scale= " + scale + " ap= " + ap_test + " lambda= " + lambda + " epsilon= " + epsilon);
+							System.out.println("\n");
+							
+		    				System.err.format("train:%s category:%s scale:%s lambda:%s epsilon:%s %n ", ap_train, className, scale, lambda, epsilon); 
+							
+
 						}
 			    	}
 			    }
