@@ -69,13 +69,13 @@ public class LSSVMMulticlassTestET {
 	
 //		String[] classes = {args[0]};
 //		int[] scaleCV = {Integer.valueOf(args[1])};
-		String[] classes = {"horse"};
+		String[] classes = {"bicycle"};
 		int[] scaleCV = {90};
 		
 	    double[] lambdaCV = {1e-4};
 	    double[] epsilonCV = {1e-3};
 	
-	    double[] tradeoffCV = {0.1};
+	    double[] tradeoffCV = {0, 0.1,0.2, 0.3, 0.4, 0.5, 0.6,0.7,0.8,0.9,1.0};
 			    
 	//	    String[] classes = {"dog", "cat", "motorbike", "boat" ,"aeroplane" ,"horse" ,"cow" ,"sofa", "diningtable" ,"bicycle"};
 	    
