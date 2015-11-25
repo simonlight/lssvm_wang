@@ -24,7 +24,7 @@ public class LSSVMMulticlassEvaluationET {
 	
 	public static void main(String[] args) {
 		
-		String dataSource= "big";//local or other things
+		String dataSource= "local";//local or other things
 		String gazeType = "ferrari";
 
 		String sourceDir = new String();
@@ -66,10 +66,10 @@ public class LSSVMMulticlassEvaluationET {
 		String classifierFolder = resultFolder + "classifier/";
 		String scoreFolder = resultFolder + "score/";
 	
-		String[] classes = {args[0]};
-		int[] scaleCV = {Integer.valueOf(args[1])};
-//		String[] classes = {"boat"};
-//		int[] scaleCV = {50};
+//		String[] classes = {args[0]};
+//		int[] scaleCV = {Integer.valueOf(args[1])};
+		String[] classes = {"dog", "cat"};
+		int[] scaleCV = {90};
 		
 	    double[] lambdaCV = {1e-4};
 	    double[] epsilonCV = {1e-3};
@@ -160,7 +160,7 @@ public class LSSVMMulticlassEvaluationET {
 							File valMetricFile=new File(metricFolder+className+"/metric_valval_"+tradeoff+"_"+scale+"_"+epsilon+"_"+lambda+"_"+className+".txt");
 							valMetricFile.getAbsoluteFile().getParentFile().mkdirs();
 		    				double ap_val = lsvm.testAPRegion(exampleVal, valMetricFile);
-		    				System.out.println("ap train:"+ap_val);
+		    				System.out.println("ap val:"+ap_val);
 		    				//test metric file		    				
 		    				File testMetricFile=new File(metricFolder+className+"/metric_valtest_"+tradeoff+"_"+scale+"_"+epsilon+"_"+lambda+"_"+className+".txt");
 		    				testMetricFile.getAbsoluteFile().getParentFile().mkdirs();
@@ -180,9 +180,7 @@ public class LSSVMMulticlassEvaluationET {
 							}
 	
 		    				System.err.format("val:%s category:%s scale:%s lambda:%s epsilon:%s %n ", ap_val, className, scale, lambda, epsilon); 
-							System.out.println("\n");
 		    				System.err.format("test:%s category:%s scale:%s lambda:%s epsilon:%s %n ", ap_test, className, scale, lambda, epsilon); 
-							
 
 						}
 			    	}
