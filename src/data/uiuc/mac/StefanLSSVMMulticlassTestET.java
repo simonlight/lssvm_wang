@@ -20,39 +20,26 @@ import struct.STrainingSample;
 import data.io.BagReader;
 import fr.lip6.jkernelmachines.type.TrainingSample;
 
-public class LSSVMMulticlassTestET {
+public class StefanLSSVMMulticlassTestET {
 	
 	
 	
 	public static void main(String[] args) {
 		
 		String dataSource= "big";//local or other things
-		String gazeType = args[0];
+		String gazeType = "stefan";
 
 		String sourceDir = new String();
 		String resDir = new String();
 
-		if (dataSource=="local" && gazeType == "ferrari"){
-			sourceDir = "/local/wangxin/Data/ferrari_gaze/";
-			resDir = "/local/wangxin/results/ferrari_gaze/std_et/";
-			gazeType = "ferrari";
-		}
-		else if (dataSource=="big" && gazeType == "ferrari"){
-			sourceDir = "/home/wangxin/Data/ferrari_gaze/";
-			resDir = "/home/wangxin/results/ferrari_gaze/std_et/";
-			gazeType = "ferrari";
-		}
-		else if (dataSource=="local" && gazeType == "stefan"){
+		if (dataSource=="local"){
 			sourceDir = "/local/wangxin/Data/full_stefan_gaze/";
 			resDir = "/local/wangxin/results/full_stefan_gaze/std_et/";
-			gazeType = "stefan";
 			
 		}
-		else if (dataSource=="big" && gazeType == "stefan"){
+		else if (dataSource=="big"){
 			sourceDir = "/home/wangxin/Data/full_stefan_gaze/";
 			resDir = "/home/wangxin/results/full_stefan_gaze/std_et/";
-			gazeType = "stefan";
-			
 		}
 	
 		String initializedType = ".";//+0,+-,or other things
