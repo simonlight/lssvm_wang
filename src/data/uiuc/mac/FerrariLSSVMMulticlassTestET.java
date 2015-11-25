@@ -54,8 +54,8 @@ public class FerrariLSSVMMulticlassTestET {
 		String classifierFolder = resultFolder + "classifier/";
 		String scoreFolder = resultFolder + "score/";
 	
-		String[] classes = {args[1]};
-		int[] scaleCV = {Integer.valueOf(args[2])};
+		String[] classes = {args[0]};
+		int[] scaleCV = {Integer.valueOf(args[1])};
 //		String[] classes = {"walking"};
 //		int[] scaleCV = {90};
 		
