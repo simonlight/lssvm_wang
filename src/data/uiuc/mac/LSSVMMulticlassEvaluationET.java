@@ -34,6 +34,7 @@ public class LSSVMMulticlassEvaluationET {
 			sourceDir = "/local/wangxin/Data/ferrari_gaze/";
 			resDir = "/local/wangxin/results/ferrari_gaze/std_et/";
 			gazeType = "ferrari";
+			1
 		}
 		else if (dataSource=="big" && gazeType == "ferrari"){
 			sourceDir = "/home/wangxin/Data/ferrari_gaze/";
