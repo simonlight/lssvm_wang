@@ -26,7 +26,7 @@ public class LSSVMMulticlassTestET {
 	
 	public static void main(String[] args) {
 		
-		String dataSource= "big";//local or other things
+		String dataSource= "local";//local or other things
 		String gazeType = "ferrari";
 
 		String sourceDir = new String();
@@ -43,14 +43,14 @@ public class LSSVMMulticlassTestET {
 			gazeType = "ferrari";
 		}
 		else if (dataSource=="local" && gazeType == "stefan"){
-			sourceDir = "/local/wangxin/Data/gaze_voc_actions_stefan/";
-			resDir = "/local/wangxin/results/stefan_gaze/std_et/";
+			sourceDir = "/local/wangxin/Data/full_stefan_gaze/";
+			resDir = "/local/wangxin/results/full_stefan_gaze/std_et/";
 			gazeType = "stefan";
 			
 		}
 		else if (dataSource=="big" && gazeType == "stefan"){
-			sourceDir = "/home/wangxin/Data/gaze_voc_actions_stefan/";
-			resDir = "/home/wangxin/results/stefan_gaze/std_et/";
+			sourceDir = "/home/wangxin/Data/full_stefan_gaze/";
+			resDir = "/home/wangxin/results/full_stefan_gaze/std_et/";
 			gazeType = "stefan";
 			
 		}
@@ -58,7 +58,7 @@ public class LSSVMMulticlassTestET {
 		String initializedType = ".";//+0,+-,or other things
 		boolean hnorm = false;
 		
-		String taskName = "java_std_et/";
+		String taskName = "java_std_et_basic_loss/";
 		
 		String resultFolder = resDir+taskName;
 		
@@ -69,13 +69,14 @@ public class LSSVMMulticlassTestET {
 	
 		String[] classes = {args[0]};
 		int[] scaleCV = {Integer.valueOf(args[1])};
-//		String[] classes = {"boat"};
+//		String[] classes = {"dog"};
 //		int[] scaleCV = {50};
 		
 	    double[] lambdaCV = {1e-4};
 	    double[] epsilonCV = {1e-3};
 	
 	    double[] tradeoffCV = {0, 0.1,0.2, 0.3, 0.4, 0.5, 0.6,0.7,0.8,0.9,1.0};
+//	    double[] tradeoffCV = {0.1,1};
 			    
 	//	    String[] classes = {"dog", "cat", "motorbike", "boat" ,"aeroplane" ,"horse" ,"cow" ,"sofa", "diningtable" ,"bicycle"};
 	    
@@ -115,8 +116,6 @@ public class LSSVMMulticlassTestET {
 	    	for(int scale : scaleCV) {
 				String listTrainPath =  sourceDir+"example_files/"+scale+"/"+className+"_train_scale_"+scale+"_matconvnet_m_2048_layer_20.txt";
 				List<TrainingSample<BagMIL>> listTrain = BagReader.readBagMIL(listTrainPath, numWords, dataSource);
-//				String listTestPath =  sourceDir+"example_files/"+scale+"/"+className+"_val_scale_"+scale+"_matconvnet_m_2048_layer_20.txt";
-//				List<TrainingSample<BagMIL>> listTest = BagReader.readBagMIL(listTestPath, numWords, dataSource); 
 					
 				for(double epsilon : epsilonCV) {
 			    	for(double lambda : lambdaCV) {
@@ -126,11 +125,6 @@ public class LSSVMMulticlassTestET {
 			    			for(int i=0; i<listTrain.size(); i++) {
 								exampleTrain.add(new STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>(new LatentRepresentation<BagMIL, Integer>(listTrain.get(i).sample,0), listTrain.get(i).label));
 			    			}
-	
-//							List<STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>> exampleTest = new ArrayList<STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>>();
-//							for(int i=0; i<listTest.size(); i++) {
-//								exampleTest.add(new STrainingSample<LatentRepresentation<BagMIL, Integer>,Integer>(new LatentRepresentation<BagMIL, Integer>(listTest.get(i).sample,0), listTest.get(i).label));    			
-//							}
 							
 							LSSVMMulticlassFastBagMILET lsvm = new LSSVMMulticlassFastBagMILET();
 							
@@ -141,7 +135,7 @@ public class LSSVMMulticlassTestET {
 							fileClassifier.getAbsoluteFile().getParentFile().mkdirs();
 							if (loadClassifier && fileClassifier.exists()){
 								ObjectInputStream ois;
-								System.out.println("read classifier " + fileClassifier.getAbsolutePath());
+								System.out.println("\nread classifier " + fileClassifier.getAbsolutePath());
 								try {
 									ois = new ObjectInputStream(new FileInputStream(fileClassifier.getAbsolutePath()));
 									lsvm = (LSSVMMulticlassFastBagMILET) ois.readObject();
@@ -158,7 +152,7 @@ public class LSSVMMulticlassTestET {
 								}
 							}
 							else {
-								System.out.println("training classifier " + fileClassifier.getAbsolutePath());
+								System.out.println("\ntraining classifier " + fileClassifier.getAbsolutePath());
 		    		    		lsvm.setOptim(optim);
 		    		    		lsvm.setEpochsLatentMax(epochsLatentMax);
 		    		    		lsvm.setEpochsLatentMin(epochsLatentMin);
@@ -208,33 +202,10 @@ public class LSSVMMulticlassTestET {
 								System.out.println("wrote classifier successfully!");
 							}
 							
-							//metric file
-							File trainMetricFile=new File(metricFolder+"/metric_train_"+tradeoff+"_"+scale+"_"+epsilon+"_"+lambda+"_"+className+".txt");
-							trainMetricFile.getAbsoluteFile().getParentFile().mkdirs();
-		    				double ap_train = lsvm.testAPRegion(exampleTrain, trainMetricFile);
+							//ap
+		    				double ap_train = lsvm.testAP(exampleTrain);
 		    				System.out.println("ap train:"+ap_train);
-		    				//		    				
-//		    				File testMetricFile=new File(metricFolder+"/metric_test_"+tradeoff+"_"+scale+"_"+epsilon+"_"+lambda+"_"+className+".txt");
-//		    				testMetricFile.getAbsoluteFile().getParentFile().mkdirs();
-//		    				double ap_test = lsvm.testAPRegion(exampleTest, testMetricFile);
-//							
-//		    				//write ap 
-//		    				try {
-//								BufferedWriter out = new BufferedWriter(new FileWriter(resultFilePath, true));
-//								out.write(className+" "+String.valueOf(tradeoff)+" "+scale+" "+lambda+" "+epsilon+" "+ap_test+" "+ap_train+"\n");
-//								out.flush();
-//								out.close();
-//								
-//							} catch (IOException e) {
-//								// TODO Auto-generated catch block
-//								e.printStackTrace();
-//							}
-//	
-//		    				System.err.println(className + " test "+ String.valueOf(tradeoff)+" "+className + " scale= " + scale + " ap= " + ap_test + " lambda= " + lambda + " epsilon= " + epsilon);
-//							System.out.println("\n");
-//							
-//		    				System.err.format("train:%s category:%s scale:%s lambda:%s epsilon:%s %n ", ap_train, className, scale, lambda, epsilon); 
-							
+		    											
 
 						}
 			    	}

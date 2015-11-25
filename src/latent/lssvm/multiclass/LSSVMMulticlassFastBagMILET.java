@@ -149,11 +149,11 @@ public class LSSVMMulticlassFastBagMILET extends LSSVMMulticlassFastET<BagMIL,In
 				double gaze_ratio = getGazeRatio(x, h, gazeType);
 				return (double)((yi^yp) + tradeoff*(1-gaze_ratio));
 			}
-			else if (yi==-1 && yp==-1){			
-				double gaze_ratio = getGazeRatio(x, h, gazeType);
-				return (double)((yi^yp) + tradeoff*gaze_ratio);
-	//			return (double)((yi^yp));
-			}
+//			else if (yi==-1 && yp==-1){			
+//				double gaze_ratio = getGazeRatio(x, h, gazeType);
+//				return (double)((yi^yp) + tradeoff*gaze_ratio);
+//	//			return (double)((yi^yp));
+//			}
 			else{
 				return (double)((yi^yp));
 			}

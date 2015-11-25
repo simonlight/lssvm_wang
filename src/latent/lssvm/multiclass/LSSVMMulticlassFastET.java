@@ -234,7 +234,7 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 			lc.add(ct);
 
 		}
-		System.out.println(" Inner loop optimization finished.");
+		System.out.println("\n Inner loop optimization finished, iteration number:"+t);
 	}
 	
 	public Object[] cuttingPlane(List<STrainingSample<LatentRepresentation<X,H>,Integer>> l) {
@@ -250,12 +250,6 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 			Object[] or = lossAugmentedInference(ts);//max yp, max hp
 			Integer yp = (Integer)or[0];//
 			H hp = (H)or[1];
-			double valmax = (Double)or[2];
-			double maxdelta = (Double)or[3];
-			double maxvalue = (Double)or[4];
-//			System.out.println(ts.input.x);
-//			System.out.print("LAI\t yp:"+yp+"\thp:"+hp+"\tvalmax:"+valmax+"\tmaxdelta:"+maxdelta+"\tmaxvalue"+maxvalue);
-//			System.out.println();
 
 			ct += delta(ts.output, yp, ts.input.x, hp, ts.input.h, hnorm);
 			double[] psi1 = psi(ts.input.x, hp); 
@@ -322,8 +316,6 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 		int ypredict = -1;
 		H hpredict = null;
 		double valmax = -Double.MAX_VALUE;
-		double maxdelta = 0;
-		double maxvalue = 0;
 		for(int y : listClass) {
 			for(H h : enumerateH(ts.input.x)) {
 				double val = delta(ts.output, y, ts.input.x, h, ts.input.h, hnorm) + valueOf(ts.input.x,y,h,w);
@@ -332,19 +324,13 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 					ypredict = y;
 					hpredict = h;
 
-					maxdelta = delta(ts.output, y, ts.input.x, h, ts.input.h, hnorm);
-					maxvalue = valueOf(ts.input.x,y,h,w);
 				}
 			}
 		}
-		Object[] res = new Object[5];
+		Object[] res = new Object[2];
 		res[0] = ypredict;
 		res[1] = hpredict;
-		
-		res[2] = valmax;
-		
-		res[3] = maxdelta;
-		res[4] = maxvalue;
+				
 		return res;
 	}
 
