@@ -27,7 +27,7 @@ public class LSSVMMulticlassTestET {
 	public static void main(String[] args) {
 		
 		String dataSource= "big";//local or other things
-		String gazeType = "ferrari";
+		String gazeType = args[0];
 
 		String sourceDir = new String();
 		String resDir = new String();
@@ -67,8 +67,8 @@ public class LSSVMMulticlassTestET {
 		String classifierFolder = resultFolder + "classifier/";
 		String scoreFolder = resultFolder + "score/";
 	
-		String[] classes = {args[0]};
-		int[] scaleCV = {Integer.valueOf(args[1])};
+		String[] classes = {args[1]};
+		int[] scaleCV = {Integer.valueOf(args[2])};
 //		String[] classes = {"walking"};
 //		int[] scaleCV = {90};
 		
