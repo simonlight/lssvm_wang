@@ -85,12 +85,12 @@ public class LossDictPositive {
 	    for (int scale_index=0; scale_index<scale_list.length;scale_index++){
         	int scale=scale_list[scale_index];
         	System.out.println(scale);
-        	for (String imClass:classList){
+//        	for (String imClass:classList){
 	        	File inputFolder = new File("/local/wangxin/Data/gaze_voc_actions_stefan/ETLoss_ratio/"+String.valueOf(scale)+"/");
 //	        	File inputFolder = new File("/local/wangxin/Data/ferrari_gaze/ETLoss_ratio/"+imClass+"/"+String.valueOf(scale)+"/");
 	        	traverse(inputFolder);
-        	}
-        	ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("/local/wangxin/Data/gaze_voc_actions_stefan/ETLoss_dict/ETLOSS+_"+convert(scale)+".loss"));  
+//        	}
+        	ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("/local/wangxin/Data/gaze_voc_actions_stefan/full_ETLoss_dict/ETLOSS+_"+convert(scale)+".loss"));  
 //        	ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("/local/wangxin/Data/ferrari_gaze/ETLoss_dict/ETLOSS+_"+convert(scale)+".loss"));  
         	os.writeObject(map);
         	os.close();
