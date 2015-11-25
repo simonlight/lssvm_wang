@@ -26,7 +26,7 @@ public class LSSVMMulticlassTestET {
 	
 	public static void main(String[] args) {
 		
-		String dataSource= "local";//local or other things
+		String dataSource= "big";//local or other things
 		String gazeType = "ferrari";
 
 		String sourceDir = new String();
