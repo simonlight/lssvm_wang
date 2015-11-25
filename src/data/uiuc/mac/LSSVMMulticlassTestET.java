@@ -67,10 +67,10 @@ public class LSSVMMulticlassTestET {
 		String classifierFolder = resultFolder + "classifier/";
 		String scoreFolder = resultFolder + "score/";
 	
-//		String[] classes = {args[0]};
-//		int[] scaleCV = {Integer.valueOf(args[1])};
-		String[] classes = {"motorbike"};
-		int[] scaleCV = {50};
+		String[] classes = {args[0]};
+		int[] scaleCV = {Integer.valueOf(args[1])};
+//		String[] classes = {"boat"};
+//		int[] scaleCV = {50};
 		
 	    double[] lambdaCV = {1e-4};
 	    double[] epsilonCV = {1e-3};
