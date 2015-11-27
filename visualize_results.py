@@ -4,27 +4,11 @@ def res_file_2_dict(ap_results):
         category, tradeoff, scale, lbd, epsilon, ap_train, ap_val, ap_test = [i.split(":")[1] for i in line.strip().split()]
         res[scale][tradeoff][category]= [float(ap_train), float(ap_val), float(ap_test)]
     return res
-
-def detection_file_2_dict(detection_folder):
-    res = collections.defaultdict(lambda : collections.defaultdict(lambda : collections.defaultdict(lambda : None)))
-    for scale in ['50']:
-        for tradeoff in np.arange(0,1.1,0.1):
-            for category in []
-            for metric_typ in ["train", "valval", "valtest"]:
-                
-                
-                
-    f = open("_".join(["metric", ]))
-    for scale in ["50"]:
-    for line in data_dict:
-        category, tradeoff, scale, lbd, epsilon, ap_train, ap_val, ap_test = [i.split(":")[1] for i in line.strip().split()]
-        res[scale][tradeoff][category]= [float(ap_train), float(ap_val), float(ap_test)]
-    return res
     
 
-def plot_ap(res, res_typ):
+def plot_res(res, res_typ):
 #     for scale in ap_res.keys():
-    for scale in ['90']:
+    for scale in ['50']:
 
         result_name = scale
         x_axis = res[scale].keys()
@@ -62,13 +46,17 @@ if __name__ == "__main__":
     import csv
     import numpy as np
     import os
-    ap_results = open("/local/wangxin/results/ferrari_gaze/std_et/java_std_et/ap_summary.txt")
-    ap_res = res_file_2_dict(ap_results)
-    plot_ap(ap_res)
+    import visualize_fixations_ferrari as vff
+#     ap_results = open("/local/wangxin/results/ferrari_gaze/std_et/java_std_et/ap_summary.txt")
+#     ap_res = res_file_2_dict(ap_results)
+#     plot_res(ap_res, "AP")
     
     detection_folder = "/local/wangxin/results/ferrari_gaze/std_et/java_std_et/metric/"
-    
-    
+    detection_res, gr_res = vff.metric_file_analyse(detection_folder)
+    print detection_res
+    plot_res(detection_res, "detection")
+    plot_res(gr_res, "gaze ratio")
+
         
             
 #     classes=['cat', 'dog', 'bicycle', 'motorbike', 'boat', 'aeroplane', 'horse', 'cow', 'sofa', 'diningtable']

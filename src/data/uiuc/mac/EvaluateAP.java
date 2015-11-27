@@ -157,17 +157,17 @@ public class EvaluateAP {
 								e.printStackTrace();
 							}
 							//train metric file
-							File trainMetricFile=new File(metricFolder+"/metric_train_"+tradeoff+"_"+scale+"_"+epsilon+"_"+lambda+"_"+className+".txt");
+							File trainMetricFile=new File(metricFolder+scale+"/metric_train_"+tradeoff+"_"+scale+"_"+epsilon+"_"+lambda+"_"+className+".txt");
 							trainMetricFile.getAbsoluteFile().getParentFile().mkdirs();
 		    				double ap_train = lsvm.testAPRegion(exampleTrain, trainMetricFile);
 		    				System.out.println("ap train:"+ap_train);
 							//val metric file
-							File valMetricFile=new File(metricFolder+"/metric_valval_"+tradeoff+"_"+scale+"_"+epsilon+"_"+lambda+"_"+className+".txt");
+							File valMetricFile=new File(metricFolder+scale+"/metric_valval_"+tradeoff+"_"+scale+"_"+epsilon+"_"+lambda+"_"+className+".txt");
 							valMetricFile.getAbsoluteFile().getParentFile().mkdirs();
 		    				double ap_val = lsvm.testAPRegion(exampleVal, valMetricFile);
 		    				System.out.println("ap val:"+ap_val);
 		    				//test metric file		    				
-		    				File testMetricFile=new File(metricFolder+"/metric_valtest_"+tradeoff+"_"+scale+"_"+epsilon+"_"+lambda+"_"+className+".txt");
+		    				File testMetricFile=new File(metricFolder+scale+"/metric_valtest_"+tradeoff+"_"+scale+"_"+epsilon+"_"+lambda+"_"+className+".txt");
 		    				testMetricFile.getAbsoluteFile().getParentFile().mkdirs();
 		    				double ap_test = lsvm.testAPRegion(exampleTest, testMetricFile);
 		    				System.out.println("ap test:"+ap_test);
