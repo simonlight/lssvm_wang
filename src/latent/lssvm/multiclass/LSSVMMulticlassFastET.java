@@ -157,16 +157,6 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 			System.out.print(".");
 			
 			
-//			System.out.println("w^2:"+VectorOp.dot(w, w));
-//			System.out.println("gt^2:"+VectorOp.dot(gt, gt));
-//			System.out.println("w.gt:"+VectorOp.dot(w, gt));
-//			System.out.println("ct - xi - epsilon:"+(ct - xi - epsilon));
-//			System.out.println("ct:"+(ct));
-//			System.out.println("xi:"+(xi));
-//			System.out.println("epsilon:"+(epsilon));
-//			System.out.println("tradeoff:"+tradeoff);
-			
-//			System.out.println("cutting plane stop crterion: "+(VectorOp.dot(w, gt) -( ct - xi - epsilon)));
 			if(t == cpmax) {
 				System.out.print(" # max iter ");
 			}
@@ -202,9 +192,6 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 			}
 			// Solve the QP
 			double[] alphas = MosekSolver.solveQP(gram, lc, c);
-//		    System.out.println("MOSEK - alphas " + Arrays.toString(alphas));
-//			System.out.println(alphas.length);
-//			System.out.println("DualObj= " + (VectorOp.dot(alphas,lc.toArray(new Double[lc.size()])) - 0.5 * matrixProduct(alphas,gram)) + "\talphas " + Arrays.toString(alphas));
 			xi = (VectorOp.dot(alphas, lc.toArray(new Double[lc.size()])) - matrixProduct(alphas,gram)) / c;
 //			System.out.println(xi);
 			// new w
@@ -234,7 +221,7 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 			lc.add(ct);
 
 		}
-		System.out.println("\n Inner loop optimization finished, iteration number:"+t);
+		System.out.println(" Inner loop optimization finished.");
 	}
 	
 	public Object[] cuttingPlane(List<STrainingSample<LatentRepresentation<X,H>,Integer>> l) {
@@ -250,6 +237,12 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 			Object[] or = lossAugmentedInference(ts);//max yp, max hp
 			Integer yp = (Integer)or[0];//
 			H hp = (H)or[1];
+			double valmax = (Double)or[2];
+			double maxdelta = (Double)or[3];
+			double maxvalue = (Double)or[4];
+//			System.out.println(ts.input.x);
+//			System.out.print("LAI\t yp:"+yp+"\thp:"+hp+"\tvalmax:"+valmax+"\tmaxdelta:"+maxdelta+"\tmaxvalue"+maxvalue);
+//			System.out.println();
 
 			ct += delta(ts.output, yp, ts.input.x, hp, ts.input.h, hnorm);
 			double[] psi1 = psi(ts.input.x, hp); 
@@ -316,6 +309,8 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 		int ypredict = -1;
 		H hpredict = null;
 		double valmax = -Double.MAX_VALUE;
+		double maxdelta = 0;
+		double maxvalue = 0;
 		for(int y : listClass) {
 			for(H h : enumerateH(ts.input.x)) {
 				double val = delta(ts.output, y, ts.input.x, h, ts.input.h, hnorm) + valueOf(ts.input.x,y,h,w);
@@ -324,13 +319,19 @@ public abstract class LSSVMMulticlassFastET<X,H> implements LatentStructuralClas
 					ypredict = y;
 					hpredict = h;
 
+					maxdelta = delta(ts.output, y, ts.input.x, h, ts.input.h, hnorm);
+					maxvalue = valueOf(ts.input.x,y,h,w);
 				}
 			}
 		}
-		Object[] res = new Object[2];
+		Object[] res = new Object[5];
 		res[0] = ypredict;
 		res[1] = hpredict;
-				
+		
+		res[2] = valmax;
+		
+		res[3] = maxdelta;
+		res[4] = maxvalue;
 		return res;
 	}
 

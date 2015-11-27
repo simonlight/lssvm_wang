@@ -1,21 +1,38 @@
-def res_file_2_dict(data_dict):
+def res_file_2_dict(ap_results):
     res = collections.defaultdict(lambda : collections.defaultdict(lambda : collections.defaultdict(lambda : None)))
-    for line in data_dict:
+    for line in ap_results:
         category, tradeoff, scale, lbd, epsilon, ap_train, ap_val, ap_test = [i.split(":")[1] for i in line.strip().split()]
         res[scale][tradeoff][category]= [float(ap_train), float(ap_val), float(ap_test)]
     return res
 
-def plot_ap(ap_res):
+def detection_file_2_dict(detection_folder):
+    res = collections.defaultdict(lambda : collections.defaultdict(lambda : collections.defaultdict(lambda : None)))
+    for scale in ['50']:
+        for tradeoff in np.arange(0,1.1,0.1):
+            for category in []
+            for metric_typ in ["train", "valval", "valtest"]:
+                
+                
+                
+    f = open("_".join(["metric", ]))
+    for scale in ["50"]:
+    for line in data_dict:
+        category, tradeoff, scale, lbd, epsilon, ap_train, ap_val, ap_test = [i.split(":")[1] for i in line.strip().split()]
+        res[scale][tradeoff][category]= [float(ap_train), float(ap_val), float(ap_test)]
+    return res
+    
+
+def plot_ap(res, res_typ):
 #     for scale in ap_res.keys():
     for scale in ['90']:
 
         result_name = scale
-        x_axis = ap_res[scale].keys()
+        x_axis = res[scale].keys()
         y_train = [0]*11
         y_val = [0]*11
         y_test = [0]*11
         for tradeoff in np.arange(0,1.1,0.1):
-            y_ap_all = ap_res[scale][str(tradeoff)]
+            y_ap_all = res[scale][str(tradeoff)]
 #             print tradeoff, y_ap_all
 #             print scale, tradeoff, np.sum(y_ap_all.values(), axis=0) / len(y_ap_all.values())
             print np.sum(y_ap_all.values(), axis=0)
@@ -27,26 +44,24 @@ def plot_ap(ap_res):
         x = np.arange(0,1.1,0.1)
         
         plt.figure(figsize=(8,4))
-        plt.plot(x,y_train,label="train ap",color="red",linewidth=2)
-        plt.plot(x,y_val,label="validation ap",color="blue",linewidth=2)
-        plt.plot(x,y_test,label="test ap",color="green",linewidth=2)
+        plt.plot(x,y_train,label="train "+res_typ,color="red",linewidth=2)
+        plt.plot(x,y_val,label="validation "+res_typ,color="blue",linewidth=2)
+        plt.plot(x,y_test,label="test "+res_typ,color="green",linewidth=2)
         plt.xlabel("Tradeoff")
-        plt.ylabel("AP")
-        plt.title("AP of scale:%s"%scale)
+        plt.ylabel(res_typ)
+        plt.title(res_typ+" of scale:%s"%scale)
         plt.ylim(min(min(y_train), min(y_val),min(y_test)),max(max(y_train), max(y_val),max(y_test)))
         plt.axvline(x=y_val.index(max(y_val))/10.0, color= 'black', linestyle='dashed')
         plt.legend(loc='best',fancybox=True,framealpha=0.5)
         plt.show()
 
-def plot_detection(detection_res):
-    pass
 if __name__ == "__main__":
     
     import collections
     import matplotlib.pyplot as plt
     import csv
     import numpy as np
-
+    import os
     ap_results = open("/local/wangxin/results/ferrari_gaze/std_et/java_std_et/ap_summary.txt")
     ap_res = res_file_2_dict(ap_results)
     plot_ap(ap_res)

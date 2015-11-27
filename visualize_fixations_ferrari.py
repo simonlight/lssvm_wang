@@ -204,85 +204,64 @@ def correlation_IoU_gaze_ratio(fixation_path):
                 ratio_list.append(ratio)
         return IoU_list, ratio_list
 
-def metric_file_analyse(metric_folder, typ, scale, print_mode):
+def metric_file_analyse(metric_folder):
 #     categories=["jumping", "phoning", "playinginstrument", "reading", "ridingbike", "ridinghorse", "running", "takingphoto", "usingcomputer", "walking"]
-    tradeoff_cv = [0.0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0]
-    epsilon_cv = [0.001]
-    lambda_cv = ['1.0E-4']
-    for epsilon in epsilon_cv:
-        for lambd in lambda_cv: 
-            for category in VOC2012_OBJECT_CATEGORIES:  
-#             for category in ["boat"]:
-                for tradeoff in tradeoff_cv:
-#                         best_cv = get_best_cv(cls, scale)
-                    if typ=='':
-                        my_typ = typ
-                    else:
-                        my_typ = typ+'_'
+    tradeoff_cv = np.arange(0,1.1,0.1)
+    epsilon = '0.001'
+    lbd = '1.0E-4'
+    detection_types=["train", "valval", "valtest"]
+    
+    detection_res = collections.defaultdict(lambda : collections.defaultdict(lambda : collections.defaultdict(lambda : None)))
+    gr_res = collections.defaultdict(lambda : collections.defaultdict(lambda : collections.defaultdict(lambda : None)))
 
-                    f= open(VOC2012_OBJECT_METRIC_ROOT+metric_folder+"metric_"+my_typ+str(tradeoff)+'_'+str(scale)+"_"+str(epsilon)+"_"+str(lambd)+"_"+category+".txt")
-                    totalIoU = 0.0
-                    cnt=0
-                    tp = 0
-                    tn =0
-                    fp=0
-                    fn=0
-                    positive=0
-                    negative=0
-                    fixation_ratio=0
-            #         object = False
-                    for line in f:
-                        yp, yi, hp, filename_root = line.strip().split(',')
-                        if yi=='1':
-                            positive+=1
-                        elif yi=='0':
-                            negative+=1
-                        
-                        if yi=='1':
-#                         if True:
-                            tp+=1
-                            cnt+=1
-#                                 print filename_root
-                            gaze_file_root = '_'.join([category, filename_root,])
-                            xml_filename_root = filename_root
-                            bbs = ground_truth_bb(VOC2012_TRAIN_ANNOTATIONS+xml_filename_root, category)
-#                             bbs = ground_truth_bb_all(VOC2012_TRAIN_ANNOTATIONS+xml_filename_root)
-                            grid_1, grid_2 = metric_calculate.h2GridCoor(hp, scale)
-                            
-                            ratio_file = VOC2012_OBJECT_ETLOSS_ACTION+category+'/'+str(metric_calculate.convert_scale(scale))+'/'+gaze_file_root+'_'+str(grid_1)+'_'+str(grid_2)+'.txt'
-                            try:
-                                ratio_f = open(ratio_file)
-                                ratio = float(ratio_f.readline().strip())
-                                ratio_f.close()
-                                fixation_ratio+=ratio
-                            except IOError:
-#                                 print filename_root
-                                pass
+    for category in VOC2012_OBJECT_CATEGORIES:  
+        for tradeoff in np.arange(0,1.1,0.1):
+            for scale in ["90", "80", "70", "60", "50", "40", "30"]:
+                detection_res_3_tuple=[0]*3
+                gr_res_3_tuple=[0]*3
+                for typ in detection_types:
+                    detection_filename = '_'.join("metric", typ, str(tradeoff), scale, str(epsilon), str(lbd), category+'.txt')
+                    fp = os.path.join("/local/wangxin/results/ferrari_gaze/std_et/java_std_et/metric", detection_filename)
+                    f = open(fp)
 
-#                                 print hp,fixation_ratio,hp,filename_root
-                            im = Image.open(VOC2012_TRAIN_IMAGES+xml_filename_root+'.jpg')
-                            width, height = im.size
-                            #0, 0, 250, 187.5
-                            hxmin, hymin, hxmax, hymax = metric_calculate.h2Coor(width, height, hp, scale)
-                            IoU = metric_calculate.getTopIoU(hxmin, hymin, hxmax, hymax, bbs)
-                            totalIoU += IoU
-#                                 print filename_root,hp
-                        elif yi=='0' and yp=='0':
-                            tn+=1
-                        elif yi=='0' and yp=='1':
-                            fp+=1
-                        elif yi=='1' and yp=='0':
-                            fn+=1
-                        
-                    if print_mode == "print":
-                        print totalIoU/cnt
-
-                     
-                    else:
-                        print "content:%s, category:%s, tradeoff:%.1f, scale:%d, epsilon:%f, lambda:%s, averageIoU:%f, TP:%f, TN:%f, FP:%f, FN:%f, acc:%f, fixation ratio:%f\n"%\
-                       (metric_folder, category, tradeoff, scale, epsilon, lambd, totalIoU/cnt, tp, tn, fp, fn, tp+tn,fixation_ratio/cnt)
+                    total_gr=0
+                    total_IoU=0
                     
-                print category+"**********"
+                    for cnt, line in enumerate(f):
+                        yp, yi, hp, filename_root = line.strip().split(',')
+                        grid_1, grid_2 = metric_calculate.h2GridCoor(hp, int(scale))
+                
+                        ratio_file = VOC2012_OBJECT_ETLOSS+category+'/'+str(metric_calculate.convert_scale(scale))+'/'+gaze_file_root+'_'+str(grid_1)+'_'+str(grid_2)+'.txt'
+                        with open(ratio_file) as ratio_f:
+                            ratio = float(ratio_f.readline().strip())
+                            total_gr+=ratio
+                        
+                        gaze_file_root = '_'.join([category, filename_root,])
+                        xml_filename_root = filename_root
+                        bbs = ground_truth_bb(VOC2012_TRAIN_ANNOTATIONS+xml_filename_root, category)
+#                             bbs = ground_truth_bb_all(VOC2012_TRAIN_ANNOTATIONS+xml_filename_root)
+                        im = Image.open(VOC2012_TRAIN_IMAGES+xml_filename_root+'.jpg')
+                        width, height = im.size
+                        #0, 0, 250, 187.5
+                        hxmin, hymin, hxmax, hymax = metric_calculate.h2Coor(width, height, hp, scale)
+                        IoU = metric_calculate.getTopIoU(hxmin, hymin, hxmax, hymax, bbs)
+                        totalIoU += IoU
+                    totalIoU /= cnt+1
+                    total_gr /= cnt+1
+                    detection_res_3_tuple[detection_types.index(typ)] = totalIoU
+                    gr_res_3_tuple[detection_types.index(typ)] = total_gr
+                detection_res[scale][tradeoff][category]= detection_res_3_tuple
+                gr_res[scale][tradeoff][category]= gr_res_3_tuple
+    return detection_res, gr_res
+#                                 print filename_root,hp
+#             if print_mode == "print":
+#                 print totalIoU/cnt
+#              
+#             else:
+#                 print "content:%s, category:%s, tradeoff:%.1f, scale:%d, epsilon:%f, lambda:%s, averageIoU:%f, TP:%f, TN:%f, FP:%f, FN:%f, acc:%f, fixation ratio:%f\n"%\
+#                (metric_folder, category, tradeoff, scale, epsilon, lambd, totalIoU/cnt, tp, tn, fp, fn, tp+tn,fixation_ratio/cnt)
+            
+#         print category+"**********"
 if __name__ == "__main__":
     import json
     import cv2
@@ -298,7 +277,7 @@ if __name__ == "__main__":
     ###CONFIG###
     ############
     print "90 positive test iou"
-    metric_file_analyse(metric_folder = "C1e-4_e1e-3_scale_90_cv_gamma_ferrari/", typ="test", scale = 90, print_mode= "print")
+    metric_file_analyse(metric_folder = "C1e-4_e1e-3_scale_90_cv_gamma_ferrari/")
 #     visualize_fixations(VOC2012_OBJECT_EYE_PATH)
 #     IoU, ratio = correlation_IoU_gaze_ratio(VOC2012_OBJECT_EYE_PATH)
 # #     IoU=[1,2]

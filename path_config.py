@@ -26,5 +26,5 @@ VOC2012_ACTION_VALIDE_SUBJS_CONTEXT = ["015","017","021","022"]
 VOC2012_OBJECT_ROOT = "/local/wangxin/Data/ferrari_gaze/"
 VOC2012_OBJECT_CATEGORIES = ["bicycle", "diningtable", "cow", "horse" ,"sofa","boat","cat","aeroplane","dog", "motorbike",     ]
 VOC2012_OBJECT_EYE_PATH = "/local/wangxin/Data/ferrari_gaze/gazes/"
-VOC2012_OBJECT_ETLOSS_ACTION = VOC2012_OBJECT_ROOT + "ETLoss_ratio/"
+VOC2012_OBJECT_ETLOSS = VOC2012_OBJECT_ROOT + "ETLoss_ratio/"
 VOC2012_OBJECT_METRIC_ROOT = "/local/wangxin/results/ferrari_gaze/std_et/"
