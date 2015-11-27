@@ -8,7 +8,7 @@ def res_file_2_dict(ap_results):
 
 def plot_res(res, res_typ):
 #     for scale in ap_res.keys():
-    for scale in ['50']:
+    for scale in ['90','80','70','60']:
 
         result_name = scale
         x_axis = res[scale].keys()
@@ -18,12 +18,14 @@ def plot_res(res, res_typ):
         for tradeoff in np.arange(0,1.1,0.1):
             y_ap_all = res[scale][str(tradeoff)]
 #             print tradeoff, y_ap_all
-#             print scale, tradeoff, np.sum(y_ap_all.values(), axis=0) / len(y_ap_all.values())
-            print np.sum(y_ap_all.values(), axis=0)
+            print scale, tradeoff, np.sum(y_ap_all.values(), axis=0) / len(y_ap_all.values())
+#             print np.sum(y_ap_all.values(), axis=0)
             ap_train, ap_val, ap_test = np.sum(y_ap_all.values(), axis=0) / len(y_ap_all.values())
+
             y_train[int(tradeoff*10)] = ap_train
             y_val[int(tradeoff*10)] = ap_val
             y_test[int(tradeoff*10)] = ap_test
+        
         
         x = np.arange(0,1.1,0.1)
         
@@ -33,7 +35,7 @@ def plot_res(res, res_typ):
         plt.plot(x,y_test,label="test "+res_typ,color="green",linewidth=2)
         plt.xlabel("Tradeoff")
         plt.ylabel(res_typ)
-        plt.title(res_typ+" of scale:%s"%scale)
+        plt.title(res_typ+" of scale:%s, gain of test:%4.2f %%"%(scale,(max(y_val)-y_val[0])*100))
         plt.ylim(min(min(y_train), min(y_val),min(y_test)),max(max(y_train), max(y_val),max(y_test)))
         plt.axvline(x=y_val.index(max(y_val))/10.0, color= 'black', linestyle='dashed')
         plt.legend(loc='best',fancybox=True,framealpha=0.5)
@@ -47,15 +49,20 @@ if __name__ == "__main__":
     import numpy as np
     import os
     import visualize_fixations_ferrari as vff
-#     ap_results = open("/local/wangxin/results/ferrari_gaze/std_et/java_std_et/ap_summary.txt")
+#     import visualize_fixations_stefan as vfs
+#     ap_results = open("/local/wangxin/results/ferrari_gaze/std_et/java_std_et_basic_loss/ap_summary.txt")
 #     ap_res = res_file_2_dict(ap_results)
 #     plot_res(ap_res, "AP")
-    
-    detection_folder = "/local/wangxin/results/ferrari_gaze/std_et/java_std_et/metric/"
+#     
+#     ap_results = open("/local/wangxin/results/full_stefan_gaze/std_et/java_std_et_basic_loss/ap_summary.txt")
+#     ap_res = res_file_2_dict(ap_results)
+#     plot_res(ap_res, "AP")
+     
+    detection_folder = "/local/wangxin/results/full_stefan_gaze/std_et/java_std_et_basic_loss/metric/"
     detection_res, gr_res = vff.metric_file_analyse(detection_folder)
     print detection_res
-    plot_res(detection_res, "detection")
-    plot_res(gr_res, "gaze ratio")
+    plot_res(detection_res, "detection (ALL images)")
+    plot_res(gr_res, "gaze ratio (ALL images)")
 
         
             

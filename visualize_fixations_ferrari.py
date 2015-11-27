@@ -57,6 +57,24 @@ def ground_truth_bb_all(filerootname):
                         bbs.append([int(float(xmin)),int(float(ymin)),int(float(xmax)),int(float(ymax))])
     return bbs
 
+def ground_truth_bb_all_stefan(filerootname):
+    xmltree = ET.ElementTree(file=filerootname+'.xml')            
+            
+    #bb of objects of given class
+    bbs=[]
+    for elem in xmltree.iterfind('object'):
+        for name in elem.iter('name'):
+            
+            if name.text == "person":                            
+                for coor in elem.iter('bndbox'):
+                    xmax = [coorelem.text for coorelem in coor if coorelem.tag == 'xmax'][0]
+                    xmin = [coorelem.text for coorelem in coor if coorelem.tag == 'xmin'][0]
+                    ymax = [coorelem.text for coorelem in coor if coorelem.tag == 'ymax'][0]
+                    ymin = [coorelem.text for coorelem in coor if coorelem.tag == 'ymin'][0]
+                   
+                    bbs.append([int(float(xmin)),int(float(ymin)),int(float(xmax)),int(float(ymax))])
+    return bbs
+
 def ground_truth_bb(filerootname, category):
     xmltree = ET.ElementTree(file=filerootname+'.xml')            
             
@@ -74,6 +92,9 @@ def ground_truth_bb(filerootname, category):
                    
                     bbs.append([int(float(xmin)),int(float(ymin)),int(float(xmax)),int(float(ymax))])
     return bbs
+
+
+
 
 def visualize_fixations(fixation_path):
 
@@ -224,14 +245,15 @@ def metric_file_analyse(metric_folder):
     all_positive = True
     all_instance = True
     
-#     for category in VOC2012_OBJECT_CATEGORIES:
-    for category in ["dog"]:  
+    for category in VOC2012_ACTION_CATEGORIES:
+#     for category in ["dog"]:  
         for tradeoff in ['0.0','0.1','0.2','0.3','0.4','0.5','0.6','0.7','0.8','0.9','1.0']:
-            for scale in ["50"]:
-#             for scale in ["90", "80", "70", "60", "50", "40", "30"]:
+#             for scale in ["50"]:
+            for scale in ['90','80','70','60']:
                 detection_res_3_tuple=[0]*3
                 gr_res_3_tuple=[0]*3
                 for typ in detection_types:
+                    
                     detection_filename = '_'.join(["metric", typ, tradeoff, scale, str(epsilon), str(lbd), category+'.txt'])
                     fp = os.path.join(metric_folder, str(scale),detection_filename)
                     f = open(fp)
@@ -243,18 +265,22 @@ def metric_file_analyse(metric_folder):
                     for  line in f:
                                                 
                         yp, yi, hp, filename_root = line.strip().split(',')
-                        if yi=='1' and yp=='1':
+                        filename_root = filename_root.split('/')[-1].strip()
+                        if True:
+#                         if yi=='1':
                             cnt+=1
 
                             grid_1, grid_2 = metric_calculate.h2GridCoor(hp, int(scale))
-                            gaze_file_root='_'.join([category, filename_root])
-                            ratio_file = VOC2012_OBJECT_ETLOSS+category+'/'+str(metric_calculate.convert_scale(int(scale)))+'/'+gaze_file_root+'_'+str(grid_1)+'_'+str(grid_2)+'.txt'
-                            with open(ratio_file) as ratio_f:
-                                ratio = float(ratio_f.readline().strip())
-                                total_gr+=ratio
+                            gaze_file_root=filename_root
+#                             ratio_file = VOC2012_OBJECT_ETLOSS+category+'/'+str(metric_calculate.convert_scale(int(scale)))+'/'+gaze_file_root+'_'+str(grid_1)+'_'+str(grid_2)+'.txt'
+#                             ratio_file = "/local/wangxin/Data/gaze_voc_actions_stefan/ETLoss_ratio/"+str(metric_calculate.convert_scale(int(scale))) + '/'+gaze_file_root+'_'+str(grid_1)+'_'+str(grid_2)+'.txt'
+#                             
+#                             with open(ratio_file) as ratio_f:
+#                                 ratio = float(ratio_f.readline().strip())
+#                                 total_gr+=ratio
                             
                             xml_filename_root = filename_root
-                            bbs = ground_truth_bb(VOC2012_TRAIN_ANNOTATIONS+xml_filename_root, category)
+                            bbs = ground_truth_bb_all_stefan(VOC2012_TRAIN_ANNOTATIONS+xml_filename_root)
     #                             bbs = ground_truth_bb_all(VOC2012_TRAIN_ANNOTATIONS+xml_filename_root)
                             im = Image.open(VOC2012_TRAIN_IMAGES+xml_filename_root+'.jpg')
                             width, height = im.size
@@ -262,11 +288,11 @@ def metric_file_analyse(metric_folder):
                             IoU = metric_calculate.getTopIoU(hxmin, hymin, hxmax, hymax, bbs)
                             total_IoU += IoU
                     total_IoU /= cnt
-                    total_gr /= cnt
+#                     total_gr /= cnt
                     detection_res_3_tuple[detection_types.index(typ)] = total_IoU
-                    gr_res_3_tuple[detection_types.index(typ)] = total_gr
+#                     gr_res_3_tuple[detection_types.index(typ)] = total_gr
                 detection_res[scale][tradeoff][category]= detection_res_3_tuple
-                gr_res[scale][tradeoff][category]= gr_res_3_tuple
+#                 gr_res[scale][tradeoff][category]= gr_res_3_tuple
     return detection_res, gr_res
 #                                 print filename_root,hp
 #             if print_mode == "print":

@@ -25,7 +25,7 @@ public class EvaluateAP {
 	public static void main(String[] args) {
 		
 		String dataSource= "local";//local or other things
-		String gazeType = "ferrari";
+		String gazeType = "stefan";
 
 		String sourceDir = new String();
 		String resDir = new String();
@@ -42,14 +42,14 @@ public class EvaluateAP {
 			gazeType = "ferrari";
 		}
 		else if (dataSource=="local" && gazeType == "stefan"){
-			sourceDir = "/local/wangxin/Data/gaze_voc_actions_stefan/";
-			resDir = "/local/wangxin/results/stefan_gaze/std_et/";
+			sourceDir = "/local/wangxin/Data/full_stefan_gaze/";
+			resDir = "/local/wangxin/results/full_stefan_gaze/std_et/";
 			gazeType = "stefan";
 			
 		}
 		else if (dataSource=="big" && gazeType == "stefan"){
-			sourceDir = "/home/wangxin/Data/gaze_voc_actions_stefan/";
-			resDir = "/home/wangxin/results/stefan_gaze/std_et/";
+			sourceDir = "/home/wangxin/Data/full_stefan_gaze/";
+			resDir = "/home/wangxin/results/full_stefan_gaze/std_et/";
 			gazeType = "stefan";
 			
 		}
@@ -57,7 +57,7 @@ public class EvaluateAP {
 		String initializedType = ".";//+0,+-,or other things
 		boolean hnorm = false;
 		
-		String taskName = "java_std_et/";
+		String taskName = "java_std_et_basic_loss/";
 		
 		String resultFolder = resDir+taskName;
 		
@@ -68,8 +68,10 @@ public class EvaluateAP {
 	
 //		String[] classes = {args[0]};
 //		int[] scaleCV = {Integer.valueOf(args[1])};
-		String[] classes = {"dog"};
-		int[] scaleCV = {50};
+		String[] classes = {"jumping" ,"phoning" ,"playinginstrument" ,"reading" ,"ridingbike" ,"ridinghorse" ,"running" ,"takingphoto", "usingcomputer" ,"walking"};
+
+//		String[] classes = {"aeroplane", "cow" ,"dog", "cat" ,"motorbike", "boat" , "horse" , "sofa" ,"diningtable" ,"bicycle"};
+		int[] scaleCV = {90,80,70,60};
 		
 	    double[] lambdaCV = {1e-4};
 	    double[] epsilonCV = {1e-3};
