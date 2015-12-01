@@ -20,12 +20,12 @@ import struct.STrainingSample;
 import data.io.BagReader;
 import fr.lip6.jkernelmachines.type.TrainingSample;
 
-public class EvaluateAP {
+public class FerrariEvaluateAP {
 	
 	public static void main(String[] args) {
 		
-		String dataSource= "local";//local or other things
-		String gazeType = "stefan";
+		String dataSource= "big";//local or other things
+		String gazeType = "ferrari";
 
 		String sourceDir = new String();
 		String resDir = new String();
@@ -41,18 +41,6 @@ public class EvaluateAP {
 			resDir = "/home/wangxin/results/ferrari_gaze/std_et/";
 			gazeType = "ferrari";
 		}
-		else if (dataSource=="local" && gazeType == "stefan"){
-			sourceDir = "/local/wangxin/Data/full_stefan_gaze/";
-			resDir = "/local/wangxin/results/full_stefan_gaze/std_et/";
-			gazeType = "stefan";
-			
-		}
-		else if (dataSource=="big" && gazeType == "stefan"){
-			sourceDir = "/home/wangxin/Data/full_stefan_gaze/";
-			resDir = "/home/wangxin/results/full_stefan_gaze/std_et/";
-			gazeType = "stefan";
-			
-		}
 	
 		String initializedType = ".";//+0,+-,or other things
 		boolean hnorm = false;
@@ -66,18 +54,18 @@ public class EvaluateAP {
 		String classifierFolder = resultFolder + "classifier/";
 		String scoreFolder = resultFolder + "score/";
 	
-//		String[] classes = {args[0]};
-//		int[] scaleCV = {Integer.valueOf(args[1])};
-		String[] classes = {"jumping" ,"phoning" ,"playinginstrument" ,"reading" ,"ridingbike" ,"ridinghorse" ,"running" ,"takingphoto", "usingcomputer" ,"walking"};
-
+		String[] classes = {args[0]};
+		int[] scaleCV = {Integer.valueOf(args[1])};
+//		String[] classes = {"jumping" ,"phoning" ,"playinginstrument" ,"reading" ,"ridingbike" ,"ridinghorse" ,"running" ,"takingphoto", "usingcomputer" ,"walking"};
+//		String [] classes = {"horse"};
 //		String[] classes = {"aeroplane", "cow" ,"dog", "cat" ,"motorbike", "boat" , "horse" , "sofa" ,"diningtable" ,"bicycle"};
-		int[] scaleCV = {90,80,70,60};
-		
+//		int[] scaleCV = {90,80,70,60};
+//		int[] scaleCV = {50,40};
 	    double[] lambdaCV = {1e-4};
 	    double[] epsilonCV = {1e-3};
 	
+//	    double[] tradeoffCV = {0,0.1,0.2, 0.3, 0.4, 0.5, 0.6,0.7,0.8,0.9,1.0};
 	    double[] tradeoffCV = {0,0.1,0.2, 0.3, 0.4, 0.5, 0.6,0.7,0.8,0.9,1.0};
-			    
 	//	    String[] classes = {"dog", "cat", "motorbike", "boat" ,"aeroplane" ,"horse" ,"cow" ,"sofa", "diningtable" ,"bicycle"};
 	    
 		int optim = 1;
